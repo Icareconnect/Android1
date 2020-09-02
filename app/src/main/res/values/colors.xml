@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3CB2DA</color>
+    <color name="colorPrimaryDark">#3CB2DA</color>
+    <color name="colorAccent">#3CB2DA</color>
+
+    <color name="textColor">#323232</color>
+    <color name="textTitleColor">#4A566C</color>
+    <color name="lineColor">#1C4A566C</color>
+    <color name="textColorGreen">#53D66A</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="desc_transparent">#330491FF</color>
+    <color name="bgChat">#8477DF</color>
+    <color name="bgCall">#FF7860</color>
+    <color name="textAge">#5C6472</color>
+    <color name="textColor_50">#80484848</color>
+    <color name="colorNoShow">#FF5353</color>
+    <color name="colorPending">#FF8796</color>
+    <color name="colorPending_20">#33FF8796</color>
+    <color name="bgChat_20">#338477DF</color>
+    <color name="graph">#48D3B3</color>
+    <color name="colorLoginTag">#F0F9FF</color>
+    <color name="colorBanner">#39C6C0</color>
+    <color name="colorBgTransaction">#EFEFEF</color>
+    <color name="colorCancel">#FF4646</color>
+    <color name="colorLink">#0000A0</color>
+    <color name="colorUserVerification">#4D3CB2DA</color>
+</resources>

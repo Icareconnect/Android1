@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/dp_24" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/dp_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:fontFamily="@font/campton_semibold"
+            android:gravity="start"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toStartOf="@+id/switchActive"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintTop_toTopOf="@+id/tvName" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvConsultationFee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:alpha="0.6"
+            android:fontFamily="@font/campton_semibold"
+            android:gravity="start"
+            android:text="@string/consultation_fees"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toStartOf="@+id/tvConsultationUnit"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvConsultationUnit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:alpha="0.6"
+            android:fontFamily="@font/campton_semibold"
+            android:gravity="start"
+            android:text="@string/for_"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintStart_toEndOf="@+id/tvConsultationFee"
+            app:layout_constraintTop_toTopOf="@+id/tvConsultationFee" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etConsultationFeeV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:alpha="0.6"
+            android:digits="0123456789"
+            android:fontFamily="@font/campton_book"
+            android:gravity="start"
+            android:hint="@string/consultation_fees"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="0dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toStartOf="@id/tvConsultationUnit"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvConsultationFee" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:fontFamily="@font/circular_bold"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/etConsultationFeeV"
+            app:layout_constraintStart_toStartOf="@+id/etConsultationFeeV"
+            app:layout_constraintTop_toTopOf="@+id/etConsultationFeeV" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:fontFamily="@font/circular_medium"
+            android:gravity="start"
+            android:text="@string/consultation_fees"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/etConsultationFeeV" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/tvConsultationUnitV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:focusable="false"
+            android:fontFamily="@font/campton_book"
+            android:gravity="start"
+            android:hint="@string/for_"
+            android:imeOptions="actionDone"
+            android:maxLength="20"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintStart_toEndOf="@id/tvConsultationFee"
+            app:layout_constraintTop_toBottomOf="@+id/tvConsultationFee" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAddAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/campton_semibold"
+            android:gravity="start"
+            android:padding="@dimen/dp_4"
+            android:text="@string/add_availability"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/etConsultationFeeV" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupConsultation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="tvSymbol,tvConsultationFee,etConsultationFeeV,tvConsultationUnit,tvConsultationUnitV,tvPrice" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

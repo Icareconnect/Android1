@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clDate"
+        android:layout_width="96dp"
+        android:layout_height="56dp"
+        android:background="@drawable/drawable_bg_button"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:checked="true">
+
+        <CheckBox
+            android:id="@+id/cbName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:button="@null"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:fontFamily="@font/circular_medium"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:textColor="@color/selector_text_date_color"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toTopOf="@+id/cbDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <CheckBox
+            android:id="@+id/cbDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:button="@null"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/circular_medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/selector_date_text_color"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

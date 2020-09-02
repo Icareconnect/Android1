@@ -1,0 +1,353 @@
+<resources>
+    <string name="app_name">Intely Experts</string>
+
+    <!--Facebook keys-->
+    <string name="facebook_app_id">614826522700049</string>
+    <string name="fb_login_protocol_scheme">fb614826522700049</string>
+
+    <!--Google-->
+    <string name="server_client_id">952614479078-892v5fage0p4pguerkht8krnpoo55dq3.apps.googleusercontent.com</string>
+
+    <string name="allow">ALLOW</string>
+    <string name="deny">Deny</string>
+    <string name="settings">Settings</string>
+    <string name="media_permission">This feature needs permission to use camera and external storage.</string>
+    <string name="internet">Internet</string>
+    <string name="check_internet">Please check your internet connection</string>
+    <string name="ok">OK</string>
+    <string name="alert">Alert</string>
+    <string name="login">Login</string>
+    <string name="facebook">Continue with Facebook</string>
+    <string name="google">Continue with Google</string>
+    <string name="login_using_email">Login using Email</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="we_need_your_phone">We need your Phone number to identify you.</string>
+    <string name="code_sent_to">Code sent to %s</string>
+    <string name="resend_code">Resend code</string>
+    <string name="didn_t_receive_the_code_yet">Didn’t receive the code yet?</string>
+    <string name="verification">Verification</string>
+    <string name="we_sent_you_a_code">We sent you a code to %s</string>
+    <string name="enter_otp">Please enter otp</string>
+    <string name="location">Location</string>
+    <string name="chat">Chat</string>
+    <string name="call">Call</string>
+    <string name="feeds">Feeds</string>
+
+    <string name="patients">Patients</string>
+    <string name="experience">Experience</string>
+    <string name="reviews">Reviews</string>
+    <string name="about">About</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="notification">Notification</string>
+    <string name="logout">Logout</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="invite_people">Invite People</string>
+    <string name="version">Version %s</string>
+    <string name="you_are_running_the_latest_version">You are running the latest version</string>
+    <string name="appointments">Appointments</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="login_care_connect">Login to Intelligent Care Connect</string>
+    <string name="login_with">Login with</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="password">Password</string>
+    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="bio">Bio</string>
+    <string name="edit">Edit</string>
+    <string name="age">Age:</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="dob">DOB</string>
+    <string name="we_need_your_email_password">We need your Email &amp; Password to identify you.</string>
+    <string name="didn_t_have_an_account">Didn’t have an account?</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="wallet">Wallet</string>
+    <string name="revenue">Revenue</string>
+    <string name="all_Requests">All Requests</string>
+    <string name="calls">Calls</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="pay_out">Pay-out</string>
+
+    <string name="enter_name">Please enter name</string>
+    <string name="select_dob">Please select DOB</string>
+    <string name="enter_email">Please enter email</string>
+    <string name="enter_correct_email">Please enter correct email</string>
+    <string name="enter_password">Password length must be atleast 8 characters</string>
+    <string name="enter_bio">Please enter bio</string>
+
+    <string name="sign_out">Sign out</string>
+    <string name="logout_dialog_message">Are you sure you want to sign out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="no_data_found">No data found</string>
+    <string name="total_chat">Total chat</string>
+    <string name="total_calls">Total calls</string>
+    <string name="completed">%s  Completed</string>
+    <string name="unsuccessful">%s Unsuccessful</string>
+    <string name="select_image">Select image</string>
+    <string name="update">Update</string>
+    <string name="update_desc">You have new update for Intely Experts!</string>
+    <string name="we_need_your_email">We need your registered email to reach you</string>
+    <string name="sent_password">We have sent a temporary password in your email. Please check your email.</string>
+    <string name="chat_request">Chat request</string>
+    <string name="call_equest">Call request</string>
+    <string name="neww">New</string>
+    <string name="no_show">No show</string>
+    <string name="canceled">Cancelled</string>
+    <string name="cancel">Cancel</string>
+    <string name="start_request">Start request</string>
+    <string name="check_request">Check request</string>
+    <string name="start_request_message">Are you sure you want to proceed request</string>
+    <string name="add_money">Add Money</string>
+    <string name="added_to_wallet">Added to wallet</string>
+    <string name="failed_transaction">Transaction failed</string>
+    <string name="closing_balance">Closing Balance: %s</string>
+    <string name="accept_request">Accept request</string>
+    <string name="accept_request_message">Are you sure you want to accept this request</string>
+    <string name="accepted">accepted</string>
+    <string name="inprogess">In progress</string>
+    <string name="starting_call">Starting a call...</string>
+    <string name="starting_chat">Starting a chat</string>
+    <string name="money_received_from">Received from\n%s</string>
+    <string name="speciality">Speciality</string>
+    <string name="years_of_experience">Years of experience</string>
+    <string name="consultation_fee_for_call">Consultation fee for Call</string>
+    <string name="min">min.</string>
+    <string name="consultation_fee_for_chat">Consultation fee for Chat</string>
+    <string name="na">NA</string>
+
+    <string name="typing">typing</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="active_now">Active now</string>
+    <string name="offline">Offline</string>
+    <string name="enter_message">Enter message</string>
+    <string name="type_your_message_here">Type your message...</string>
+    <string name="photo">Photo</string>
+    <string name="chat_first_message">Hi %s\nI am Available for chat lets discuss the problem</string>
+    <string name="end_chat">End Chat</string>
+    <string name="end_chat_desc">This will end chat. You ll no longer be able to chat</string>
+    <string name="bank_account">Here is the bank account</string>
+    <string name="account_number">Account number</string>
+    <string name="account_name">Account Holder name</string>
+    <string name="bank_name">Bank name</string>
+    <string name="ifsc_code">IFSC code</string>
+    <string name="select_currency">Select currency</string>
+    <string name="add_bank">Add Bank</string>
+    <string name="edit_bank">Edit Bank</string>
+    <string name="card_ending_with">%s Card ending with %s</string>
+    <string name="years">years</string>
+    <string name="total_revenue_made">Total Revenue made</string>
+    <string name="request_completed">Request completed</string>
+    <string name="add_feed">Add feed</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+
+    <!--Twilio-->
+    <string name="turn_speaker_on">Speaker ON</string>
+    <string name="callee">client identity or phone number</string>
+    <string name="answer">Answer</string>
+    <string name="decline">Decline</string>
+    <string name="room_status">status</string>
+    <string name="permissions_needed">Camera and Microphone permissions needed. Please allow in App Settings for additional functionality.</string>
+    <string name="twilio_sdk_starter_server_url">YOUR_TWILIO_SDK_STARTER_SERVER_URL</string>
+    <string name="registered">Registered</string>
+    <string name="turn_speaker_off">Speaker OFF</string>
+    <string name="codec_title">Set your preferred audio and video codec. Not all codecs are supported with Group rooms. The media server will fallback to OPUS or VP8 if a preferred codec is not supported.</string>
+    <string name="pref_title_audio_codec">Audio Codec</string>
+    <string name="pref_title_video_codec">Video Codec</string>
+    <string name="sender_bandwidth_constraints">Set sender bandwidth constraints. Zero represents the WebRTC default value which varies by codec.</string>
+    <string name="max_audio_bitrate">Max Audio Bitrate (bits per second)</string>
+    <string name="max_video_bitrate">Max Video Bitrate (bits per second)</string>
+    <string name="vp8_simulcast">VP8 Simulcast</string>
+    <string name="classes">Classes</string>
+    <string name="add_new">Add new</string>
+    <string name="add_class">Add class</string>
+    <string name="select_date">Select date</string>
+    <string name="select_time">Select time</string>
+    <string name="price_of_class">Price of class</string>
+    <string name="class_name">Class Name</string>
+    <string name="class_time">Class Time</string>
+    <string name="class_price">Class Price</string>
+    <string name="start_class">Start Class</string>
+    <string name="select_category">Select Category</string>
+    <string name="category">Category</string>
+    <string name="start_class_message">By starting CLASS you ll make this class available for all who occupied. Want to start class?</string>
+    <string name="user_joined">User Joined</string>
+    <string name="complete_class">Complete Class</string>
+    <string name="complete_class_message">Are you sure want to complete this class?</string>
+
+    <string name="s_s_reviews">%s · %s Reviews</string>
+    <string name="please_select_category">Please Select Category</string>
+    <string name="to">To</string>
+    <string name="greater_time">End time must be greater than start time</string>
+    <string name="manage_availability">Manage Availability</string>
+    <string name="select_a_category">Select a Category</string>
+    <string name="let_us_know_who_you">Let us know which category suits your profile the most to continue</string>
+    <string name="select_sub_category">Select Sub-Category</string>
+    <string name="full_name">Full Name</string>
+    <string name="since_working">Since Working</string>
+    <string name="next">Next</string>
+    <string name="consultation_fees">Consultation Fees</string>
+    <string name="for_">For</string>
+    <string name="add_availability">Add availability</string>
+    <string name="add_availability_s">Add availability for %s</string>
+    <string name="service_type">Service Type</string>
+    <string name="set_preferences">Set Preferences</string>
+    <string name="from">From</string>
+    <string name="new_interval">+ New Interval</string>
+    <string name="sunday_w">S</string>
+    <string name="monday_w">M</string>
+    <string name="tuesday_w">T</string>
+    <string name="wednesday_w">W</string>
+    <string name="thursday_w">T</string>
+    <string name="friday_w">F</string>
+    <string name="saturday_w">S</string>
+    <string name="week_days">Week Days</string>
+    <string name="select_availability">Select Availability</string>
+    <string name="save">Save</string>
+    <string name="fixed_price">Fixed Price</string>
+    <string name="price_btw">Add price in %s to %s</string>
+    <string name="edit_availability">Edit availability</string>
+    <string name="select_service">Please select any service</string>
+    <string name="add_price_for">Add price for %s</string>
+    <string name="add_price__in_s">Add price in %s to %s for %s</string>
+    <string name="enter_title">Please select Title</string>
+    <string name="update_category">Update Category</string>
+    <string name="manage_preferences">Manage Preferences</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="for_s">For %s</string>
+    <string name="all_s">All %s</string>
+    <string name="all_weekdays">All Weekdays</string>
+
+
+    <array name="country">
+        <item>@string/select_country</item>
+        <item>IN</item>
+        <item>US</item>
+
+    </array>
+
+    <array name="currency">
+        <item>@string/select_currency</item>
+        <item>INR</item>
+        <item>USD</item>
+
+    </array>
+
+    <array name="dr_title">
+        <item>@string/title</item>
+        <item>Dr.</item>
+        <item>Mr.</item>
+        <item>Mrs.</item>
+        <item>Miss.</item>
+    </array>
+
+    <string name="profile">Profile</string>
+    <string name="transactions">Transaction History</string>
+    <string name="select_working_days">Please select working days</string>
+    <string name="create_a_account">Create a Intelligent Care\nConnect account to continue</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="you_agree_to_our_terms">By continue, you agree to our\n</string>
+    <string name="terms">Terms of service</string>
+    <string name="and">and</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="chat_online_with_top_doctors">Chat Online\nwith Top Doctors</string>
+    <string name="at_20"><font size="14">At</font> $20</string>
+    <string name="signup_with_phone_number">Signup with Phone Number</string>
+    <string name="signup_with_email">Sign Up with Email</string>
+    <string name="let_s_get_started">Let’s Get Started !</string>
+    <string name="minute">Minute</string>
+    <string name="categories">Categories</string>
+    <string name="cancel_appointment">Cancel appointment</string>
+    <string name="cancel_appointment_msg">Are you sure you want to cancel appointment?</string>
+    <string name="join_consultants">Join 2500+ Consultants</string>
+    <string name="error_in_between_interval">Please don\'t add interval in between of previous intervals</string>
+    <string name="disconnecting">Disconnecting...</string>
+
+    <!--Empty screen-->
+    <string name="profile_unapproved">Your profile has not yet been approved!</string>
+    <string name="profile_unapproved_desc">Once your profile has been approved, you ll start getting requests from users</string>
+    <string name="no_requests">No Requests!</string>
+    <string name="no_requests_desc">You don\'t have any requests at the moment!</string>
+    <string name="no_chat">No chat started yet!</string>
+    <string name="no_chat_desc">Once you accept a chat request and start chatting then your chat threads will appear here.</string>
+    <string name="no_transaction">No transaction history!</string>
+    <string name="no_transaction_desc">Once you successfully complete some requests, your transactions will appear here.</string>
+    <string name="no_classes">No classes created by you yet!</string>
+    <string name="no_classes_desc">Click on add button to create some classes which will appear here.</string>
+    <string name="no_notification">No notifications yet!</string>
+    <string name="no_notification_desc">All notifications related to your activities will appear here.</string>
+
+
+    <!--Share text-->
+    <string name="share">Share</string>
+    <string name="invite_text">Hey, Here is app for taking Online Consultancy Platform for Doctors, Physiotherapists, Accountants, Lawyers, Consultants etc. You should try it.</string>
+    <string name="edit_card">Edit card</string>
+    <string name="delete">Delete</string>
+    <string name="pay">Pay</string>
+    <string name="input_amount">Input amount</string>
+    <string name="select_card">Select card</string>
+    <string name="add_card">Add card</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="payment">Payment</string>
+    <string name="delete_message">Are you sure you want to delete this card?</string>
+    <string name="money_sent_account">Money sent to bank account\n(%s)</string>
+
+    <!--Insurance Address-->
+    <string name="start_your_journey">Start Your\nJourney now</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zip">Zip Code</string>
+    <string name="do_you_have_insurance">Do you accept insurance</string>
+    <string name="if_yes_what_insurance">If \'Yes\' what Insurance</string>
+    <string name="select_insurance">Your Accepted Insurance</string>
+    <string name="check_all_terms">Please check all terms</string>
+    <string name="select_state">Select State</string>
+    <string name="select_city">Select City</string>
+    <string name="submit">Submit</string>
+    <string name="add">Add</string>
+    <string name="upload_documents">Upload Documents</string>
+    <string name="please_add">Please add</string>
+    <string name="manage_documents">Manage Documents</string>
+
+    <string name="post_article_plus">+ Post Article</string>
+    <string name="post_article">Post Article</string>
+    <string name="latest_articles">Latest Articles</string>
+    <string name="blogs">Blogs</string>
+    <string name="articles">Articles</string>
+    <string name="post_blog_plus">+ Post Blog</string>
+    <string name="post_blog">Post Blog</string>
+    <string name="latest_blogs">Latest Blogs</string>
+    <string name="s_views">%s views</string>
+    <string name="favourites">Favourites</string>
+    <string name="my_articles">My Articles</string>
+    <string name="or">Or</string>
+    <string name="verification_may_take_some_time">Verification may take some time.</string>
+    <string name="thank_you_for_your_interest">Thank you for your interest in intelligent care connect, one of our care coordinators will connect with you shortly.</string>
+    <string name="register">Register</string>
+    <string name="become_a_member">Become a member of Intelligent Care Connect.</string>
+    <string name="requesting_service_for">Requesting service for ?</string>
+    <string name="self">Self</string>
+    <string name="father">Father</string>
+    <string name="mother">Mother</string>
+    <string name="child">Child</string>
+    <string name="other">Other</string>
+    <string name="if_service_is_not_self">If service is not self...</string>
+    <string name="home_care_requirement">Home care requirement</string>
+    <string name="select_home_care_requirement">Select Home care requirement</string>
+    <string name="palliative_end_of_life_care">Palliative (end of life care)</string>
+    <string name="woundcare">Woundcare</string>
+    <string name="dual_diagnostic">Dual Diagnostic (Cognitive decline patients)</string>
+    <string name="medically_compromised">Medically compromised &amp; complex continu-ing care></string>
+    <string name="service_address">Service Address</string>
+    <string name="service_date">Service Date</string>
+    <string name="continuee">Continue</string>
+
+</resources>

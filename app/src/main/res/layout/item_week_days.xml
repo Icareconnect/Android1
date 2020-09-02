@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="40dp"
+        android:id="@+id/clWeekDays"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_height="40dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/drawable_week_un_selected"
+            android:ellipsize="end"
+            android:fontFamily="@font/circular_medium"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/sunday_w"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
+            android:lineSpacingMultiplier="0.45"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
