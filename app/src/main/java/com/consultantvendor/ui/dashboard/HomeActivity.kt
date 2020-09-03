@@ -85,7 +85,7 @@ class HomeActivity : DaggerAppCompatActivity() {
 
         userRepository.pushTokenUpdate()
 
-        if (userRepository.getUser()?.isApproved == true) {
+        if (userRepository.getUser()?.isApproved == false) {
             startActivity(Intent(this, DrawerActivity::class.java)
                     .putExtra(PAGE_TO_OPEN, DrawerActivity.USER_VERIFICATION))
         }

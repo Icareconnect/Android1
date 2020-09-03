@@ -68,7 +68,7 @@ object WalletMoney {
     const val ALL = "all"
     const val PAYOUTS = "payouts"
     const val ADD_MONEY = "add_money"
-    const val FAILED="failed"
+    const val FAILED = "failed"
 }
 
 object CallAction {
@@ -137,6 +137,12 @@ object PaymentFrom {
 
 object CustomFields {
     const val ZIP_CODE = "Zip Code"
+    const val QUALIFICATION = "Qualification"
+    const val WORKING_SHIFTS = "Working shifts"
+    const val WORK_EXPERIENCE = "Work experience"
+    const val PROFESSIONAL_LISCENCE = "Professional Liscence"
+    const val CERTIFICATION = "Certification"
+    const val START_DATE = "Start Date"
 }
 
 object ClientFeatures {

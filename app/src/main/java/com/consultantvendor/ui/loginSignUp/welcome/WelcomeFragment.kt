@@ -88,8 +88,13 @@ class WelcomeFragment : DaggerFragment() {
 
     private fun listeners() {
         binding.tvSignUpMobile.setOnClickListener {
+            val fragment = LoginFragment()
+            val bundle = Bundle()
+            bundle.putBoolean(EXTRA_SIGNUP, true)
+            fragment.arguments = bundle
+
             replaceFragment(requireActivity().supportFragmentManager,
-                    LoginFragment(), R.id.container)
+                    fragment, R.id.container)
         }
 
         binding.tvLogin.setOnClickListener {
@@ -98,8 +103,17 @@ class WelcomeFragment : DaggerFragment() {
         }
 
         binding.tvSignUpEmail.setOnClickListener {
+            val fragment = LoginEmailFragment()
+            val bundle = Bundle()
+            bundle.putBoolean(EXTRA_SIGNUP, true)
+            fragment.arguments = bundle
+
             replaceFragment(requireActivity().supportFragmentManager,
-                    SignUpFragment(), R.id.container)
+                    fragment, R.id.container)
         }
+    }
+
+    companion object {
+        const val EXTRA_SIGNUP = "EXTRA_SIGNUP"
     }
 }

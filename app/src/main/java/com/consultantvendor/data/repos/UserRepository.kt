@@ -37,13 +37,9 @@ class UserRepository @Inject constructor(
         val user = prefsManager.getObject(USER_DATA, UserData::class.java)
         val appSetting = prefsManager.getObject(APP_DETAILS, AppVersion::class.java)
 
-        return if (user?.id.isNullOrEmpty() || user?.name.isNullOrEmpty()|| user?.phone.isNullOrEmpty())
+        return if (user?.id.isNullOrEmpty() || user?.name.isNullOrEmpty())
             false
         else if (user?.categoryData == null)
-            false
-        else if (appSetting?.insurance == true && user.insurance_enable == null)
-            false
-        else if (appSetting?.clientFeaturesKeys?.isAddress == true && user.profile?.address.isNullOrEmpty())
             false
         else
             true

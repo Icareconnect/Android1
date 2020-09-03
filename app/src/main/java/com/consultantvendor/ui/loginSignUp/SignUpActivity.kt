@@ -10,6 +10,7 @@ import com.consultantvendor.ui.loginSignUp.category.CategoryFragment
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment.Companion.UPDATE_DOCUMENTS
 import com.consultantvendor.ui.loginSignUp.prefrence.PrefrenceFragment
+import com.consultantvendor.ui.loginSignUp.register.RegisterFragment
 import com.consultantvendor.ui.loginSignUp.service.ServiceFragment
 import com.consultantvendor.ui.loginSignUp.signup.SignUpFragment
 import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment.Companion.CATEGORY_PARENT_ID
@@ -45,7 +46,7 @@ class SignUpActivity : DaggerAppCompatActivity() {
         val bundle = Bundle()
         when {
             intent.hasExtra(UPDATE_PROFILE) -> {
-                fragment = SignUpFragment()
+                fragment = RegisterFragment()
                 bundle.putBoolean(UPDATE_PROFILE, true)
             }
             intent.hasExtra(UPDATE_DOCUMENTS) -> {

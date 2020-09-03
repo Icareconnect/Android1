@@ -101,7 +101,6 @@ class ProfileFragment : DaggerFragment() {
         userData = userRepository.getUser()
 
         binding.tvName.text = getDoctorName(userData)
-        binding.tvBioV.text = userData?.profile?.bio ?: getString(R.string.na)
         binding.tvEmailV.text = userData?.email ?: getString(R.string.na)
         binding.tvPhoneV.text = "${userData?.country_code ?: ""} ${userData?.phone ?: ""}"
         binding.tvDOBV.text = userData?.profile?.dob ?: getString(R.string.na)
@@ -122,8 +121,10 @@ class ProfileFragment : DaggerFragment() {
         loadImage(binding.ivPic, userData?.profile_image,
                 R.drawable.ic_profile_placeholder)
 
-        binding.tvSetPrefrences.hideShowView(userData?.filters?.isNotEmpty() == true)
-        binding.tvDocuments.hideShowView(userData?.categoryData?.is_additionals == true)
+        binding.tvSetPrefrences.gone()
+        binding.tvDocuments.gone()
+        binding.tvSetAvailability.gone()
+        binding.tvUpdateCategory.gone()
 
     }
 
@@ -224,7 +225,6 @@ class ProfileFragment : DaggerFragment() {
 
 
     private fun bindObservers() {
-
         viewModelLogin.updateProfile.observe(this, Observer {
             it ?: return@Observer
             when (it.status) {

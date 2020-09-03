@@ -14,14 +14,18 @@ import com.consultantvendor.data.network.ApiKeys
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.ProviderType
 import com.consultantvendor.data.network.responseUtil.Status
+import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentLoginEmailBinding
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.forgotpassword.ForgotPasswordFragment
 import com.consultantvendor.ui.loginSignUp.login.LoginFragment
+import com.consultantvendor.ui.loginSignUp.register.RegisterFragment
+import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class LoginEmailFragment : DaggerFragment() {
@@ -32,6 +36,9 @@ class LoginEmailFragment : DaggerFragment() {
 
     @Inject
     lateinit var prefsManager: PrefsManager
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     private lateinit var binding: FragmentLoginEmailBinding
 
@@ -62,6 +69,13 @@ class LoginEmailFragment : DaggerFragment() {
     private fun initialise() {
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
+
+        if (arguments?.containsKey(WelcomeFragment.EXTRA_SIGNUP) == true) {
+            binding.tvTitle.text = getString(R.string.sign_up_care_connect)
+
+            binding.tvLoginScreen.gone()
+            binding.tvLoginTitle.gone()
+        }
     }
 
     private fun listeners() {
@@ -87,13 +101,21 @@ class LoginEmailFragment : DaggerFragment() {
                     binding.etPassword.showSnackBar(getString(R.string.enter_password))
                 }
                 isConnectedToInternet(requireContext(), true) -> {
-                    val hashMap = HashMap<String, Any>()
-                    hashMap[ApiKeys.PROVIDER_TYPE] = ProviderType.email
-                    hashMap["provider_id"] = binding.etEmail.text.toString()
-                    hashMap[ApiKeys.PROVIDER_VERIFICATION] = binding.etPassword.text.toString()
-                    hashMap[ApiKeys.USER_TYPE] = APP_TYPE
-
-                    viewModel.login(hashMap)
+                    if (arguments?.containsKey(WelcomeFragment.EXTRA_SIGNUP) == true) {
+                        val hashMap = HashMap<String, RequestBody>()
+                        hashMap["name"] = getRequestBody("1#123@123")
+                        hashMap["email"] = getRequestBody(binding.etEmail.text.toString().trim())
+                        hashMap["password"] = getRequestBody(binding.etPassword.text.toString().trim())
+                        hashMap["user_type"] = getRequestBody(APP_TYPE)
+                        viewModel.register(hashMap)
+                    }else{
+                        val hashMap = HashMap<String, Any>()
+                        hashMap[ApiKeys.PROVIDER_TYPE] = ProviderType.email
+                        hashMap["provider_id"] = binding.etEmail.text.toString()
+                        hashMap[ApiKeys.PROVIDER_VERIFICATION] = binding.etPassword.text.toString()
+                        hashMap[ApiKeys.USER_TYPE] = APP_TYPE
+                        viewModel.login(hashMap)
+                    }
                 }
             }
         }
@@ -108,26 +130,57 @@ class LoginEmailFragment : DaggerFragment() {
 
 
     private fun bindObservers() {
-        viewModel.login.observe(viewLifecycleOwner, Observer {
+        viewModel.login.observe(this, Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
                     progressDialog.setLoading(false)
 
                     prefsManager.save(USER_DATA, it.data)
-                    if (it.data?.phone.isNullOrEmpty()) {
-                        val fragment = LoginFragment()
+                    if (userRepository.isUserLoggedIn()) {
+                        startActivity(Intent(requireActivity(), HomeActivity::class.java))
+                        requireActivity().finish()
+                    } else {
+                        val fragment = RegisterFragment()
                         val bundle = Bundle()
                         bundle.putBoolean(UPDATE_NUMBER, true)
                         fragment.arguments = bundle
 
-                        replaceFragment(
-                            requireActivity().supportFragmentManager,
-                            fragment, R.id.container
-                        )
-                    } else {
+                        replaceFragment(requireActivity().supportFragmentManager,
+                                fragment, R.id.container)
+                    }
+
+                }
+                Status.ERROR -> {
+                    progressDialog.setLoading(false)
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialog.setLoading(true)
+                }
+            }
+        })
+
+        viewModel.register.observe(this, Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialog.setLoading(false)
+
+                    prefsManager.save(USER_DATA, it.data)
+
+                    if (userRepository.isUserLoggedIn()) {
                         startActivity(Intent(requireActivity(), HomeActivity::class.java))
                         requireActivity().finish()
+
+                    } else {
+                        val fragment = RegisterFragment()
+                        val bundle = Bundle()
+                        bundle.putBoolean(UPDATE_NUMBER, true)
+                        fragment.arguments = bundle
+
+                        replaceFragment(requireActivity().supportFragmentManager,
+                                fragment, R.id.container)
                     }
 
                 }

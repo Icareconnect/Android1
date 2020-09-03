@@ -22,6 +22,7 @@ import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.PER_PAGE_LOAD
 import com.consultantvendor.data.network.PushType
 import com.consultantvendor.data.network.responseUtil.Status
+import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentAppointmentBinding
 import com.consultantvendor.ui.calling.CallingActivity
 import com.consultantvendor.ui.chat.chatdetail.ChatDetailActivity
@@ -35,6 +36,9 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
 
     @Inject
     lateinit var prefsManager: PrefsManager
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -175,6 +179,11 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
                         binding.clNoData.tvNoData.text = getString(R.string.profile_unapproved)
                         binding.clNoData.tvNoDataDesc.text = getString(R.string.profile_unapproved_desc)
                     } else {
+                        val userData = userRepository.getUser()
+                        if (userData?.isApproved == false) {
+                            userData.isApproved = true
+                            prefsManager.save(USER_DATA, userData)
+                        }
                         binding.clNoData.ivNoData.setImageResource(R.drawable.ic_requests_empty_state)
                         binding.clNoData.tvNoData.text = getString(R.string.no_requests)
                         binding.clNoData.tvNoDataDesc.text = getString(R.string.no_requests_desc)

@@ -49,11 +49,7 @@ class VerifyOTPFragment : DaggerFragment() {
     private var phoneNumber = ""
 
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (rootView == null) {
             binding =
                     DataBindingUtil.inflate(inflater, R.layout.fragment_verify_otp, container, false)

@@ -53,6 +53,7 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="login_care_connect">Login to Intelligent Care Connect</string>
+    <string name="sign_up_care_connect">Sign Up to Intelligent Care Connect</string>
     <string name="login_with">Login with</string>
     <string name="date_of_birth">Date of Birth</string>
     <string name="password">Password</string>
@@ -333,21 +334,44 @@
     <string name="thank_you_for_your_interest">Thank you for your interest in intelligent care connect, one of our care coordinators will connect with you shortly.</string>
     <string name="register">Register</string>
     <string name="become_a_member">Become a member of Intelligent Care Connect.</string>
-    <string name="requesting_service_for">Requesting service for ?</string>
-    <string name="self">Self</string>
-    <string name="father">Father</string>
-    <string name="mother">Mother</string>
-    <string name="child">Child</string>
-    <string name="other">Other</string>
-    <string name="if_service_is_not_self">If service is not self...</string>
-    <string name="home_care_requirement">Home care requirement</string>
-    <string name="select_home_care_requirement">Select Home care requirement</string>
-    <string name="palliative_end_of_life_care">Palliative (end of life care)</string>
-    <string name="woundcare">Woundcare</string>
-    <string name="dual_diagnostic">Dual Diagnostic (Cognitive decline patients)</string>
-    <string name="medically_compromised">Medically compromised &amp; complex continu-ing care></string>
-    <string name="service_address">Service Address</string>
-    <string name="service_date">Service Date</string>
     <string name="continuee">Continue</string>
+
+    <string name="professional_liscence">Professional Liscence #</string>
+    <string name="certification">Certification</string>
+    <string name="start_date">Start Date?</string>
+
+    <!--qualification-->
+    <string name="select_your_qualification_type">Select your qualification type ?</string>
+    <string name="can_select_more_than_one">(Can select more than one)</string>
+    <string name="what_type_of_shifts">What type of shifts are you interested in?</string>
+
+
+    <!--Shift-->
+    <string name="day_shift">Day shift</string>
+    <string name="evening_shift">Evening shift</string>
+    <string name="night_shift">Night shift</string>
+
+    <array name="shift">
+        <item>@string/day_shift</item>
+        <item>@string/evening_shift</item>
+        <item>@string/night_shift</item>
+    </array>
+
+    <!--Experience-->
+    <string name="please_select_your_experience">Please select your amount of licensed work experience below.</string>
+
+    <string name="months_0_5">0-5 months</string>
+    <string name="months_6_11">6-11 months</string>
+    <string name="months_12_24">12-24 months</string>
+    <string name="months_24">24+ months</string>
+
+    <array name="experience">
+        <item>@string/months_0_5</item>
+        <item>@string/months_6_11</item>
+        <item>@string/months_12_24</item>
+        <item>@string/months_24</item>
+    </array>
+
+
 
 </resources>

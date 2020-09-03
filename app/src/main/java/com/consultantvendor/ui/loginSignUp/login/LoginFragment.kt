@@ -16,6 +16,7 @@ import com.consultantvendor.databinding.FragmentLoginBinding
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
 import com.consultantvendor.ui.loginSignUp.verifyotp.VerifyOTPFragment
+import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment.Companion.EXTRA_SIGNUP
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
@@ -39,9 +40,9 @@ class LoginFragment : DaggerFragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         if (rootView == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
@@ -60,6 +61,13 @@ class LoginFragment : DaggerFragment() {
 
         binding.tvTerms.movementMethod = LinkMovementMethod.getInstance()
         binding.tvTerms.setText(setAcceptTerms(requireActivity()), TextView.BufferType.SPANNABLE)
+
+        if (arguments?.containsKey(EXTRA_SIGNUP) == true) {
+            binding.tvTitle.text = getString(R.string.sign_up_care_connect)
+
+            binding.tvLoginScreen.gone()
+            binding.tvLoginTitle.gone()
+        }
     }
 
     private fun listeners() {
@@ -104,8 +112,8 @@ class LoginFragment : DaggerFragment() {
                     fragment.arguments = bundle
 
                     replaceFragment(
-                        requireActivity().supportFragmentManager,
-                        fragment, R.id.container
+                            requireActivity().supportFragmentManager,
+                            fragment, R.id.container
                     )
 
                 }
