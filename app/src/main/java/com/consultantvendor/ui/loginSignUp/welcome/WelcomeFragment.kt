@@ -1,40 +1,25 @@
 package com.consultantvendor.ui.loginSignUp.welcome
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
-import com.consultantvendor.data.network.ApiKeys
-import com.consultantvendor.data.network.ApisRespHandler
-import com.consultantvendor.data.network.ProviderType
-import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentWelcomeBinding
 import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
-import com.consultantvendor.ui.dashboard.HomeActivity
-import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.login.LoginFragment
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
-import com.consultantvendor.ui.loginSignUp.signup.SignUpFragment
-import com.consultantvendor.utils.*
-import com.consultantvendor.utils.dialogs.ProgressDialog
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
+import com.consultantvendor.ui.walkthrough.WalkThroughFragment
+import com.consultantvendor.ui.walkthrough.WalkThroughFragment.Companion.WALKTHROUGH_SCREEN
+import com.consultantvendor.utils.PrefsManager
+import com.consultantvendor.utils.hideKeyboard
+import com.consultantvendor.utils.replaceFragment
+import com.consultantvendor.utils.setAcceptTerms
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -74,6 +59,11 @@ class WelcomeFragment : DaggerFragment() {
         binding.tvTerms.hideKeyboard()
         binding.tvTerms.movementMethod = LinkMovementMethod.getInstance()
         binding.tvTerms.setText(setAcceptTerms(requireActivity()), TextView.BufferType.SPANNABLE)
+
+        if(!prefsManager.getBoolean(WALKTHROUGH_SCREEN,false)){
+            replaceFragment(requireActivity().supportFragmentManager,
+                    WalkThroughFragment(), R.id.container)
+        }
     }
 
     private fun setBanners() {

@@ -97,4 +97,15 @@ class DrawerActivity : DaggerAppCompatActivity() {
         const val USER_VERIFICATION = "USER_VERIFICATION"
     }
 
+    override fun onBackPressed() {
+        val index = if (supportFragmentManager.backStackEntryCount > 1)
+            supportFragmentManager.backStackEntryCount - 1
+        else 0
+        val fragment = supportFragmentManager.fragments[index]
+        if (fragment is UserVerificationFragment) {
+            /*Nothing to Do*/
+        } else
+            super.onBackPressed()
+    }
+
 }

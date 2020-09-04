@@ -372,6 +372,12 @@
         <item>@string/months_24</item>
     </array>
 
+    <!--Walkthrough-->
+    <string name="choose_date_time">Choose your date and time slots for work.</string>
+    <string name="find_shifts_neaby_you">Find shifts neaby you.</string>
+    <string name="get_paid_quickly">Get paid quickly.</string>
+    <string name="get_started">Get Started</string>
+    <string name="dashboard">Dashboard</string>
 
 
 </resources>

@@ -53,16 +53,16 @@ class HomeFragment : DaggerFragment(), OnDateSelected {
     private fun setUserData() {
         val userData = userRepository.getUser()
 
-        loadImage(binding.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
+        //loadImage(binding.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
     }
 
 
     private fun initialise() {
         /*Get today date*/
-        calendar = Calendar.getInstance()
+       /* calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat(DateFormat.MON_YEAR_FORMAT)
         selectedDate = sdf.format(calendar?.time)
-        binding.tvDate.text = selectedDate
+        binding.tvDate.text = selectedDate*/
 
 
         adapter = CommonFragmentPagerAdapter(requireActivity().supportFragmentManager)
@@ -82,14 +82,14 @@ class HomeFragment : DaggerFragment(), OnDateSelected {
 
     private fun listeners() {
 
-        binding.tvDate.setOnClickListener {
+       /* binding.tvDate.setOnClickListener {
             DateUtils.openDatePicker(requireActivity(), this, false, false)
-        }
+        }*/
 
-        binding.ivPic.setOnClickListener {
+       /* binding.ivPic.setOnClickListener {
             startActivityForResult(Intent(requireActivity(), DrawerActivity::class.java)
                     .putExtra(PAGE_TO_OPEN, PROFILE), AppRequestCode.PROFILE_UPDATE)
-        }
+        }*/
     }
 
     override fun onDateSelected(date: String) {

@@ -8,22 +8,37 @@
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
             android:layout_height="?android:attr/actionBarSize"
-            android:drawablePadding="@dimen/dp_8"
-            android:fontFamily="@font/circular_bold"
+            android:fontFamily="@font/sans_bold"
             android:gravity="center|center_vertical"
-            android:drawableEnd="@drawable/ic_next"
-            android:text="@string/location"
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/sp_16"
+            android:text="@string/dashboard"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivDrawer"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:visibility="gone"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_notification_drawer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/dp_36" />
+
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/ivPic"
+            android:id="@+id/ivNotification"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
             android:layout_marginTop="@dimen/dp_8"
@@ -31,8 +46,9 @@
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:visibility="gone"
             android:scaleType="centerCrop"
-            android:src="@color/lineColor"
+            android:src="@drawable/ic_notification_drawer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/dp_36" />

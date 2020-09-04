@@ -56,7 +56,7 @@ class MessagingService : FirebaseMessagingService() {
         super.onNewToken(token)
         Log.e("fcmToken", token)
 
-            userRepository.pushTokenUpdate()
+        userRepository.pushTokenUpdate()
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -132,7 +132,7 @@ class MessagingService : FirebaseMessagingService() {
             PushType.PROFILE_APPROVED, PushType.NEW_REQUEST, PushType.REQUEST_FAILED, PushType.REQUEST_COMPLETED
                 , PushType.CANCELED_REQUEST, PushType.RESCHEDULED_REQUEST -> {
 
-                if(pushData.pushType==PushType.PROFILE_APPROVED){
+                if (pushData.pushType == PushType.PROFILE_APPROVED) {
                     val userData = userRepository.getUser()
                     if (userData?.isApproved == false) {
                         userData.isApproved = true

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.models.requests.SetFilter
+import com.consultantvendor.data.models.requests.SetService
 import com.consultantvendor.data.models.requests.UpdateServices
 import com.consultantvendor.data.models.responses.Filter
 import com.consultantvendor.data.models.responses.FilterOption
@@ -362,7 +363,9 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
                     requireActivity().setResult(Activity.RESULT_OK)
 
-                    if (userRepository.isUserLoggedIn()) {
+                    if (arguments?.containsKey(UPDATE_PROFILE) == true) {
+                        requireActivity().finish()
+                    } else if (userRepository.isUserLoggedIn()) {
                         startActivity(Intent(requireContext(), HomeActivity::class.java))
                         requireActivity().finish()
                     }
@@ -383,6 +386,15 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         if (isConnectedToInternet(requireContext(), true)) {
             val updateServices = UpdateServices()
             updateServices.category_id = "1"
+
+            /*Add service type*/
+            updateServices.category_services_type = ArrayList()
+
+            val setService = SetService()
+            setService.id = "1"
+            setService.available = "1"
+            setService.price = 10
+            updateServices.category_services_type?.add(setService)
 
             val filterArray = ArrayList<SetFilter>()
             var setFilter: SetFilter

@@ -40,6 +40,8 @@ import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
 import com.consultantvendor.ui.loginSignUp.verifyotp.VerifyOTPFragment
 import com.consultantvendor.ui.loginSignUp.welcome.BannerFragment
 import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment
+import com.consultantvendor.ui.walkthrough.WalkThroughFragment
+import com.consultantvendor.ui.walkthrough.WalkthroughDetailFragment
 import com.consultantvendor.ui.webview.WebViewActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -170,6 +172,12 @@ abstract class BindingsModule {
 
     @ContributesAndroidInjector
     abstract fun registerFragment(): RegisterFragment
+
+    @ContributesAndroidInjector
+    abstract fun walkThroughFragment(): WalkThroughFragment
+
+    @ContributesAndroidInjector
+    abstract fun walkthroughDetailFragment(): WalkthroughDetailFragment
 
 
 }

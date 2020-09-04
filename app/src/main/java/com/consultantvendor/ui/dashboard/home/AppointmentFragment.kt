@@ -132,12 +132,12 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
             hashMap[PER_PAGE] = PER_PAGE_LOAD.toString()
 
 
-            val date = DateUtils.dateFormatChange(
+         /*   val date = DateUtils.dateFormatChange(
                     DateFormat.MON_YEAR_FORMAT,
                     DateFormat.DATE_FORMAT, homeFragment.selectedDate
             )
 
-            hashMap["date"] = date
+            hashMap["date"] = date*/
             hashMap["service_type"] = arguments?.getString(POSITION) ?: CallType.ALL
             viewModel.request(hashMap)
         }
@@ -175,16 +175,11 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
                     if (it.data?.isAprroved == false) {
                         binding.clNoData.setBackgroundResource(R.color.colorWhite)
                         binding.clNoData.hideShowView(true)
-                        binding.clNoData.ivNoData.setImageResource(R.drawable.ic_profile_empty_state)
-                        binding.clNoData.tvNoData.text = getString(R.string.profile_unapproved)
-                        binding.clNoData.tvNoDataDesc.text = getString(R.string.profile_unapproved_desc)
+                        binding.clNoData.ivNoData.setImageResource(R.drawable.ic_verification)
+                        binding.clNoData.tvNoData.text = getString(R.string.verification_may_take_some_time)
+                        binding.clNoData.tvNoDataDesc.text = getString(R.string.thank_you_for_your_interest)
                     } else {
-                        val userData = userRepository.getUser()
-                        if (userData?.isApproved == false) {
-                            userData.isApproved = true
-                            prefsManager.save(USER_DATA, userData)
-                        }
-                        binding.clNoData.ivNoData.setImageResource(R.drawable.ic_requests_empty_state)
+                        binding.clNoData.ivNoData.setImageResource(R.drawable.ic_no_request)
                         binding.clNoData.tvNoData.text = getString(R.string.no_requests)
                         binding.clNoData.tvNoDataDesc.text = getString(R.string.no_requests_desc)
                     }

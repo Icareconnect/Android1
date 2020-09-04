@@ -60,8 +60,17 @@ class SplashActivity : DaggerAppCompatActivity() {
             when (it.status) {
                 Status.SUCCESS -> {
 
-                    /*Convert features to boolean keys*/
                     val appDetails = it.data
+
+                    if (userRepository.isUserLoggedIn()) {
+                        val userData = userRepository.getUser()
+                        userData?.isApproved = appDetails?.isApproved
+                        prefsManager.save(USER_DATA, userData)
+
+                    }
+
+                    /*Convert features to boolean keys*/
+
                     /*Handle feature keys*/
                     appDetails?.client_features?.forEach {
                         when (it.name?.toLowerCase(Locale.getDefault())) {
