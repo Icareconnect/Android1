@@ -4,9 +4,7 @@
     <!--Facebook keys-->
     <string name="facebook_app_id">614826522700049</string>
     <string name="fb_login_protocol_scheme">fb614826522700049</string>
-
-    <!--Google-->
-    <string name="server_client_id">952614479078-892v5fage0p4pguerkht8krnpoo55dq3.apps.googleusercontent.com</string>
+    <string name="google_places_api_key" translatable="false">AIzaSyCWRLStt_5Kmgd877p8o_fPM2W5pdZ4WbU</string>
 
     <string name="allow">ALLOW</string>
     <string name="deny">Deny</string>
@@ -275,7 +273,7 @@
     <string name="profile_unapproved">Your profile has not yet been approved!</string>
     <string name="profile_unapproved_desc">Once your profile has been approved, you ll start getting requests from users</string>
     <string name="no_requests">No Requests!</string>
-    <string name="no_requests_desc">You don\'t have any requests at the moment!</string>
+    <string name="no_requests_desc">There are no new request at the moment.</string>
     <string name="no_chat">No chat started yet!</string>
     <string name="no_chat_desc">Once you accept a chat request and start chatting then your chat threads will appear here.</string>
     <string name="no_transaction">No transaction history!</string>
@@ -378,6 +376,12 @@
     <string name="get_paid_quickly">Get paid quickly.</string>
     <string name="get_started">Get Started</string>
     <string name="dashboard">Dashboard</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="logs">Logs</string>
+    <string name="account_details">Account Details</string>
+    <string name="change_address">Change Address</string>
+    <string name="my_earnings">My Earnings</string>
 
 
 </resources>

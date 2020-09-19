@@ -80,7 +80,10 @@ class LoginEmailFragment : DaggerFragment() {
 
     private fun listeners() {
         binding.toolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            if (requireActivity().supportFragmentManager.backStackEntryCount > 0)
+                requireActivity().supportFragmentManager.popBackStack()
+            else
+                requireActivity().finish()
         }
 
         binding.tvLoginScreen.setOnClickListener {

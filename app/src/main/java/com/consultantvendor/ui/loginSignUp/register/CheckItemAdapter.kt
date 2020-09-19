@@ -10,7 +10,6 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemCheckBinding
-import com.consultantvendor.databinding.RvItemPrefrenceOptionBinding
 import com.consultantvendor.utils.gone
 import com.consultantvendor.utils.visible
 

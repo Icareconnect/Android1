@@ -20,7 +20,6 @@ import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.category.CategoryFragment
 import com.consultantvendor.ui.loginSignUp.insurance.InsuranceFragment
 import com.consultantvendor.ui.loginSignUp.register.RegisterFragment
-import com.consultantvendor.ui.loginSignUp.signup.SignUpFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment

@@ -15,16 +15,13 @@ import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.consultantvendor.R
 import com.consultantvendor.data.models.PushData
 import com.consultantvendor.data.models.responses.JitsiClass
 import com.consultantvendor.data.models.responses.Request
-import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.PushType
-import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.ActivityCallingBinding
 import com.consultantvendor.ui.calling.Constants.CALL_NOTIFICATION_ID

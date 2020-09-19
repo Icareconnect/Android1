@@ -364,8 +364,8 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
     }
 
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         unregisterReceiver()
     }
 

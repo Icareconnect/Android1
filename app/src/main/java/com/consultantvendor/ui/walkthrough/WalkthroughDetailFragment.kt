@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.consultantvendor.R
-import com.consultantvendor.databinding.FragmentBannerBinding
 import com.consultantvendor.databinding.FragmentWalkthroughDetailBinding
 import com.consultantvendor.utils.POSITION
 import dagger.android.support.DaggerFragment

@@ -15,7 +15,6 @@ import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentSettingsBinding
 import com.consultantvendor.ui.drawermenu.DrawerActivity
-import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.ADD_BLOG
 import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.CLASSES
 import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.NOTIFICATION
 import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.PROFILE

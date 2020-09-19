@@ -19,6 +19,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.Guideline
@@ -36,38 +37,10 @@
                     app:layout_constraintGuide_end="@dimen/dp_24" />
 
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginTop="@dimen/dp_40"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <me.relex.circleindicator.CircleIndicator
-                    android:id="@+id/pageIndicatorView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    app:layout_constraintStart_toStartOf="@+id/viewPager"
-                    app:layout_constraintBottom_toBottomOf="@+id/viewPager"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_gravity="center|bottom"
-                    app:ci_animator="@animator/scale_with_alpha"
-                    app:ci_drawable="@drawable/white_radius"
-                    app:ci_drawable_unselected="@drawable/white_radius"
-                    app:ci_gravity="center"
-                    app:ci_height="@dimen/dp_4"
-                    app:ci_margin="@dimen/dp_4"
-                    app:ci_orientation="horizontal"
-                    app:ci_width="@dimen/dp_16" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/sans_regular"
                     android:gravity="center"
                     android:text="@string/create_a_account"
@@ -75,7 +48,7 @@
                     android:textSize="@dimen/sp_18"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/viewPager" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSignUpMobile"

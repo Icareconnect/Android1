@@ -3,26 +3,41 @@ package com.consultantvendor.ui.dashboard.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
+import com.consultantvendor.data.network.ApisRespHandler
+import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentHomeBinding
 import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
 import com.consultantvendor.ui.drawermenu.DrawerActivity
-import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.PROFILE
+import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.utils.*
+import com.consultantvendor.utils.dialogs.ProgressDialog
+import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerFragment
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlinx.android.synthetic.main.nav_header_home.view.*
 import javax.inject.Inject
 
 
-class HomeFragment : DaggerFragment(), OnDateSelected {
+class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedListener  {
+
+    @Inject
+    lateinit var prefsManager: PrefsManager
 
     @Inject
     lateinit var userRepository: UserRepository
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -30,9 +45,9 @@ class HomeFragment : DaggerFragment(), OnDateSelected {
 
     private lateinit var adapter: CommonFragmentPagerAdapter
 
-    var selectedDate = ""
+    private lateinit var viewModelLogin: LoginViewModel
 
-    var calendar: Calendar? = null
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -45,25 +60,20 @@ class HomeFragment : DaggerFragment(), OnDateSelected {
 
             initialise()
             listeners()
-            setUserData()
+            handleHeader()
+            bindObservers()
         }
         return rootView
     }
 
-    private fun setUserData() {
-        val userData = userRepository.getUser()
-
-        //loadImage(binding.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
-    }
 
 
     private fun initialise() {
-        /*Get today date*/
-       /* calendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat(DateFormat.MON_YEAR_FORMAT)
-        selectedDate = sdf.format(calendar?.time)
-        binding.tvDate.text = selectedDate*/
+        binding.navView.itemIconTintList = null
+        binding.navView.setNavigationItemSelectedListener(this)
 
+        progressDialog = ProgressDialog(requireActivity())
+        viewModelLogin = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         adapter = CommonFragmentPagerAdapter(requireActivity().supportFragmentManager)
         val titles = arrayOf(getString(R.string.all_Requests))
@@ -80,25 +90,82 @@ class HomeFragment : DaggerFragment(), OnDateSelected {
 
     }
 
+    private fun handleHeader() {
+        val userData = userRepository.getUser()
+        val headerView = binding.navView.getHeaderView(0)
+// set User Name
+        headerView.tvName.text = getDoctorName(userData)
+        headerView.tvEmail.text = userData?.email?:""
+        loadImage(headerView.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
+
+        headerView.ivPic.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(requireActivity(), DrawerActivity::class.java)
+                    .putExtra(PAGE_TO_OPEN, DrawerActivity.PROFILE))
+        }
+
+        headerView.ivCross.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
     private fun listeners() {
-
-       /* binding.tvDate.setOnClickListener {
-            DateUtils.openDatePicker(requireActivity(), this, false, false)
-        }*/
-
-       /* binding.ivPic.setOnClickListener {
-            startActivityForResult(Intent(requireActivity(), DrawerActivity::class.java)
-                    .putExtra(PAGE_TO_OPEN, PROFILE), AppRequestCode.PROFILE_UPDATE)
-        }*/
+        binding.ivDrawer.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
     }
 
-    override fun onDateSelected(date: String) {
-        binding.tvDate.text = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
-                DateFormat.MON_YEAR_FORMAT, date)
+    override fun onNavigationItemSelected(@NonNull item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
 
-        selectedDate = binding.tvDate.text.toString()
+            R.id.logout -> {
+                showLogoutDialog()
+            }
+        }
 
-        /*Refresh pages*/
-        (adapter.fragments[0] as AppointmentFragment).hitApiDate()
+        //close navigation drawer
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
+
+    private fun showLogoutDialog() {
+        AlertDialogUtil.instance.createOkCancelDialog(
+                requireContext(), R.string.sign_out,
+                R.string.logout_dialog_message, R.string.yes, R.string.no, false,
+                object : AlertDialogUtil.OnOkCancelDialogListener {
+                    override fun onOkButtonClicked() {
+                        viewModelLogin.logout()
+                    }
+
+                    override fun onCancelButtonClicked() {
+                    }
+                }).show()
+    }
+
+    private fun bindObservers() {
+        viewModelLogin.logout.observe(this, Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialog.setLoading(false)
+
+                    logoutUser(requireActivity(), prefsManager)
+                }
+                Status.ERROR -> {
+                    progressDialog.setLoading(false)
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialog.setLoading(true)
+                }
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handleHeader()
+    }
+
 }

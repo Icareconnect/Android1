@@ -25,7 +25,6 @@ import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
-import okhttp3.MediaType
 import okhttp3.RequestBody
 import javax.inject.Inject
 

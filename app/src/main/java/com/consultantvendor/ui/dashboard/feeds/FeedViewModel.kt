@@ -7,7 +7,6 @@ import com.consultantvendor.data.network.responseUtil.ApiResponse
 import com.consultantvendor.data.network.responseUtil.ApiUtils
 import com.consultantvendor.data.network.responseUtil.Resource
 import com.consultantvendor.di.SingleLiveEvent
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

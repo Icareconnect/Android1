@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentWelcomeBinding
-import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
 import com.consultantvendor.ui.loginSignUp.login.LoginFragment
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
 import com.consultantvendor.ui.walkthrough.WalkThroughFragment
@@ -50,7 +49,6 @@ class WelcomeFragment : DaggerFragment() {
 
             initialise()
             listeners()
-            setBanners()
         }
         return rootView
     }
@@ -66,15 +64,6 @@ class WelcomeFragment : DaggerFragment() {
         }
     }
 
-    private fun setBanners() {
-        val adapter = CommonFragmentPagerAdapter(requireActivity().supportFragmentManager)
-        adapter.addTab("", BannerFragment())
-        adapter.addTab("", BannerFragment())
-        adapter.addTab("", BannerFragment())
-        binding.viewPager.adapter = adapter
-
-        binding.pageIndicatorView.setViewPager(binding.viewPager)
-    }
 
     private fun listeners() {
         binding.tvSignUpMobile.setOnClickListener {

@@ -12,7 +12,6 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.ActivityHomeBinding
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
-import com.google.firebase.iid.FirebaseInstanceId
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 

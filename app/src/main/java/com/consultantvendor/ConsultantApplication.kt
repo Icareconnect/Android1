@@ -28,6 +28,7 @@ class ConsultantApplication : DaggerApplication() {
         super.onCreate()
 
         Fresco.initialize(this)
+
         setsApplication(this)
     }
 
@@ -35,8 +36,6 @@ class ConsultantApplication : DaggerApplication() {
         DaggerAppComponent.builder().create(this)
 
     companion object {
-
-        var twilioAccessToken = ""
 
         var currencyCode = ""
 

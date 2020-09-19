@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/editProfile"
+        android:icon="@drawable/ic_edit_profile"
+        android:title="@string/edit_profile" />
+
+    <item
+        android:id="@+id/changePassword"
+        android:icon="@drawable/ic_lock_selected"
+        android:title="@string/change_password" />
+
+    <item
+        android:id="@+id/logs"
+        android:icon="@drawable/reservation"
+        android:title="@string/logs" />
+
+    <item
+        android:id="@+id/helpSupport"
+        android:icon="@drawable/interface_2"
+        android:title="@string/contact_us" />
+
+    <item
+        android:id="@+id/accountDetails"
+        android:icon="@drawable/business_and_finance"
+        android:title="@string/account_details" />
+
+    <item
+        android:id="@+id/changeAddress"
+        android:icon="@drawable/address"
+        android:title="@string/change_address" />
+
+    <item
+        android:id="@+id/myEarnings"
+        android:icon="@drawable/donation"
+        android:title="@string/my_earnings" />
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout" />
+
+</menu>

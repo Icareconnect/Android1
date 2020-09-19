@@ -1,7 +1,5 @@
 package com.consultantvendor.data.repos
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.consultantvendor.ConsultantApplication

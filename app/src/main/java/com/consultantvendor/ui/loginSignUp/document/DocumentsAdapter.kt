@@ -1,20 +1,15 @@
 package com.consultantvendor.ui.loginSignUp.document
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.AdditionalField
-import com.consultantvendor.data.models.responses.Service
 import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemDocumentsBinding
-import com.consultantvendor.databinding.RvItemServiceBinding
-import com.consultantvendor.utils.*
 
 
 class DocumentsAdapter(private val fragment: DocumentsFragment, private val items: ArrayList<AdditionalField>) :
