@@ -7,6 +7,11 @@
         android:title="@string/edit_profile" />
 
     <item
+        android:id="@+id/documents"
+        android:icon="@drawable/reservation"
+        android:title="@string/manage_documents" />
+
+    <item
         android:id="@+id/changePassword"
         android:icon="@drawable/ic_lock_selected"
         android:title="@string/change_password" />

@@ -2,8 +2,10 @@ package com.consultantvendor.ui.loginSignUp.register
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +13,16 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.consultantvendor.R
+import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
 import com.consultantvendor.data.models.requests.SetService
 import com.consultantvendor.data.models.requests.UpdateServices
+import com.consultantvendor.data.models.responses.Categories
 import com.consultantvendor.data.models.responses.Filter
 import com.consultantvendor.data.models.responses.FilterOption
+import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.models.responses.appdetails.Insurance
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
@@ -25,11 +31,16 @@ import com.consultantvendor.databinding.FragmentRegisterBinding
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.drawermenu.classes.ClassesViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
+import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
+import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
+import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
+import droidninja.filepicker.FilePickerConst
 import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 class RegisterFragment : DaggerFragment(), OnDateSelected {
@@ -67,6 +78,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
     private var itemsExperience = ArrayList<FilterOption>()
 
+    private var address: SaveAddress? = null
+
+    private var userData: UserData? = null
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -84,7 +99,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
             if (isConnectedToInternet(requireContext(), true)) {
                 val hashMap = HashMap<String, String>()
-                hashMap["category_id"] = "1"
+                hashMap["category_id"] = CATEGORY_ID
                 viewModelFilter.getFilters(hashMap)
             }
         }
@@ -103,16 +118,62 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     }
 
     private fun setEditInformation() {
-        val userData = userRepository.getUser()
+        userData = userRepository.getUser()
 
         if (!userData?.name.equals("1#123@123"))
             binding.etName.setText(userData?.name ?: "")
 
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
             binding.tvName.text = getString(R.string.update)
+            binding.cbTerms.gone()
+            binding.cvQualification.visible()
+
+            if (!userData?.profile?.location_name.isNullOrEmpty()) {
+                binding.etLocation.setText(userData?.profile?.location_name)
+
+                address = SaveAddress()
+                address?.locationName = userData?.profile?.location_name
+                address?.location = ArrayList()
+                address?.location?.add(userData?.profile?.long?.toDouble() ?: 0.0)
+                address?.location?.add(userData?.profile?.lat?.toDouble() ?: 0.0)
+            }
 
             userData?.custom_fields?.forEach {
                 when (it.field_name) {
+                    CustomFields.WORK_EXPERIENCE -> {
+                        when (it.field_value) {
+                            getString(R.string.months_0_5) -> {
+                                itemsExperience[0].isSelected = true
+                            }
+                            getString(R.string.months_6_11) -> {
+                                itemsExperience[1].isSelected = true
+                            }
+                            getString(R.string.months_12_24) -> {
+                                itemsExperience[2].isSelected = true
+                            }
+                            getString(R.string.months_24) -> {
+                                itemsExperience[3].isSelected = true
+                            }
+                        }
+                        adapterExperience.notifyDataSetChanged()
+
+                        return@forEach
+                    }
+                    CustomFields.WORKING_SHIFTS -> {
+                        if (it.field_value?.contains(getString(R.string.day_shift)) == true) {
+                            itemsShift[0].isSelected = true
+                        }
+                        if (it.field_value?.contains(getString(R.string.evening_shift)) == true) {
+                            itemsShift[1].isSelected = true
+                        }
+                        if (it.field_value?.contains(getString(R.string.night_shift)) == true) {
+                            itemsShift[2].isSelected = true
+                        }
+
+                        adapterShift.notifyDataSetChanged()
+
+                        return@forEach
+                    }
                     CustomFields.PROFESSIONAL_LISCENCE -> {
                         binding.etLiscence.setText(it.field_value ?: "")
                         return@forEach
@@ -176,6 +237,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             DateUtils.openDatePicker(requireActivity(), this, false, true)
         }
 
+        binding.etLocation.setOnClickListener {
+            placePicker(this, requireActivity())
+        }
+
         binding.tvContinue.setOnClickListener {
             var qualification = ""
             itemsQualification.forEachIndexed { index, filterOption ->
@@ -203,6 +268,9 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 binding.etName.text.toString().trim().isEmpty() -> {
                     binding.etName.showSnackBar(getString(R.string.enter_name))
                 }
+                binding.etLocation.text.toString().isEmpty() -> {
+                    binding.etLocation.showSnackBar(getString(R.string.select_address))
+                }
                 qualification.isEmpty() -> {
                     binding.tvQualification.showSnackBar(getString(R.string.select_your_qualification_type))
                 }
@@ -221,7 +289,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 binding.etStartDate.text.toString().trim().isEmpty() -> {
                     binding.etStartDate.showSnackBar(getString(R.string.start_date))
                 }
-                !binding.cbTerms.isChecked -> {
+                arguments?.containsKey(UPDATE_PROFILE) == false && !binding.cbTerms.isChecked -> {
                     binding.cbTerms.showSnackBar(binding.cbTerms.text.toString())
                 }
                 isConnectedToInternet(requireContext(), true) -> {
@@ -229,13 +297,17 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
                     hashMap["name"] = getRequestBody(binding.etName.text.toString().trim())
 
+                    hashMap["location_name"] = getRequestBody(address?.locationName ?: "")
+                    hashMap["lat"] = getRequestBody(address?.location?.get(1).toString())
+                    hashMap["long"] = getRequestBody(address?.location?.get(0).toString())
+
                     val custom_fields = ArrayList<Insurance>()
 
                     userRepository.getAppSetting()?.custom_fields?.service_provider?.forEach {
                         val item = it
                         when (it.field_name) {
                             CustomFields.WORKING_SHIFTS -> {
-                                item.field_value = shift
+                                item.field_value = shift.removeSuffix(", ")
                                 custom_fields.add(item)
                             }
                             CustomFields.WORK_EXPERIENCE -> {
@@ -288,12 +360,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     prefsManager.save(USER_DATA, it.data)
                     /*If need to move to phone number*/
 
-                    if (userRepository.isUserLoggedIn()) {
-                        startActivity(Intent(requireContext(), HomeActivity::class.java))
-                        requireActivity().finish()
-                    } else {
-                        updateCategory()
-                    }
+                    updateCategory()
                 }
                 Status.ERROR -> {
                     progressDialog.setLoading(false)
@@ -339,6 +406,15 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     if (itemFilter.isNotEmpty())
                         itemsQualification.addAll(itemFilter[0].options ?: emptyList())
 
+                    itemsQualification.forEachIndexed { index, filterOption ->
+                        userData?.filters?.get(0)?.options?.forEach {
+                            if (filterOption.id == it.id && it.isSelected) {
+                                itemsQualification[index].isSelected = true
+                                return@forEach
+                            }
+                        }
+                    }
+
                     adapterQualification = CheckItemAdapter(true, itemsQualification)
                     binding.rvQualification.adapter = adapterQualification
                 }
@@ -368,6 +444,16 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     } else if (userRepository.isUserLoggedIn()) {
                         startActivity(Intent(requireContext(), HomeActivity::class.java))
                         requireActivity().finish()
+                    } else {
+                        val item = Categories()
+                        item.id = CATEGORY_ID
+                        val fragment = DocumentsFragment()
+                        val bundle = Bundle()
+                        bundle.putSerializable(SubCategoryFragment.CATEGORY_PARENT_ID, item)
+                        fragment.arguments = bundle
+
+                        replaceFragment(requireActivity().supportFragmentManager,
+                                fragment, R.id.container)
                     }
                 }
                 Status.ERROR -> {
@@ -385,13 +471,13 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     private fun updateCategory() {
         if (isConnectedToInternet(requireContext(), true)) {
             val updateServices = UpdateServices()
-            updateServices.category_id = "1"
+            updateServices.category_id = CATEGORY_ID
 
             /*Add service type*/
             updateServices.category_services_type = ArrayList()
 
             val setService = SetService()
-            setService.id = "1"
+            setService.id = SERVICE_ID
             setService.available = "1"
             setService.price = 10
             updateServices.category_services_type?.add(setService)
@@ -421,5 +507,32 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
     override fun onDateSelected(date: String) {
         binding.etStartDate.setText(date)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                AppRequestCode.AUTOCOMPLETE_REQUEST_CODE -> {
+                    binding.etLocation.hideKeyboard()
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(it)
+
+                        binding.etLocation.setText(getAddress(place))
+
+                        Log.i("Place===", "Place: " + place.name + ", " + place.id)
+
+                        address = SaveAddress()
+                        address?.locationName = getAddress(place)
+                        address?.location = ArrayList()
+                        address?.location?.add(place.latLng?.longitude ?: 0.0)
+                        address?.location?.add(place.latLng?.latitude ?: 0.0)
+
+                        binding.etLiscence.hideKeyboard()
+                        //performAddressSelectAction(false, address)
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.consultantvendor.ui.loginSignUp.document
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentServiceBinding
+import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.document.add.DialogAddDocumentFragment
 import com.consultantvendor.ui.loginSignUp.prefrence.PrefrenceFragment
@@ -133,6 +135,8 @@ class DocumentsFragment : DaggerFragment() {
 
                     viewModel.additionalDetailsUpdate(updateDocument)
                 }
+            }else{
+                binding.tvNext.showSnackBar(getString(R.string.upload_documents))
             }
         }
     }
@@ -174,20 +178,27 @@ class DocumentsFragment : DaggerFragment() {
 
                     prefsManager.save(USER_DATA, userData)
 
-                    if (arguments?.containsKey(UPDATE_DOCUMENTS) == true) {
-                        requireActivity().setResult(Activity.RESULT_OK)
-                        requireActivity().finish()
-                    } else {
-                        val fragment = when {
-                            categoryData?.is_filters == true -> PrefrenceFragment()
-                            else -> ServiceFragment()
+                    when {
+                        arguments?.containsKey(UPDATE_DOCUMENTS) == true -> {
+                            requireActivity().setResult(Activity.RESULT_OK)
+                            requireActivity().finish()
                         }
+                        userRepository.isUserLoggedIn() -> {
+                            startActivity(Intent(requireContext(), HomeActivity::class.java))
+                            requireActivity().finish()
+                        }
+                        else -> {
+                            val fragment = when {
+                                categoryData?.is_filters == true -> PrefrenceFragment()
+                                else -> ServiceFragment()
+                            }
 
-                        val bundle = Bundle()
-                        bundle.putSerializable(SubCategoryFragment.CATEGORY_PARENT_ID, categoryData)
-                        fragment.arguments = bundle
+                            val bundle = Bundle()
+                            bundle.putSerializable(SubCategoryFragment.CATEGORY_PARENT_ID, categoryData)
+                            fragment.arguments = bundle
 
-                        replaceFragment(requireActivity().supportFragmentManager, fragment, R.id.container)
+                            replaceFragment(requireActivity().supportFragmentManager, fragment, R.id.container)
+                        }
                     }
                 }
                 Status.ERROR -> {

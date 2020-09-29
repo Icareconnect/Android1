@@ -8,6 +8,7 @@ import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.dashboard.feeds.AddFeedFragment
 import com.consultantvendor.ui.dashboard.feeds.FeedDetailsFragment
 import com.consultantvendor.ui.dashboard.feeds.FeedsFragment
+import com.consultantvendor.ui.dashboard.home.AppointmentDetailsFragment
 import com.consultantvendor.ui.dashboard.home.AppointmentFragment
 import com.consultantvendor.ui.dashboard.home.HomeFragment
 import com.consultantvendor.ui.dashboard.home.verification.UserVerificationFragment
@@ -178,6 +179,9 @@ abstract class BindingsModule {
 
     @ContributesAndroidInjector
     abstract fun walkthroughDetailFragment(): WalkthroughDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun appointmentDetailsFragment(): AppointmentDetailsFragment
 
 
 }

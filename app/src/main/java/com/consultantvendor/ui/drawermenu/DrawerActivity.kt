@@ -103,6 +103,7 @@ class DrawerActivity : DaggerAppCompatActivity() {
         else 0
         val fragment = supportFragmentManager.fragments[index]
         if (fragment is UserVerificationFragment) {
+            finishAffinity()
             /*Nothing to Do*/
         } else
             super.onBackPressed()

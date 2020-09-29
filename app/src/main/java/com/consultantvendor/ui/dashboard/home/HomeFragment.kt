@@ -19,6 +19,9 @@ import com.consultantvendor.databinding.FragmentHomeBinding
 import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
+import com.consultantvendor.ui.loginSignUp.SignUpActivity
+import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
+import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.material.navigation.NavigationView
@@ -113,11 +116,26 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
         binding.ivDrawer.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+
+        binding.ivNotification.setOnClickListener {
+            startActivity(Intent(requireContext(), DrawerActivity::class.java)
+                    .putExtra(PAGE_TO_OPEN, DrawerActivity.NOTIFICATION))
+        }
     }
 
     override fun onNavigationItemSelected(@NonNull item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
+
+            R.id.editProfile->{
+                startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
+                        .putExtra(UPDATE_PROFILE, true), AppRequestCode.PROFILE_UPDATE)
+            }
+            R.id.documents ->{
+                startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
+                        .putExtra(SubCategoryFragment.CATEGORY_PARENT_ID, userRepository.getUser()?.categoryData)
+                        .putExtra(DocumentsFragment.UPDATE_DOCUMENTS, true), AppRequestCode.PROFILE_UPDATE)
+            }
 
             R.id.logout -> {
                 showLogoutDialog()

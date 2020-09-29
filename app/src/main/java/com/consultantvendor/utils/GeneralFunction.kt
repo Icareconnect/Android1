@@ -43,6 +43,9 @@ import com.consultantvendor.ui.webview.WebViewActivity
 import com.consultantvendor.utils.DateUtils.dateFormatChange
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
@@ -500,4 +503,35 @@ fun shareDeepLink(deepLink: String, activity: Activity, userRepository: UserRepo
         //ivShare.showSnackBar(getString(R.string.error))
         progressDialog.setLoading(false)
     }
+}
+
+fun placePicker(fragment: Fragment?, activityMain: Activity) {
+    val activity: Activity = if (fragment != null)
+        fragment.activity as Activity
+    else
+        activityMain
+
+    val fields =
+            listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS)
+    val intent = Autocomplete.IntentBuilder(
+            AutocompleteActivityMode.FULLSCREEN, fields)
+            .build(activity)
+
+    if (fragment == null)
+        activity.startActivityForResult(intent, AppRequestCode.AUTOCOMPLETE_REQUEST_CODE)
+    else
+        fragment.startActivityForResult(intent, AppRequestCode.AUTOCOMPLETE_REQUEST_CODE)
+}
+
+fun getAddress(place: Place): String {
+    val finalAddress: String
+    val name = place.name.toString()
+    val placeAddress = place.address.toString()
+
+    if (place.address?.contains(name) == true) {
+        finalAddress = placeAddress
+    } else {
+        finalAddress = "$name, $placeAddress"
+    }
+    return finalAddress
 }

@@ -32,30 +32,33 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivDrawer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
                     android:layout_marginStart="@dimen/dp_16"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="@dimen/dp_4"
                     android:src="@drawable/ic_drawer"
                     app:layout_constraintBottom_toBottomOf="@id/tvTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
 
-                <com.makeramen.roundedimageview.RoundedImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivNotification"
-                    android:layout_width="@dimen/dp_36"
-                    android:layout_height="@dimen/dp_36"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_16"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="@dimen/dp_4"
+                    android:tint="@color/colorWhite"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_notification_drawer"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:riv_corner_radius="@dimen/dp_36" />

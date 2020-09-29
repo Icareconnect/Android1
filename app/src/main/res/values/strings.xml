@@ -4,6 +4,8 @@
     <!--Facebook keys-->
     <string name="facebook_app_id">614826522700049</string>
     <string name="fb_login_protocol_scheme">fb614826522700049</string>
+
+    <!--Google-->
     <string name="google_places_api_key" translatable="false">AIzaSyCWRLStt_5Kmgd877p8o_fPM2W5pdZ4WbU</string>
 
     <string name="allow">ALLOW</string>
@@ -94,7 +96,7 @@
     <string name="sent_password">We have sent a temporary password in your email. Please check your email.</string>
     <string name="chat_request">Chat request</string>
     <string name="call_equest">Call request</string>
-    <string name="neww">New</string>
+    <string name="new_request">New Request</string>
     <string name="no_show">No show</string>
     <string name="canceled">Cancelled</string>
     <string name="cancel">Cancel</string>
@@ -107,7 +109,7 @@
     <string name="closing_balance">Closing Balance: %s</string>
     <string name="accept_request">Accept request</string>
     <string name="accept_request_message">Are you sure you want to accept this request</string>
-    <string name="accepted">accepted</string>
+    <string name="accepted">Accepted</string>
     <string name="inprogess">In progress</string>
     <string name="starting_call">Starting a call...</string>
     <string name="starting_chat">Starting a chat</string>
@@ -382,6 +384,11 @@
     <string name="account_details">Account Details</string>
     <string name="change_address">Change Address</string>
     <string name="my_earnings">My Earnings</string>
+    <string name="select_address">Select address</string>
+    <string name="accept">Accept</string>
+    <string name="distance">Distance :</string>
+    <string name="date_amp_time"><![CDATA[Date & Time :]]></string>
+    <string name="service_detail">Service Detail</string>
 
 
 </resources>

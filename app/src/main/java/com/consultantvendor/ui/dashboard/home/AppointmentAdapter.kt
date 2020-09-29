@@ -71,21 +71,19 @@ class AppointmentAdapter(
             tvCancel.hideShowView(request.canCancel)
 
             tvName.text = request.from_user?.name
+            tvLocation.text = request.from_user?.profile?.location_name
             loadImage(binding.ivPic, request.from_user?.profile_image,
                     R.drawable.ic_profile_placeholder)
 
-            tvDateTime.text = "${DateUtils.dateTimeFormatFromUTC(
-                    DateFormat.MON_YEAR_FORMAT, request.bookingDateUTC)} · " +
+            tvBookingDateV.text = "${DateUtils.dateTimeFormatFromUTC(
+                    DateFormat.MON_YEAR_FORMAT, request.bookingDateUTC)} & " +
                     "${DateUtils.dateTimeFormatFromUTC(DateFormat.TIME_FORMAT, request.bookingDateUTC)}"
-
-            tvRequestType.text = request.service_type
-            tvPrice.text = getCurrency(request.price)
 
             tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             when (request.status) {
                 CallAction.PENDING -> {
-                    tvStatus.text = context.getString(R.string.neww)
-                    tvAccept.text = context.getString(R.string.accept_request)
+                    tvStatus.text = context.getString(R.string.new_request)
+                    tvAccept.text = context.getString(R.string.accept)
                 }
                 CallAction.ACCEPT -> {
                     tvStatus.text = context.getString(R.string.accepted)
@@ -117,10 +115,11 @@ class AppointmentAdapter(
                     tvCancel.gone()
                 }
                 else -> {
-                    tvStatus.text = context.getString(R.string.neww)
+                    tvStatus.text = context.getString(R.string.new_request)
                 }
             }
         }
+
     }
 
     inner class ViewHolderLoader(val binding: ItemPagingLoaderBinding) :

@@ -6,6 +6,7 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.di.DaggerAppComponent
 import com.consultantvendor.utils.PrefsManager
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.google.android.libraries.places.api.Places
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
@@ -28,6 +29,9 @@ class ConsultantApplication : DaggerApplication() {
         super.onCreate()
 
         Fresco.initialize(this)
+
+        // Initialize Places.
+        Places.initialize(applicationContext, getString(R.string.google_places_api_key))
 
         setsApplication(this)
     }

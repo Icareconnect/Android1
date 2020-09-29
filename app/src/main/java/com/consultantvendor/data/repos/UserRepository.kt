@@ -37,7 +37,7 @@ class UserRepository @Inject constructor(
 
         return if (user?.id.isNullOrEmpty() || user?.name.isNullOrEmpty())
             false
-        else if (user?.categoryData == null)
+        else if (user?.categoryData == null || user.additionals.isNullOrEmpty())
             false
         else
             true
