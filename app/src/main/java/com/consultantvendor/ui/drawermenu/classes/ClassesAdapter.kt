@@ -61,7 +61,6 @@ class ClassesAdapter(private val fragment: ClassesFragment, private val items: A
 
         fun bind(item: ClassData) = with(binding) {
             val context = binding.root.context
-            slideRecyclerItem(binding.root, context)
 
             tvName.text = item.created_by?.name
             tvDesc.text = item.created_by?.categoryData?.name ?: context.getString(R.string.na)

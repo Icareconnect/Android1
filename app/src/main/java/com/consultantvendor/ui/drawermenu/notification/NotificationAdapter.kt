@@ -12,7 +12,6 @@ import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemNotificationBinding
 import com.consultantvendor.utils.DateUtils.getTimeAgo
 import com.consultantvendor.utils.loadImage
-import com.consultantvendor.utils.slideRecyclerItem
 
 
 class NotificationAdapter(private val items: ArrayList<Notification>) :
@@ -52,7 +51,6 @@ class NotificationAdapter(private val items: ArrayList<Notification>) :
             RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Notification) = with(binding) {
-            slideRecyclerItem(binding.root, binding.root.context)
 
             tvName.text = item.message
 

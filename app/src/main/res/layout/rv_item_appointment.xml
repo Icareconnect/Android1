@@ -83,10 +83,13 @@
                 android:id="@+id/tvLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/campton_semibold"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/sp_16"
-                android:maxLines="2"
+                android:fontFamily="@font/sans_regular"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_12"
+                android:layout_marginTop="@dimen/dp_4"
+                android:drawablePadding="@dimen/dp_8"
+                android:maxLines="1"
+                android:alpha="0.6"
                 android:ellipsize="end"
                 android:drawableStart="@drawable/ic_location"
                 android:layout_marginStart="@dimen/dp_16"
@@ -145,7 +148,7 @@
                 android:alpha="0.5"
                 android:textSize="@dimen/sp_14"
                 app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/tvServiceType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvServiceTypeV" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDistanceV"
@@ -167,12 +170,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
                 android:fontFamily="@font/sans_regular"
-                android:text="@string/date_amp_time"
+                android:text="@string/date"
                 android:textColor="@color/colorBlack"
                 android:alpha="0.5"
                 android:textSize="@dimen/sp_14"
                 app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDistanceV" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvBookingDateV"
@@ -183,9 +186,39 @@
                 android:textColor="@color/colorBlack"
                 android:layout_marginStart="100dp"
                 android:alpha="0.7"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textSize="@dimen/sp_14"
+                app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                 app:layout_constraintStart_toStartOf="@id/startGuideLine"
                 app:layout_constraintTop_toTopOf="@+id/tvBookingDate" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBookingTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:fontFamily="@font/sans_regular"
+                android:text="@string/time"
+                android:textColor="@color/colorBlack"
+                android:alpha="0.5"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/tvBookingDateV" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBookingTimeV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sans_bold"
+                android:text="@string/service_type"
+                android:textColor="@color/colorBlack"
+                android:layout_marginStart="100dp"
+                android:alpha="0.7"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                app:layout_constraintTop_toTopOf="@+id/tvBookingTime" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -202,7 +235,7 @@
                 android:textSize="@dimen/sp_16"
                 app:layout_constraintEnd_toStartOf="@+id/tvAccept"
                 app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/tvBookingDate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvBookingTimeV" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvAccept"
@@ -217,7 +250,7 @@
                 android:textSize="@dimen/sp_16"
                 app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                 app:layout_constraintStart_toEndOf="@+id/tvCancel"
-                app:layout_constraintTop_toBottomOf="@+id/tvBookingDate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvBookingTimeV" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

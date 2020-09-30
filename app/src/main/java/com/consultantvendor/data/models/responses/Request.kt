@@ -18,4 +18,5 @@ class Request : Serializable {
     var canCancel = false
 
     var call_id: String? = null
+    var extra_detail: Extra_detail? = null
 }

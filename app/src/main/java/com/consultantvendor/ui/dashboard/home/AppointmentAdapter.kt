@@ -61,23 +61,29 @@ class AppointmentAdapter(
             binding.tvCancel.setOnClickListener {
                 fragment.cancelAppointment(items[adapterPosition])
             }
+            binding.clAppointment.setOnClickListener {
+                fragment.viewDetails(items[adapterPosition])
+            }
         }
 
         fun bind(request: Request) = with(binding) {
             val context = binding.root.context
-            //slideRecyclerItem(binding.root, context)
 
             tvAccept.visible()
             tvCancel.hideShowView(request.canCancel)
 
             tvName.text = request.from_user?.name
-            tvLocation.text = request.from_user?.profile?.location_name
+            tvServiceTypeV.text = request.extra_detail?.filter_name ?:""
+            tvLocation.text = request.extra_detail?.service_address
             loadImage(binding.ivPic, request.from_user?.profile_image,
                     R.drawable.ic_profile_placeholder)
 
-            tvBookingDateV.text = "${DateUtils.dateTimeFormatFromUTC(
-                    DateFormat.MON_YEAR_FORMAT, request.bookingDateUTC)} & " +
-                    "${DateUtils.dateTimeFormatFromUTC(DateFormat.TIME_FORMAT, request.bookingDateUTC)}"
+            tvDateTime.text = "${DateUtils.dateTimeFormatFromUTC(
+                    DateFormat.MON_YEAR_FORMAT, request.created_at)} & " +
+                    "${DateUtils.dateTimeFormatFromUTC(DateFormat.TIME_FORMAT, request.created_at)}"
+
+            tvBookingDateV.text = getDatesComma(request.extra_detail?.working_dates)
+            tvBookingTimeV.text = "${request.extra_detail?.start_time?:""} - ${request.extra_detail?.end_time?:""}"
 
             tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             when (request.status) {

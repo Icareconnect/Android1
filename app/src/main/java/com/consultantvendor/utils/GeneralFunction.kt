@@ -457,11 +457,6 @@ class Terms : ClickableSpan() {
 }
 
 
-fun slideRecyclerItem(viewToAnimate: View, context: Context) {
-    val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.slide_out_bottom)
-    viewToAnimate.startAnimation(animation)
-}
-
 /*Share*/
 fun shareDeepLink(deepLink: String, activity: Activity, userRepository: UserRepository) {
     val progressDialog = ProgressDialog(activity)
@@ -480,7 +475,8 @@ fun shareDeepLink(deepLink: String, activity: Activity, userRepository: UserRepo
         socialMetaTagParameters {
             title = activity.getString(R.string.app_name)
             description = activity.getString(R.string.invite_text)
-            imageUrl = Uri.parse(getImageBaseUrl(true,userRepository.getAppSetting()?.applogo?:""))
+            imageUrl = Uri.parse(getImageBaseUrl(true, userRepository.getAppSetting()?.applogo
+                    ?: ""))
         }
     }.addOnSuccessListener { result ->
         progressDialog.setLoading(false)
@@ -534,4 +530,26 @@ fun getAddress(place: Place): String {
         finalAddress = "$name, $placeAddress"
     }
     return finalAddress
+}
+
+fun mapIntent(activity: Activity, name: String, lat: Double, lng: Double) {
+    try {
+        val url = "http://maps.google.com/maps?daddr=$lat,$lng($name)"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        intent.setPackage("com.google.android.apps.maps")
+        activity.startActivity(intent)
+    } catch (e: Exception) {
+        activity.longToast(activity.getString(R.string.map_not_found))
+    }
+}
+
+fun getDatesComma(date: String?) :String{
+    var newList=""
+    if(!date.isNullOrEmpty()) {
+        val list = date.split(",")
+        list.forEach {
+            newList += "${dateFormatChange(DateFormat.DATE_FORMAT, DateFormat.MON_YEAR_FORMAT, it)} | "
+        }
+    }
+    return newList.removeSuffix(" | ")
 }

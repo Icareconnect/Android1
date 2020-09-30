@@ -41,6 +41,7 @@ interface WebService {
 
         private const val SUBSCRIBE_SERVICE = "/api/subscribe-service"
         private const val REQUESTS = "/api/requests"
+        private const val REQUEST_DETAIL="/api/request-detail"
         private const val WALLET_HISTORY = "/api/wallet-history-sp"
         private const val WALLET = "/api/wallet-sp"
         private const val CHAT_LISTING = "/api/chat-listing"
@@ -220,6 +221,10 @@ interface WebService {
 
     @GET(REQUESTS)
     fun request(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
+
+
+    @GET(REQUEST_DETAIL)
+    fun requestDetail(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
 
     @GET(DOCTOR_DETAIL)
     fun doctorDetails(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>

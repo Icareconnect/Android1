@@ -10,7 +10,10 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemWalletBinding
-import com.consultantvendor.utils.*
+import com.consultantvendor.utils.DateFormat
+import com.consultantvendor.utils.DateUtils
+import com.consultantvendor.utils.WalletMoney
+import com.consultantvendor.utils.getCurrency
 
 
 class WalletAdapter(private val items: ArrayList<Wallet>) :
@@ -50,7 +53,6 @@ class WalletAdapter(private val items: ArrayList<Wallet>) :
             RecyclerView.ViewHolder(binding.root) {
 
         fun bind(wallet: Wallet) = with(binding) {
-            slideRecyclerItem(binding.root, binding.root.context)
 
             when (wallet.type) {
                 WalletMoney.DEPOSIT -> {

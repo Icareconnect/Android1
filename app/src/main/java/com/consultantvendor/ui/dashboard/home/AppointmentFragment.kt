@@ -1,9 +1,11 @@
 package com.consultantvendor.ui.dashboard.home
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,13 +28,14 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentAppointmentBinding
 import com.consultantvendor.ui.calling.CallingActivity
 import com.consultantvendor.ui.chat.chatdetail.ChatDetailActivity
+import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.item_no_data.view.*
 import javax.inject.Inject
 
-class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
+class AppointmentFragment : DaggerFragment() {
 
     @Inject
     lateinit var prefsManager: PrefsManager
@@ -124,20 +127,20 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
             isLastPage = false
         }
 
-        val hashMap = HashMap<String, String>()
         if (isConnectedToInternet(requireContext(), true)) {
+            val hashMap = HashMap<String, String>()
             if (!isFirstPage && items.isNotEmpty())
                 hashMap[AFTER] = items[items.size - 1].id ?: ""
 
             hashMap[PER_PAGE] = PER_PAGE_LOAD.toString()
 
 
-         /*   val date = DateUtils.dateFormatChange(
-                    DateFormat.MON_YEAR_FORMAT,
-                    DateFormat.DATE_FORMAT, homeFragment.selectedDate
-            )
+            /*   val date = DateUtils.dateFormatChange(
+                       DateFormat.MON_YEAR_FORMAT,
+                       DateFormat.DATE_FORMAT, homeFragment.selectedDate
+               )
 
-            hashMap["date"] = date*/
+               hashMap["date"] = date*/
             hashMap["service_type"] = arguments?.getString(POSITION) ?: CallType.ALL
             viewModel.request(hashMap)
         }
@@ -286,6 +289,12 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
         }
     }
 
+    fun viewDetails(request: Request) {
+        startActivityForResult(Intent(requireContext(), DrawerActivity::class.java)
+                .putExtra(PAGE_TO_OPEN, DrawerActivity.APPOINTMENT_DETAILS)
+                .putExtra(EXTRA_REQUEST_ID, request.id), AppRequestCode.APPOINTMENT_DETAILS)
+    }
+
     private fun showAcceptRequestDialog() {
         AlertDialogUtil.instance.createOkCancelDialog(requireActivity(), R.string.accept_request,
                 R.string.accept_request_message, R.string.accept_request, R.string.cancel, false,
@@ -395,6 +404,15 @@ class AppointmentFragment(val homeFragment: HomeFragment) : DaggerFragment() {
             if (intent.action == PushType.REQUEST_COMPLETED || intent.action == PushType.NEW_REQUEST ||
                     intent.action == PushType.CANCELED_REQUEST || intent.action == PushType.REQUEST_FAILED ||
                     intent.action == PushType.RESCHEDULED_REQUEST || intent.action == PushType.PROFILE_APPROVED) {
+                hitApi(true)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AppRequestCode.APPOINTMENT_DETAILS) {
                 hitApi(true)
             }
         }

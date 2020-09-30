@@ -225,6 +225,7 @@
     <string name="for_s">For %s</string>
     <string name="all_s">All %s</string>
     <string name="all_weekdays">All Weekdays</string>
+    <string name="map_not_found">Google map application not found</string>
 
 
     <array name="country">
@@ -389,6 +390,11 @@
     <string name="distance">Distance :</string>
     <string name="date_amp_time"><![CDATA[Date & Time :]]></string>
     <string name="service_detail">Service Detail</string>
+    <string name="view_map">View map</string>
+    <string name="time_from_to">Time (from - to) :</string>
+    <string name="date">Date :</string>
+    <string name="special_instructions">Special Instructions :</string>
+    <string name="time">Time</string>
 
 
 </resources>

@@ -96,16 +96,17 @@ object AvailabilityType {
 }
 
 object AppRequestCode {
-    const val AUTOCOMPLETE_REQUEST_CODE: Int = 1001
-    const val IMAGE_PICKER: Int = 100
-    const val ADD_MONEY: Int = 101
-    const val PROFILE_UPDATE: Int = 102
+    const val AUTOCOMPLETE_REQUEST_CODE: Int = 100
+    const val IMAGE_PICKER: Int = 101
+    const val ADD_MONEY: Int = 102
+    const val PROFILE_UPDATE: Int = 103
     const val ARTICLE_CHANGES = 104
-    const val REQ_CHAT = 214
-    const val ADD_CLASS = 215
-    const val ADD_AVAILABILITY = 216
-    const val ADD_CARD: Int = 106
-    const val PAYOUT_MONEY: Int = 107
+    const val REQ_CHAT = 105
+    const val ADD_CLASS = 106
+    const val ADD_AVAILABILITY = 107
+    const val ADD_CARD: Int = 108
+    const val PAYOUT_MONEY: Int = 109
+    const val APPOINTMENT_DETAILS: Int = 110
 }
 
 object ChatType {

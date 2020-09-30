@@ -68,4 +68,7 @@ class CommonDataModel {
     /*Feeds*/
     var feeds: List<Feed>? = null
     var feed: Feed? = null
+
+    /*Request*/
+    var request_detail: Request ?= null
 }

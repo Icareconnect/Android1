@@ -83,7 +83,7 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
 
         titles.forEachIndexed { index, s ->
 
-            adapter.addTab(titles[index],  AppointmentFragment(this))
+            adapter.addTab(titles[index],  AppointmentFragment())
         }
 
         binding.viewPager.adapter = adapter
