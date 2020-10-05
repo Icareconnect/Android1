@@ -10,6 +10,7 @@ import com.consultantvendor.ui.dashboard.feeds.AddFeedFragment
 import com.consultantvendor.ui.dashboard.feeds.FeedDetailsFragment
 import com.consultantvendor.ui.dashboard.feeds.FeedsFragment
 import com.consultantvendor.ui.dashboard.home.AppointmentDetailsFragment
+import com.consultantvendor.ui.dashboard.home.appointmentStatus.StatusUpdateFragment
 import com.consultantvendor.ui.dashboard.home.verification.UserVerificationFragment
 import com.consultantvendor.ui.dashboard.wallet.PayoutFragment
 import com.consultantvendor.ui.dashboard.wallet.addmoney.AddCardFragment
@@ -82,6 +83,9 @@ class DrawerActivity : DaggerAppCompatActivity() {
             APPOINTMENT_DETAILS ->
                 addFragment(supportFragmentManager,
                         AppointmentDetailsFragment(), R.id.container)
+            UPDATE_SERVICE ->
+                addFragment(supportFragmentManager,
+                        StatusUpdateFragment(), R.id.container)
         }
     }
 
@@ -100,6 +104,7 @@ class DrawerActivity : DaggerAppCompatActivity() {
         const val BLOGS_DETAILS = "BLOGS_DETAILS"
         const val USER_VERIFICATION = "USER_VERIFICATION"
         const val APPOINTMENT_DETAILS="APPOINTMENT_DETAILS"
+        const val UPDATE_SERVICE="UPDATE_SERVICE"
     }
 
     override fun onBackPressed() {

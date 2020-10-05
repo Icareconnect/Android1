@@ -107,7 +107,7 @@
                     android:drawablePadding="@dimen/dp_8"
                     android:fontFamily="@font/circular_medium   "
                     android:gravity="center|center_vertical"
-                    android:text="@string/completed"
+                    android:text="@string/s_completed"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintStart_toStartOf="parent"

@@ -84,7 +84,7 @@ class RevenueFragment : DaggerFragment() {
                     binding.rvServices.adapter = adapter
 
                     binding.tvAppointmentV.text = revenueData?.totalRequest
-                    binding.tvCompleted.text = getString(R.string.completed, revenueData?.completedRequest)
+                    binding.tvCompleted.text = getString(R.string.s_completed, revenueData?.completedRequest)
                     binding.tvUnsuccessful.text = getString(R.string.unsuccessful, revenueData?.unSuccesfullRequest)
                     binding.tvTotalRevenueV.text = getCurrency(revenueData?.totalRevenue)
 

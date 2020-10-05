@@ -1,12 +1,8 @@
 <resources>
     <string name="app_name">Intely Experts</string>
 
-    <!--Facebook keys-->
-    <string name="facebook_app_id">614826522700049</string>
-    <string name="fb_login_protocol_scheme">fb614826522700049</string>
-
     <!--Google-->
-    <string name="google_places_api_key" translatable="false">AIzaSyCWRLStt_5Kmgd877p8o_fPM2W5pdZ4WbU</string>
+    <string name="google_places_api_key" translatable="false">AIzaSyBxwRzUvnbtTjNc8DURP4l4auJWsmrr7Bk</string>
 
     <string name="allow">ALLOW</string>
     <string name="deny">Deny</string>
@@ -87,7 +83,7 @@
     <string name="no_data_found">No data found</string>
     <string name="total_chat">Total chat</string>
     <string name="total_calls">Total calls</string>
-    <string name="completed">%s  Completed</string>
+    <string name="s_completed">%s  Completed</string>
     <string name="unsuccessful">%s Unsuccessful</string>
     <string name="select_image">Select image</string>
     <string name="update">Update</string>
@@ -403,6 +399,16 @@
     <string name="status">Status :</string>
     <string name="start_service">Start Service</string>
     <string name="cancel_service">Cancel Service</string>
+    <string name="service_status_update">Service Status Update</string>
+    <string name="current_status">Current Status</string>
+    <string name="status_update">Status Update</string>
+    <string name="arrived">Arrived</string>
+    <string name="started">Started</string>
+    <string name="completed">Completed</string>
+    <string name="change_service_status">Change Service Status</string>
+    <string name="pending">Pending</string>
+    <string name="update_status">Update Status</string>
+    <string name="clear">Clear</string>
 
 
 </resources>

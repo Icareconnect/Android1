@@ -3,6 +3,7 @@ package com.consultantvendor.ui.dashboard.home.appointmentStatus
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.ActivityAppointmentStatusBinding
+import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.PermissionUtils
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -88,6 +90,16 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), GoogleMap.OnCameraC
             binding.tvReached.gone()
             binding.groupOne.visible()
         }
+
+        binding.tvStartService.setOnClickListener {
+            startActivity(Intent(this, DrawerActivity::class.java)
+                    .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE))
+            finish()
+        }
+
+        binding.tvCancelService.setOnClickListener {
+            finish()
+        }
     }
 
 
@@ -98,7 +110,6 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), GoogleMap.OnCameraC
 
             fromLat = placeLatLng?.latitude ?: 0.0
             fromLng = placeLatLng?.longitude ?: 0.0
-            ChangeLocation().execute("")
         }
         isPlacePicker = false
     }
@@ -133,120 +144,12 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), GoogleMap.OnCameraC
                     val current = LatLng(gps.getLatitude(), gps.getLongitude())
                     placeLatLng = current
                     mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 15f))
-                    CheckLocation().execute("")
                 }
             }
         } else {
             gps.showSettingsAlert(this)
         }
 
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private inner class ChangeLocation : AsyncTask<String, Void, String>() {
-        var name = ""
-
-        override fun doInBackground(vararg params: String): String? {
-
-            val addresses: List<Address>
-            try {
-                addresses = geoCoder.getFromLocation(fromLat, fromLng, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-
-                if (addresses.isNotEmpty()) {
-                    name = when {
-                        addresses[0].getAddressLine(0) != null -> addresses[0].getAddressLine(0)
-                        addresses[0].featureName != null -> addresses[0].featureName
-                        addresses[0].locality != null -> addresses[0].locality
-                        else -> addresses[0].adminArea
-                    }
-                }
-
-            } catch (ignored: Exception) {
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: String?) {
-            try {
-                super.onPostExecute(result)
-                runOnUiThread {
-                    if (intent.hasExtra(EXTRA_ADDRESS)) {
-                        intent.removeExtra(EXTRA_ADDRESS)
-                    } else {
-
-                        saveAddress.location = ArrayList()
-                        saveAddress.location?.add(fromLng)
-                        saveAddress.location?.add(fromLat)
-                    }
-                }
-
-            } catch (ignored: Exception) {
-            }
-        }
-    }
-
-
-    @SuppressLint("StaticFieldLeak")
-    private inner class CheckLocation : AsyncTask<String, Void, String>() {
-        var name = ""
-
-        override fun doInBackground(vararg params: String): String? {
-
-            //Get user current location
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            val statusOfGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-
-            val gps = GPSTracker(this@AppointmentStatusActivity)
-            // check if GPS location can get Location
-            if (gps.canGetLocation() && statusOfGPS) {
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-                    val addresses: List<Address>
-                    try {
-                        addresses = geoCoder.getFromLocation(gps.getLatitude(), gps.getLongitude(), 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-
-                        if (addresses.isNotEmpty()) {
-                            name = when {
-                                addresses[0].getAddressLine(1) != null -> addresses[0].getAddressLine(1)
-                                addresses[0].featureName == null -> addresses[0].adminArea
-                                else -> String.format("%s, %s", addresses[0].featureName, addresses[0].locality)
-                            }
-                        }
-
-                        runOnUiThread {
-                            fromLat = gps.getLatitude()
-                            fromLng = gps.getLongitude()
-
-                            saveAddress.locationName = name
-                            saveAddress.location = ArrayList()
-                            saveAddress.location?.add(fromLng)
-                            saveAddress.location?.add(fromLat)
-                        }
-                    } catch (ignored: Exception) {
-                    }
-
-                }
-            } else {
-                if (!statusOfGPS)
-                    gps.showSettingsAlert(this@AppointmentStatusActivity)
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: String?) {
-            try {
-                super.onPostExecute(result)
-                runOnUiThread {
-
-                    saveAddress.location = ArrayList()
-                    saveAddress.location?.add(fromLng)
-                    saveAddress.location?.add(fromLat)
-                }
-            } catch (ignored: Exception) {
-            }
-        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

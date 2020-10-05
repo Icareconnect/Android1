@@ -27,6 +27,7 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentAppointmentBinding
 import com.consultantvendor.ui.calling.CallingActivity
 import com.consultantvendor.ui.chat.chatdetail.ChatDetailActivity
+import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
@@ -313,7 +314,8 @@ class AppointmentFragment : DaggerFragment() {
                 R.string.start_request_message, R.string.start_request, R.string.cancel, false,
                 object : AlertDialogUtil.OnOkCancelDialogListener {
                     override fun onOkButtonClicked() {
-                        hitApiStartRequest()
+                        //hitApiStartRequest()
+                        startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java))
                     }
 
                     override fun onCancelButtonClicked() {
