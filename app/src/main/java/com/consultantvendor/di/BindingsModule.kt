@@ -11,6 +11,7 @@ import com.consultantvendor.ui.dashboard.feeds.FeedsFragment
 import com.consultantvendor.ui.dashboard.home.AppointmentDetailsFragment
 import com.consultantvendor.ui.dashboard.home.AppointmentFragment
 import com.consultantvendor.ui.dashboard.home.HomeFragment
+import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
 import com.consultantvendor.ui.dashboard.home.verification.UserVerificationFragment
 import com.consultantvendor.ui.dashboard.revenue.RevenueFragment
 import com.consultantvendor.ui.dashboard.settings.SettingsFragment
@@ -182,6 +183,10 @@ abstract class BindingsModule {
 
     @ContributesAndroidInjector
     abstract fun appointmentDetailsFragment(): AppointmentDetailsFragment
+
+    @ContributesAndroidInjector
+    abstract fun appointmentStatusActivity(): AppointmentStatusActivity
+
 
 
 }

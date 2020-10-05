@@ -18,4 +18,5 @@ class Extra_detail {
     var working_dates: String? = null
     var filter_id: String? = null
     var filter_name: String? = null
+    var distance: String? = null
 }

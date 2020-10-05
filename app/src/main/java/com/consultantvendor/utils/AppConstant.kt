@@ -107,6 +107,7 @@ object AppRequestCode {
     const val ADD_CARD: Int = 108
     const val PAYOUT_MONEY: Int = 109
     const val APPOINTMENT_DETAILS: Int = 110
+    const val ASK_FOR_LOCATION: Int = 111
 }
 
 object ChatType {

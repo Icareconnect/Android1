@@ -74,6 +74,7 @@ class AppointmentAdapter(
 
             tvName.text = request.from_user?.name
             tvServiceTypeV.text = request.extra_detail?.filter_name ?:""
+            tvDistanceV.text = request.extra_detail?.distance ?:""
             tvLocation.text = request.extra_detail?.service_address
             loadImage(binding.ivPic, request.from_user?.profile_image,
                     R.drawable.ic_profile_placeholder)
@@ -86,6 +87,7 @@ class AppointmentAdapter(
             tvBookingTimeV.text = "${request.extra_detail?.start_time?:""} - ${request.extra_detail?.end_time?:""}"
 
             tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_accept)
             when (request.status) {
                 CallAction.PENDING -> {
                     tvStatus.text = context.getString(R.string.new_request)
@@ -94,11 +96,13 @@ class AppointmentAdapter(
                 CallAction.ACCEPT -> {
                     tvStatus.text = context.getString(R.string.accepted)
                     tvAccept.text = context.getString(R.string.start_request)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                     tvCancel.gone()
                 }
                 CallAction.INPROGRESS -> {
                     tvStatus.text = context.getString(R.string.inprogess)
                     tvAccept.text = context.getString(R.string.check_request)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                     tvCancel.gone()
                     tvAccept.gone()
                 }

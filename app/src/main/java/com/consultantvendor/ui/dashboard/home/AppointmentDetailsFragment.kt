@@ -1,6 +1,7 @@
 package com.consultantvendor.ui.dashboard.home
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.PER_PAGE_LOAD
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.databinding.FragmentAppointmentDetailsBinding
+import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
@@ -78,9 +80,10 @@ class AppointmentDetailsFragment : DaggerFragment() {
         }
 
         binding.tvViewMap.setOnClickListener {
-            val address=request.extra_detail
-            mapIntent(requireActivity(),address?.service_address ?:"",address?.lat?.toDouble() ?:0.0,
-                    address?.long?.toDouble() ?:0.0)
+            val address = request.extra_detail
+            mapIntent(requireActivity(), address?.service_address ?: "", address?.lat?.toDouble()
+                    ?: 0.0,
+                    address?.long?.toDouble() ?: 0.0)
         }
     }
 
@@ -97,16 +100,17 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.tvCancel.hideShowView(request.canCancel)
 
         binding.tvName.text = request.from_user?.name
-        binding.tvServiceTypeV.text = request.extra_detail?.filter_name ?:""
+        binding.tvServiceTypeV.text = request.extra_detail?.filter_name ?: ""
+        binding.tvDistanceV.text = request.extra_detail?.distance ?: ""
         binding.tvLocation.text = request.extra_detail?.service_address
         loadImage(binding.ivPic, request.from_user?.profile_image,
                 R.drawable.ic_profile_placeholder)
 
         binding.tvBookingDateV.text = getDatesComma(request.extra_detail?.working_dates)
-        binding.tvBookingTimeV.text = "${request.extra_detail?.start_time ?:""} - ${request.extra_detail?.end_time?:""}"
+        binding.tvBookingTimeV.text = "${request.extra_detail?.start_time ?: ""} - ${request.extra_detail?.end_time ?: ""}"
 
         binding.tvStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-        binding.tvSpecialInstructionsV.text=request.extra_detail?.reason_for_service
+        binding.tvSpecialInstructionsV.text = request.extra_detail?.reason_for_service
 
         when (request.status) {
             CallAction.PENDING -> {
@@ -116,11 +120,13 @@ class AppointmentDetailsFragment : DaggerFragment() {
             CallAction.ACCEPT -> {
                 binding.tvStatus.text = getString(R.string.accepted)
                 binding.tvAccept.text = getString(R.string.start_request)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                 binding.tvCancel.gone()
             }
             CallAction.INPROGRESS -> {
                 binding.tvStatus.text = getString(R.string.inprogess)
                 binding.tvAccept.text = getString(R.string.check_request)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                 binding.tvCancel.gone()
                 binding.tvAccept.gone()
             }
@@ -175,7 +181,8 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 R.string.start_request_message, R.string.start_request, R.string.cancel, false,
                 object : AlertDialogUtil.OnOkCancelDialogListener {
                     override fun onOkButtonClicked() {
-                        hitApiStartRequest()
+                        //hitApiStartRequest()
+                        startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java))
                     }
 
                     override fun onCancelButtonClicked() {
