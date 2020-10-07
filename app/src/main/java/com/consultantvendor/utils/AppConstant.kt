@@ -79,6 +79,7 @@ object CallAction {
     const val ACCEPT = "accept"
     const val REJECT = "reject"
     const val INPROGRESS = "in-progress"
+    const val REACHED = "reached"
     const val COMPLETED = "completed"
     const val FAILED = "failed"
     const val CANCELED = "canceled"

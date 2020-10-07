@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.databinding.DialogStatusBinding
-import com.consultantvendor.databinding.ItemAddDocumentBinding
 import com.consultantvendor.ui.chat.UploadFileViewModel
 import com.consultantvendor.utils.PrefsManager
 import com.consultantvendor.utils.dialogs.ProgressDialogImage

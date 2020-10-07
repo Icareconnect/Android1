@@ -25,8 +25,6 @@ import com.consultantvendor.data.network.PushType
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentAppointmentBinding
-import com.consultantvendor.ui.calling.CallingActivity
-import com.consultantvendor.ui.chat.chatdetail.ChatDetailActivity
 import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
@@ -134,13 +132,6 @@ class AppointmentFragment : DaggerFragment() {
 
             hashMap[PER_PAGE] = PER_PAGE_LOAD.toString()
 
-
-            /*   val date = DateUtils.dateFormatChange(
-                       DateFormat.MON_YEAR_FORMAT,
-                       DateFormat.DATE_FORMAT, homeFragment.selectedDate
-               )
-
-               hashMap["date"] = date*/
             hashMap["service_type"] = arguments?.getString(POSITION) ?: CallType.ALL
             viewModel.request(hashMap)
         }
@@ -228,7 +219,7 @@ class AppointmentFragment : DaggerFragment() {
                     progressDialog.setLoading(false)
                     hitApi(true)
 
-                    when (requestItem?.service_type?.toLowerCase()) {
+                    /*when (requestItem?.service_type?.toLowerCase()) {
                         CallFrom.CHAT -> {
                             requireActivity().longToast(getString(R.string.starting_chat))
 
@@ -248,7 +239,10 @@ class AppointmentFragment : DaggerFragment() {
                                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     .putExtra(EXTRA_REQUEST_ID, requestItem))
                         }
-                    }
+                    }*/
+
+                    startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                            .putExtra(EXTRA_REQUEST_ID, requestItem))
                 }
                 Status.ERROR -> {
                     progressDialog.setLoading(false)
@@ -282,10 +276,19 @@ class AppointmentFragment : DaggerFragment() {
 
     fun proceedRequest(request: Request) {
         requestItem = request
-        if (request.status == CallAction.PENDING) {
-            showAcceptRequestDialog()
-        } else if (request.status == CallAction.ACCEPT) {
-            showInitiateRequestDialog()
+
+        when (request.status) {
+            CallAction.PENDING -> {
+                showAcceptRequestDialog()
+            }
+            CallAction.ACCEPT -> {
+                showInitiateRequestDialog()
+            }
+            CallAction.INPROGRESS -> {
+//                requestItem?.status = CallAction.REACHED
+                startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                        .putExtra(EXTRA_REQUEST_ID, requestItem))
+            }
         }
     }
 
@@ -314,8 +317,7 @@ class AppointmentFragment : DaggerFragment() {
                 R.string.start_request_message, R.string.start_request, R.string.cancel, false,
                 object : AlertDialogUtil.OnOkCancelDialogListener {
                     override fun onOkButtonClicked() {
-                        //hitApiStartRequest()
-                        startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java))
+                        hitApiStartRequest()
                     }
 
                     override fun onCancelButtonClicked() {

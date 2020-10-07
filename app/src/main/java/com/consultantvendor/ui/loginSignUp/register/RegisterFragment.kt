@@ -2,7 +2,6 @@ package com.consultantvendor.ui.loginSignUp.register
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -13,7 +12,6 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.consultantvendor.R
 import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
@@ -38,9 +36,7 @@ import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
-import droidninja.filepicker.FilePickerConst
 import okhttp3.RequestBody
-import java.io.File
 import javax.inject.Inject
 
 class RegisterFragment : DaggerFragment(), OnDateSelected {

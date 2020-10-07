@@ -1,6 +1,8 @@
 package com.consultantvendor.data.models.responses
 
-class Extra_detail {
+import java.io.Serializable
+
+class Extra_detail :Serializable{
     var id: Int? = null
     var request_id: Int? = null
     var first_name: String? = null

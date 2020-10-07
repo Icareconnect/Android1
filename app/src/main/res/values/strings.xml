@@ -409,6 +409,10 @@
     <string name="pending">Pending</string>
     <string name="update_status">Update Status</string>
     <string name="clear">Clear</string>
+    <string name="estimate_time_of_arrival_s">Estimate Time of Arrival : %s</string>
+
+    <string name="quit">Quit</string>
+    <string name="quit_message">Are you sure you want to quit? It will stop your tracking</string>
 
 
 </resources>

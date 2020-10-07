@@ -8,6 +8,7 @@ import com.consultantvendor.ui.chat.ChatViewModel
 import com.consultantvendor.ui.chat.UploadFileViewModel
 import com.consultantvendor.ui.dashboard.feeds.FeedViewModel
 import com.consultantvendor.ui.dashboard.home.AppointmentViewModel
+import com.consultantvendor.ui.dashboard.home.appointmentStatus.DirectionViewModel
 import com.consultantvendor.ui.dashboard.revenue.RevenueViewModel
 import com.consultantvendor.ui.dashboard.wallet.BankViewModel
 import com.consultantvendor.ui.dashboard.wallet.WalletViewModel
@@ -99,5 +100,10 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(AppVersionViewModel::class)
     abstract fun appVersionViewModel(viewModel: AppVersionViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DirectionViewModel::class)
+    abstract fun directionViewModel(viewModel: DirectionViewModel): ViewModel
 
 }

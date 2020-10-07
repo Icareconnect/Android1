@@ -1,26 +1,19 @@
 package com.consultantvendor.ui.dashboard.home.appointmentStatus
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.Request
-import com.consultantvendor.data.network.ApiKeys
 import com.consultantvendor.data.network.ApisRespHandler
-import com.consultantvendor.data.network.PER_PAGE_LOAD
 import com.consultantvendor.data.network.responseUtil.Status
-import com.consultantvendor.databinding.FragmentAppointmentDetailsBinding
 import com.consultantvendor.databinding.FragmentStatusUpdateBinding
 import com.consultantvendor.ui.dashboard.home.AppointmentViewModel
-import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
-import com.consultantvendor.ui.loginSignUp.document.add.DialogAddDocumentFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment

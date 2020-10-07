@@ -12,9 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.Request
-import com.consultantvendor.data.network.ApiKeys
 import com.consultantvendor.data.network.ApisRespHandler
-import com.consultantvendor.data.network.PER_PAGE_LOAD
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.databinding.FragmentAppointmentDetailsBinding
 import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
@@ -128,7 +126,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 binding.tvAccept.text = getString(R.string.check_request)
                 binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                 binding.tvCancel.gone()
-                binding.tvAccept.gone()
+//                binding.tvAccept.gone()
             }
 
             CallAction.COMPLETED -> {
@@ -155,10 +153,17 @@ class AppointmentDetailsFragment : DaggerFragment() {
     }
 
     private fun proceedRequest() {
-        if (request.status == CallAction.PENDING) {
-            showAcceptRequestDialog()
-        } else if (request.status == CallAction.ACCEPT) {
-            showInitiateRequestDialog()
+        when (request.status) {
+            CallAction.PENDING -> {
+                showAcceptRequestDialog()
+            }
+            CallAction.ACCEPT -> {
+                showInitiateRequestDialog()
+            }
+            CallAction.INPROGRESS -> {
+                startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                        .putExtra(EXTRA_REQUEST_ID, request))
+            }
         }
     }
 
@@ -181,8 +186,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 R.string.start_request_message, R.string.start_request, R.string.cancel, false,
                 object : AlertDialogUtil.OnOkCancelDialogListener {
                     override fun onOkButtonClicked() {
-                        //hitApiStartRequest()
-                        startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java))
+                        hitApiStartRequest()
                     }
 
                     override fun onCancelButtonClicked() {
@@ -278,6 +282,9 @@ class AppointmentDetailsFragment : DaggerFragment() {
 
                     requireActivity().setResult(Activity.RESULT_OK)
                     hitApi()
+
+                    startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                            .putExtra(EXTRA_REQUEST_ID, request))
 
                 }
                 Status.ERROR -> {

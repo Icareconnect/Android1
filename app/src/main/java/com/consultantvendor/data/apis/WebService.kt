@@ -6,6 +6,7 @@ import com.consultantvendor.data.models.responses.CommonDataModel
 import com.consultantvendor.data.models.responses.Revenue
 import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.models.responses.appdetails.AppVersion
+import com.consultantvendor.data.models.responses.directions.Direction
 import com.consultantvendor.data.network.responseUtil.ApiResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -75,6 +76,7 @@ interface WebService {
 
         private const val WORKING_HOURS = "/api/workingHours"
         private const val SPEAKOUT_LIST = "/common/listSpeakouts"
+        private const val DIRECTIONS="https://maps.googleapis.com/maps/api/directions/json"
 
     }
 
@@ -281,6 +283,9 @@ interface WebService {
     @GET(ADDITIONAL_DETAILS)
     fun additionalDetails(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
 
+
+    @GET(DIRECTIONS)
+    fun directions(@QueryMap hashMap: Map<String, String>): Call<Direction>
 
 
     /*PUT API*/

@@ -104,7 +104,7 @@ class AppointmentAdapter(
                     tvAccept.text = context.getString(R.string.check_request)
                     binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                     tvCancel.gone()
-                    tvAccept.gone()
+                    //tvAccept.gone()
                 }
 
                 CallAction.COMPLETED -> {
