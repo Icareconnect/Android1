@@ -176,7 +176,7 @@ interface WebService {
 
     @FormUrlEncoded
     @POST(CALL_STATUS)
-    fun callStatus(@FieldMap hashMap: HashMap<String, String>): Call<ApiResponse<CommonDataModel>>
+    fun callStatus(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<CommonDataModel>>
 
     @FormUrlEncoded
     @POST(ADD_CARD)

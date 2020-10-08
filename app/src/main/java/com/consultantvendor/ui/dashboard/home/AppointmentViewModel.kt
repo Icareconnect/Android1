@@ -18,6 +18,8 @@ class AppointmentViewModel @Inject constructor(private val webService: WebServic
 
     val requestDetail by lazy { SingleLiveEvent<Resource<CommonDataModel>>() }
 
+    val callStatus by lazy { SingleLiveEvent<Resource<CommonDataModel>>() }
+
     val acceptRequest by lazy { SingleLiveEvent<Resource<CommonDataModel>>() }
 
     val startRequest by lazy { SingleLiveEvent<Resource<CommonDataModel>>() }
@@ -69,6 +71,30 @@ class AppointmentViewModel @Inject constructor(private val webService: WebServic
 
                     override fun onFailure(call: Call<ApiResponse<CommonDataModel>>, throwable: Throwable) {
                         requestDetail.value = Resource.error(ApiUtils.failure(throwable))
+                    }
+
+                })
+    }
+
+    fun callStatus(hashMap: HashMap<String, Any>) {
+        callStatus.value = Resource.loading()
+
+        webService.callStatus(hashMap)
+                .enqueue(object : Callback<ApiResponse<CommonDataModel>> {
+
+                    override fun onResponse(call: Call<ApiResponse<CommonDataModel>>,
+                                            response: Response<ApiResponse<CommonDataModel>>) {
+                        if (response.isSuccessful) {
+                            callStatus.value = Resource.success(response.body()?.data)
+                        } else {
+                            callStatus.value = Resource.error(
+                                    ApiUtils.getError(response.code(),
+                                            response.errorBody()?.string()))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<CommonDataModel>>, throwable: Throwable) {
+                        callStatus.value = Resource.error(ApiUtils.failure(throwable))
                     }
 
                 })

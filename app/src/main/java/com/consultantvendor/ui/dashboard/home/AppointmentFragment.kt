@@ -212,37 +212,16 @@ class AppointmentFragment : DaggerFragment() {
             }
         })
 
-        viewModel.startRequest.observe(this, Observer {
+        viewModel.callStatus.observe(this, Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
                     progressDialog.setLoading(false)
                     hitApi(true)
 
-                    /*when (requestItem?.service_type?.toLowerCase()) {
-                        CallFrom.CHAT -> {
-                            requireActivity().longToast(getString(R.string.starting_chat))
-
-                            startActivity(Intent(requireActivity(), ChatDetailActivity::class.java)
-                                    .putExtra(USER_ID, requestItem?.from_user?.id)
-                                    .putExtra(USER_NAME, requestItem?.from_user?.name)
-                                    .putExtra(EXTRA_REQUEST_ID, requestItem?.id)
-                                    .putExtra(EXTRA_IS_FIRST, true)
-                                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
-                        }
-                        CallFrom.CALL, CallFrom.VIDEO_CALL -> {
-                            requireActivity().longToast(getString(R.string.starting_call))
-
-                            requestItem?.call_id = it.data?.call_id
-                            startActivity(Intent(requireContext(), CallingActivity::class.java)
-                                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    .putExtra(EXTRA_REQUEST_ID, requestItem))
-                        }
-                    }*/
-
-                    startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
-                            .putExtra(EXTRA_REQUEST_ID, requestItem))
+                    requestItem?.status = CallAction.START
+                    startActivityForResult(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                            .putExtra(EXTRA_REQUEST_ID, requestItem), AppRequestCode.APPOINTMENT_DETAILS)
                 }
                 Status.ERROR -> {
                     progressDialog.setLoading(false)
@@ -284,10 +263,16 @@ class AppointmentFragment : DaggerFragment() {
             CallAction.ACCEPT -> {
                 showInitiateRequestDialog()
             }
-            CallAction.INPROGRESS -> {
+            CallAction.START, CallAction.REACHED -> {
 //                requestItem?.status = CallAction.REACHED
-                startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
-                        .putExtra(EXTRA_REQUEST_ID, requestItem))
+
+                startActivityForResult(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                        .putExtra(EXTRA_REQUEST_ID, request), AppRequestCode.APPOINTMENT_DETAILS)
+            }
+            CallAction.START_SERVICE -> {
+                startActivityForResult(Intent(requireContext(), DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE)
+                        .putExtra(EXTRA_REQUEST_ID, request.id), AppRequestCode.APPOINTMENT_DETAILS)
             }
         }
     }
@@ -338,8 +323,9 @@ class AppointmentFragment : DaggerFragment() {
         if (isConnectedToInternet(requireActivity(), true)) {
             val hashMap = HashMap<String, Any>()
             hashMap["request_id"] = requestItem?.id ?: ""
+            hashMap["status"] = CallAction.START
 
-            viewModel.startRequest(hashMap)
+            viewModel.callStatus(hashMap)
 
         }
     }

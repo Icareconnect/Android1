@@ -3,6 +3,7 @@ package com.consultantvendor.ui.dashboard.home.appointmentStatus
 import android.Manifest
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -27,9 +28,11 @@ import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.ActivityAppointmentStatusBinding
+import com.consultantvendor.ui.dashboard.home.AppointmentViewModel
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.PermissionUtils
+import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -62,7 +65,11 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
     private lateinit var binding: ActivityAppointmentStatusBinding
 
-    private lateinit var viewModel: DirectionViewModel
+    private lateinit var viewModelDirection: DirectionViewModel
+
+    private lateinit var progressDialog: ProgressDialog
+
+    private lateinit var viewModel: AppointmentViewModel
 
     private var mapFragment: SupportMapFragment? = null
 
@@ -82,20 +89,23 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
     private var markerToMove: Marker? = null
 
+    private var markerToReach: Marker? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_appointment_status)
 
         initialise()
         setListeners()
-        setRequestData()
         bindObservers()
     }
 
     private fun initialise() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment?.getMapAsync(this)
-        viewModel = ViewModelProvider(this, viewModelFactory)[DirectionViewModel::class.java]
+        viewModelDirection = ViewModelProvider(this, viewModelFactory)[DirectionViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[AppointmentViewModel::class.java]
+        progressDialog = ProgressDialog(this)
 
         /*Ask for location*/
         geoCoder = Geocoder(this, Locale.getDefault())
@@ -103,12 +113,27 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
         // These flags ensure that the activity can be launched when the screen is locked.
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        request = intent.getSerializableExtra(EXTRA_REQUEST_ID) as Request
     }
 
     private fun setRequestData() {
-        request = intent.getSerializableExtra(EXTRA_REQUEST_ID) as Request
         finalLatLng = LatLng(request?.extra_detail?.lat?.toDouble()
                 ?: 0.0, request?.extra_detail?.long?.toDouble() ?: 0.0)
+
+        if (markerToReach == null) {
+            markerToReach = mMap?.addMarker(MarkerOptions()
+                    .position(finalLatLng)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_drop_location_mrkr))
+                    .anchor(0.5f, 0.5f)
+                    .flat(true))
+        }
+
+        if (::placeLatLng.isInitialized) {
+            mMap?.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
+            mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
+        }
+
 
         binding.tvName.text = request?.from_user?.name
         binding.tvTime.text = request?.time
@@ -116,13 +141,24 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
                 R.drawable.ic_profile_placeholder)
 
         when (request?.status) {
-            CallAction.INPROGRESS -> {
+            CallAction.START -> {
                 binding.tvReached.visible()
                 binding.groupOne.gone()
+
+                if (markerToMove == null && ::placeLatLng.isInitialized) {
+                    markerToMove = mMap?.addMarker(MarkerOptions()
+                            .position(placeLatLng)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_arrow))
+                            .anchor(0.5f, 0.5f)
+                            .flat(true))
+                }
             }
             CallAction.REACHED -> {
                 binding.tvReached.gone()
                 binding.groupOne.visible()
+
+                mMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
+                mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
             }
         }
     }
@@ -134,33 +170,33 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
         }
 
         binding.tvReached.setOnClickListener {
-            request?.status = CallAction.REACHED
-
-            polyline?.remove()
-            markerToMove?.remove()
-            mMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
-            mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
-
-            binding.tvReached.gone()
-            binding.tvTime.gone()
-            binding.groupOne.visible()
+            hitApiRequestStatus(CallAction.REACHED)
         }
 
         binding.tvStartService.setOnClickListener {
-            startActivity(Intent(this, DrawerActivity::class.java)
-                    .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE))
-            finish()
+            hitApiRequestStatus(CallAction.START_SERVICE)
         }
 
         binding.tvCancelService.setOnClickListener {
-            finish()
+            hitApiRequestStatus(CallAction.CANCEL_SERVICE)
+        }
+    }
+
+    private fun hitApiRequestStatus(status: String) {
+        if (isConnectedToInternet(this, true)) {
+            val hashMap = HashMap<String, Any>()
+            hashMap["request_id"] = request?.id ?: ""
+            hashMap["status"] = status
+
+            viewModel.callStatus(hashMap)
+
         }
     }
 
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        if (request?.status == CallAction.INPROGRESS) {
+        if (request?.status == CallAction.START) {
             if (checkPermissions()) {
                 if (isLocationEnabled()) {
                     mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
@@ -184,6 +220,8 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
         } else if (request?.status == CallAction.REACHED) {
             runOnUiThread {
                 polyline?.remove()
+                markerToMove?.remove()
+
                 mMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
                 mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
             }
@@ -235,7 +273,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     private fun drawPolyLineApi() {
         runOnUiThread {
             if (isConnectedToInternet(this, true)) {
-                if (request?.status == CallAction.INPROGRESS && markerToMove == null) {
+                if (request?.status == CallAction.START && markerToMove == null) {
                     markerToMove = mMap?.addMarker(MarkerOptions()
                             .position(placeLatLng)
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_arrow))
@@ -251,7 +289,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
                 hashMap["origin"] = "${placeLatLng.latitude},${placeLatLng.longitude}"
                 hashMap["destination"] = "${finalLatLng.latitude},${finalLatLng.longitude}"
                 hashMap["key"] = getString(R.string.google_places_api_key)
-                viewModel.directions(hashMap)
+                viewModelDirection.directions(hashMap)
             }
         }
     }
@@ -270,7 +308,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     }
 
     private fun delayTimeDirectionApi() {
-        if (request?.status == CallAction.INPROGRESS) {
+        if (request?.status == CallAction.START) {
             Timer().schedule(30000) {
 
                 /* placeLatLng = LatLng(30.7512, 76.7584)
@@ -288,24 +326,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
         // mMap?.isMyLocationEnabled = true
         mMap?.uiSettings?.isMyLocationButtonEnabled = true
 
-        mMap?.addMarker(MarkerOptions()
-                .position(finalLatLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_drop_location_mrkr))
-                .anchor(0.5f, 0.5f)
-                .flat(true))
-
-        if(::placeLatLng.isInitialized) {
-            mMap?.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
-            mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
-        }
-
-        if (request?.status == CallAction.INPROGRESS && markerToMove == null && ::placeLatLng.isInitialized) {
-            markerToMove = mMap?.addMarker(MarkerOptions()
-                    .position(placeLatLng)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_arrow))
-                    .anchor(0.5f, 0.5f)
-                    .flat(true))
-        }
+        setRequestData()
     }
 
     private fun moveMarker() {
@@ -372,12 +393,12 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
 
     private fun bindObservers() {
-        viewModel.directions.observe(this, Observer {
+        viewModelDirection.directions.observe(this, Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
 
-                    if (request?.status == CallAction.INPROGRESS) {
+                    if (request?.status == CallAction.START) {
                         binding.tvTime.text = getString(R.string.estimate_time_of_arrival_s,
                                 it.data?.routes?.get(0)?.legs?.get(0)?.duration?.text)
                         drawDirectionToStop(it.data?.routes?.get(0)?.overview_polyline)
@@ -392,10 +413,53 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
                 }
             }
         })
+
+        viewModel.callStatus.observe(this, Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialog.setLoading(false)
+
+                    setResult(Activity.RESULT_OK)
+
+                    when (it.data?.status) {
+                        CallAction.REACHED -> {
+                            request?.status = CallAction.REACHED
+
+                            polyline?.remove()
+                            markerToMove?.remove()
+                            mMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
+                            mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
+
+                            binding.tvReached.gone()
+                            binding.tvTime.gone()
+                            binding.groupOne.visible()
+                        }
+                        CallAction.START_SERVICE -> {
+                            startActivity(Intent(this, DrawerActivity::class.java)
+                                    .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE)
+                                    .putExtra(EXTRA_REQUEST_ID, request?.id))
+                            finish()
+                        }
+                        CallAction.CANCEL_SERVICE -> {
+                            finish()
+                        }
+                    }
+
+                }
+                Status.ERROR -> {
+                    progressDialog.setLoading(false)
+                    ApisRespHandler.handleError(it.error, this, prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialog.setLoading(true)
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {
-        if (request?.status == CallAction.INPROGRESS) {
+        if (request?.status == CallAction.START) {
             AlertDialogUtil.instance.createOkCancelDialog(this, R.string.quit,
                     R.string.quit_message, R.string.yes, R.string.no, false,
                     object : AlertDialogUtil.OnOkCancelDialogListener {

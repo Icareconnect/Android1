@@ -6,53 +6,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dp_8"
-        android:background="@color/colorWhite">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clMain"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_24">
+            android:background="@color/colorWhite"
+            app:cardCornerRadius="@dimen/dp_8">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/startGuideLine"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clMain"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/dp_16" />
+                android:paddingBottom="@dimen/dp_24">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/endGuideLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/dp_16" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/startGuideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/dp_16" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_24"
-                android:fontFamily="@font/sans_regular"
-                android:gravity="center"
-                android:text="@string/change_service_status"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/sp_18"
-                app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/endGuideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/dp_16" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:fontFamily="@font/sans_regular"
+                    android:gravity="center"
+                    android:text="@string/change_service_status"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_18"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioGroup
-                android:id="@+id/rgStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
                 <RadioButton
                     android:id="@+id/tvStarted"
@@ -60,14 +52,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
                     android:checked="true"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:drawablePadding="@dimen/dp_8"
                     android:fontFamily="@font/sans_regular"
                     android:gravity="center"
                     android:text="@string/started"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_16"
-                    app:layout_constraintStart_toEndOf="@+id/viewArrived"
-                    app:layout_constraintTop_toTopOf="@+id/viewArrived" />
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 
                 <RadioButton
@@ -79,10 +73,13 @@
                     android:fontFamily="@font/sans_regular"
                     android:gravity="center"
                     android:text="@string/pending"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_16"
-                    app:layout_constraintStart_toEndOf="@+id/viewArrived"
-                    app:layout_constraintTop_toTopOf="@+id/viewArrived" />
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvStarted" />
 
 
                 <RadioButton
@@ -96,42 +93,40 @@
                     android:text="@string/completed"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_16"
-                    app:layout_constraintStart_toEndOf="@+id/viewArrived"
-                    app:layout_constraintTop_toTopOf="@+id/viewArrived" />
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPending" />
 
-            </RadioGroup>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvUpdate"
+                    android:layout_width="136dp"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:background="@drawable/drawable_bg_theme"
+                    android:fontFamily="@font/sans_regular"
+                    android:gravity="center"
+                    android:text="@string/update_status"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCompleted" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvUpdate"
-                android:layout_width="136dp"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginTop="@dimen/dp_24"
-                android:layout_marginBottom="@dimen/dp_16"
-                android:background="@drawable/drawable_bg_theme"
-                android:fontFamily="@font/sans_regular"
-                android:gravity="center"
-                android:text="@string/update_status"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/sp_14"
-                app:layout_constraintEnd_toEndOf="@id/endGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/rgStatus" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvClear"
-                android:layout_width="66dp"
-                android:layout_height="@dimen/dp_32"
-                android:fontFamily="@font/sans_regular"
-                android:gravity="center"
-                android:text="@string/clear"
-                android:layout_marginEnd="@dimen/dp_20"
-                android:textColor="@color/colorBlack"
-                android:alpha="0.5"
-                android:textSize="@dimen/sp_14"
-                app:layout_constraintEnd_toStartOf="@+id/tvUpdate"
-                app:layout_constraintTop_toTopOf="@+id/tvUpdate" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvClear"
+                    android:layout_width="66dp"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:alpha="0.5"
+                    android:fontFamily="@font/sans_regular"
+                    android:gravity="center"
+                    android:text="@string/clear"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintEnd_toStartOf="@+id/tvUpdate"
+                    app:layout_constraintTop_toTopOf="@+id/tvUpdate" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </layout>

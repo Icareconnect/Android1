@@ -196,7 +196,7 @@ class MessagingService : FirebaseMessagingService() {
                 .setContentIntent(pendingIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setSmallIcon(R.drawable.ic_push)
+            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
             notificationBuilder.color = ContextCompat.getColor(this, R.color.colorAccent)
         } else {
             notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)

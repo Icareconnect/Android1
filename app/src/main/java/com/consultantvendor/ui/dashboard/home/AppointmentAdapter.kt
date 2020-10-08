@@ -99,14 +99,26 @@ class AppointmentAdapter(
                     binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                     tvCancel.gone()
                 }
-                CallAction.INPROGRESS -> {
+                CallAction.START -> {
                     tvStatus.text = context.getString(R.string.inprogess)
-                    tvAccept.text = context.getString(R.string.check_request)
+                    tvAccept.text = context.getString(R.string.track_status)
                     binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                     tvCancel.gone()
                     //tvAccept.gone()
                 }
-
+                CallAction.REACHED -> {
+                    tvStatus.text = context.getString(R.string.reached_destination)
+                    tvAccept.text = context.getString(R.string.track_status)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                    //tvAccept.gone()
+                    tvCancel.gone()
+                }
+                CallAction.START_SERVICE -> {
+                    tvStatus.text = context.getString(R.string.started)
+                    tvAccept.text = context.getString(R.string.track_status)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                    tvCancel.gone()
+                }
                 CallAction.COMPLETED -> {
                     tvStatus.text = context.getString(R.string.done)
                     tvAccept.gone()
@@ -123,6 +135,12 @@ class AppointmentAdapter(
                     tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorNoShow))
                     tvAccept.gone()
                     tvCancel.gone()
+                }
+                CallAction.CANCEL_SERVICE -> {
+                    tvStatus.text = context.getString(R.string.canceled_service)
+                    tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorNoShow))
+                    tvCancel.gone()
+                    tvAccept.gone()
                 }
                 else -> {
                     tvStatus.text = context.getString(R.string.new_request)

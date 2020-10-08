@@ -70,5 +70,6 @@ class CommonDataModel {
     var feed: Feed? = null
 
     /*Request*/
-    var request_detail: Request ?= null
+    var request_detail: Request? = null
+    var status: String? = null
 }

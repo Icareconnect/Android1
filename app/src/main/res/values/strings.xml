@@ -95,9 +95,10 @@
     <string name="new_request">New Request</string>
     <string name="no_show">No show</string>
     <string name="canceled">Cancelled</string>
+    <string name="canceled_service">Cancelled Service</string>
     <string name="cancel">Cancel</string>
     <string name="start_request">Start request</string>
-    <string name="check_request">Check request</string>
+    <string name="track_status">Track Status</string>
     <string name="start_request_message">Are you sure you want to proceed request</string>
     <string name="add_money">Add Money</string>
     <string name="added_to_wallet">Added to wallet</string>

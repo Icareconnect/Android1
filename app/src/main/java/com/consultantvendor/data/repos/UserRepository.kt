@@ -88,7 +88,7 @@ class UserRepository @Inject constructor(
     }
 
     fun callStatus(requestId: String, call_id: String, callStatus: String) {
-        val hashMap = HashMap<String, String>()
+        val hashMap = HashMap<String, Any>()
         hashMap["request_id"] = requestId
         hashMap["call_id"] = call_id
         hashMap["status"] = callStatus

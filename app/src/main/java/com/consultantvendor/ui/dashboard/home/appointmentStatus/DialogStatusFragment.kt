@@ -14,6 +14,8 @@ import com.consultantvendor.databinding.DialogStatusBinding
 import com.consultantvendor.ui.chat.UploadFileViewModel
 import com.consultantvendor.utils.PrefsManager
 import com.consultantvendor.utils.dialogs.ProgressDialogImage
+import com.consultantvendor.utils.longToast
+import com.consultantvendor.utils.showSnackBar
 import dagger.android.support.DaggerDialogFragment
 import javax.inject.Inject
 
@@ -62,7 +64,12 @@ class DialogStatusFragment(private val fragment: StatusUpdateFragment) : DaggerD
 
     private fun listeners() {
         binding.tvUpdate.setOnClickListener {
-            dialog?.dismiss()
+            if (!binding.tvCompleted.isChecked) {
+                binding.tvCompleted.showSnackBar(getString(R.string.update_status))
+            } else {
+                fragment.hitApiStartRequest()
+                dialog?.dismiss()
+            }
         }
 
         binding.tvClear.setOnClickListener {

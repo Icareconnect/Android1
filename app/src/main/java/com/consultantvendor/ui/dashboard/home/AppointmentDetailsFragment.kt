@@ -16,6 +16,7 @@ import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.databinding.FragmentAppointmentDetailsBinding
 import com.consultantvendor.ui.dashboard.home.appointmentStatus.AppointmentStatusActivity
+import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
@@ -121,12 +122,24 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                 binding.tvCancel.gone()
             }
-            CallAction.INPROGRESS -> {
+            CallAction.START -> {
                 binding.tvStatus.text = getString(R.string.inprogess)
-                binding.tvAccept.text = getString(R.string.check_request)
+                binding.tvAccept.text = getString(R.string.track_status)
                 binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
                 binding.tvCancel.gone()
 //                binding.tvAccept.gone()
+            }
+            CallAction.REACHED -> {
+                binding.tvStatus.text = getString(R.string.reached_destination)
+                binding.tvAccept.text = getString(R.string.track_status)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                binding.tvCancel.gone()
+            }
+            CallAction.START_SERVICE -> {
+                binding.tvStatus.text = getString(R.string.started)
+                binding.tvAccept.text = getString(R.string.track_status)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                binding.tvCancel.gone()
             }
 
             CallAction.COMPLETED -> {
@@ -146,6 +159,12 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 binding.tvAccept.gone()
                 binding.tvCancel.gone()
             }
+            CallAction.CANCEL_SERVICE -> {
+                binding.tvStatus.text = getString(R.string.canceled_service)
+                binding.tvStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorNoShow))
+                binding.tvAccept.gone()
+                binding.tvCancel.gone()
+            }
             else -> {
                 binding.tvStatus.text = getString(R.string.new_request)
             }
@@ -160,9 +179,13 @@ class AppointmentDetailsFragment : DaggerFragment() {
             CallAction.ACCEPT -> {
                 showInitiateRequestDialog()
             }
-            CallAction.INPROGRESS -> {
-                startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
-                        .putExtra(EXTRA_REQUEST_ID, request))
+            CallAction.START, CallAction.REACHED -> {
+                startActivityForResult(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                        .putExtra(EXTRA_REQUEST_ID, request), AppRequestCode.APPOINTMENT_DETAILS)
+            }
+            CallAction.START_SERVICE -> {
+                startActivityForResult(Intent(requireContext(), DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE), AppRequestCode.APPOINTMENT_DETAILS)
             }
         }
     }
@@ -207,8 +230,9 @@ class AppointmentDetailsFragment : DaggerFragment() {
         if (isConnectedToInternet(requireActivity(), true)) {
             val hashMap = HashMap<String, Any>()
             hashMap["request_id"] = request.id ?: ""
+            hashMap["status"] = CallAction.START
 
-            viewModel.startRequest(hashMap)
+            viewModel.callStatus(hashMap)
 
         }
     }
@@ -274,7 +298,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
             }
         })
 
-        viewModel.startRequest.observe(this, Observer {
+        viewModel.callStatus.observe(this, Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -283,8 +307,9 @@ class AppointmentDetailsFragment : DaggerFragment() {
                     requireActivity().setResult(Activity.RESULT_OK)
                     hitApi()
 
-                    startActivity(Intent(requireActivity(), AppointmentStatusActivity::class.java)
-                            .putExtra(EXTRA_REQUEST_ID, request))
+                    request.status = CallAction.START
+                    startActivityForResult(Intent(requireActivity(), AppointmentStatusActivity::class.java)
+                            .putExtra(EXTRA_REQUEST_ID, request), AppRequestCode.APPOINTMENT_DETAILS)
 
                 }
                 Status.ERROR -> {
@@ -317,5 +342,14 @@ class AppointmentDetailsFragment : DaggerFragment() {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AppRequestCode.APPOINTMENT_DETAILS) {
+                requireActivity().setResult(Activity.RESULT_OK)
+                hitApi()
+            }
+        }
+    }
 
 }

@@ -3,7 +3,6 @@ package com.consultantvendor.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.ui.AppVersionViewModel
-import com.consultantvendor.ui.calling.CallViewModel
 import com.consultantvendor.ui.chat.ChatViewModel
 import com.consultantvendor.ui.chat.UploadFileViewModel
 import com.consultantvendor.ui.dashboard.feeds.FeedViewModel
@@ -91,10 +90,6 @@ abstract class ViewModelsModule {
     @ViewModelKey(GetSlotsViewModel::class)
     abstract fun getSlotsViewModel(viewModel: GetSlotsViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(CallViewModel::class)
-    abstract fun callViewModel(viewModel: CallViewModel): ViewModel
 
     @Binds
     @IntoMap

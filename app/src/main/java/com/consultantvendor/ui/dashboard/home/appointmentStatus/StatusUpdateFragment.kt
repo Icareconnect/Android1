@@ -47,6 +47,7 @@ class StatusUpdateFragment : DaggerFragment() {
             initialise()
             listeners()
             bindObservers()
+            hitApi()
         }
         return rootView
     }
@@ -54,7 +55,6 @@ class StatusUpdateFragment : DaggerFragment() {
     private fun initialise() {
         progressDialog = ProgressDialog(requireActivity())
         viewModel = ViewModelProvider(this, viewModelFactory)[AppointmentViewModel::class.java]
-        binding.clLoader.setBackgroundResource(R.color.colorWhite)
     }
 
 
@@ -81,7 +81,23 @@ class StatusUpdateFragment : DaggerFragment() {
     }
 
     private fun setData() {
+        if (request.status == CallAction.COMPLETED) {
+            binding.tvComplete.isChecked = true
+            binding.tvStatusUpdate.gone()
+            binding.etStatus.gone()
+        }
 
+    }
+
+    fun hitApiStartRequest() {
+        if (isConnectedToInternet(requireActivity(), true)) {
+            val hashMap = HashMap<String, Any>()
+            hashMap["request_id"] = request.id ?: ""
+            hashMap["status"] = CallAction.COMPLETED
+
+            viewModel.callStatus(hashMap)
+
+        }
     }
 
     private fun bindObservers() {
@@ -106,7 +122,7 @@ class StatusUpdateFragment : DaggerFragment() {
         })
 
 
-        viewModel.startRequest.observe(this, Observer {
+        viewModel.callStatus.observe(this, Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
