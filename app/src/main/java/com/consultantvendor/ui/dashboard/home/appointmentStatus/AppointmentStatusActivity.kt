@@ -91,6 +91,8 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
     private var markerToReach: Marker? = null
 
+    private var timer: Timer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_appointment_status)
@@ -309,7 +311,10 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
     private fun delayTimeDirectionApi() {
         if (request?.status == CallAction.START) {
-            Timer().schedule(30000) {
+            if (timer == null)
+                timer = Timer()
+
+            timer?.schedule(30000) {
 
                 /* placeLatLng = LatLng(30.7512, 76.7584)
                  drawPolyLineApi()*/
