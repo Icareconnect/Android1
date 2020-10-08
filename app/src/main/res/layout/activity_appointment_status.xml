@@ -236,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:constraint_referenced_ids="ivCall,line,line1,tvStatus,tvStatusV,tvCancelService,tvStartService" />
+                    app:constraint_referenced_ids="line,line1,tvStatus,tvStatusV,tvCancelService,tvStartService" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,10 @@ import com.consultantvendor.ui.dashboard.home.AppointmentViewModel
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
+import kotlin.concurrent.schedule
 
 
 class StatusUpdateFragment : DaggerFragment() {
@@ -83,6 +86,7 @@ class StatusUpdateFragment : DaggerFragment() {
     private fun setData() {
         if (request.status == CallAction.COMPLETED) {
             binding.tvComplete.isChecked = true
+            binding.viewComplete.alpha = 1f
             binding.tvStatusUpdate.gone()
             binding.etStatus.gone()
         }
@@ -130,6 +134,15 @@ class StatusUpdateFragment : DaggerFragment() {
 
                     requireActivity().setResult(Activity.RESULT_OK)
                     hitApi()
+
+                    binding.clCompleted.visible()
+
+
+                    Timer().schedule(3000) {
+                        requireActivity().runOnUiThread {
+                            binding.clCompleted.gone()
+                        }
+                    }
 
                 }
                 Status.ERROR -> {

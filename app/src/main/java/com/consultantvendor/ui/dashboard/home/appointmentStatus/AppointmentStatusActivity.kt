@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -138,7 +139,6 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
 
         binding.tvName.text = request?.from_user?.name
-        binding.tvTime.text = request?.time
         loadImage(binding.ivPic, request?.from_user?.profile_image,
                 R.drawable.ic_profile_placeholder)
 
@@ -146,6 +146,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
             CallAction.START -> {
                 binding.tvReached.visible()
                 binding.groupOne.gone()
+                binding.ivCall.gone()
 
                 if (markerToMove == null && ::placeLatLng.isInitialized) {
                     markerToMove = mMap?.addMarker(MarkerOptions()
@@ -158,6 +159,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
             CallAction.REACHED -> {
                 binding.tvReached.gone()
                 binding.groupOne.visible()
+                binding.ivCall.hideShowView(!request?.from_user?.phone.isNullOrEmpty())
 
                 mMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
                 mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
@@ -182,6 +184,10 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
         binding.tvCancelService.setOnClickListener {
             hitApiRequestStatus(CallAction.CANCEL_SERVICE)
         }
+
+        binding.ivCall.setOnClickListener {
+           getCallWithPermissionCheck()
+        }
     }
 
     private fun hitApiRequestStatus(status: String) {
@@ -201,7 +207,8 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
         if (request?.status == CallAction.START) {
             if (checkPermissions()) {
                 if (isLocationEnabled()) {
-                    mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
+                    requestNewLocationData()
+                    /*mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
                         val location: Location? = task.result
                         if (location == null) {
                             requestNewLocationData()
@@ -210,7 +217,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
                             //placeLatLng = LatLng(30.7457, 76.7332)
                             drawPolyLineApi()
                         }
-                    }
+                    }*/
                 } else {
                     Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -243,15 +250,18 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 0
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
+        runOnUiThread {
+            val mLocationRequest = LocationRequest()
+            mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            mLocationRequest.interval = 0
+            mLocationRequest.fastestInterval = 0
+            mLocationRequest.numUpdates = 1
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback,
-                Looper.myLooper())
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback,
+                    Looper.myLooper())
+
+        }
     }
 
     private val mLocationCallback = object : LocationCallback() {
@@ -438,6 +448,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
                             binding.tvReached.gone()
                             binding.tvTime.gone()
+                            binding.ivCall.hideShowView(!request?.from_user?.phone.isNullOrEmpty())
                             binding.groupOne.visible()
                         }
                         CallAction.START_SERVICE -> {
@@ -562,6 +573,31 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     fun showDeniedForStorage() {
         PermissionUtils.showAppSettingsDialog(
                 this, R.string.we_will_need_your_location)
+    }
+
+    @NeedsPermission(Manifest.permission.CALL_PHONE)
+    fun getCall() {
+        val user = request?.from_user
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "${user?.country_code}${user?.phone}"))
+        startActivity(intent)
+    }
+
+    @OnShowRationale(Manifest.permission.CALL_PHONE)
+    fun showCallRationale(request: PermissionRequest) {
+        PermissionUtils.showRationalDialog(this, R.string.we_will_need_call, request)
+    }
+
+    @OnNeverAskAgain(Manifest.permission.CALL_PHONE)
+    fun onNeverAskAgainCallRationale() {
+        PermissionUtils.showAppSettingsDialog(
+                this,
+                R.string.we_will_need_call)
+    }
+
+    @OnPermissionDenied(Manifest.permission.CALL_PHONE)
+    fun showDeniedForCall() {
+        PermissionUtils.showAppSettingsDialog(
+                this, R.string.we_will_need_call)
     }
 
     @SuppressLint("NoDelegateOnResumeDetector")

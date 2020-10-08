@@ -234,10 +234,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:background="@drawable/drawable_bg_white"
+            android:focusable="false"
             android:fontFamily="@font/sans_regular"
             android:padding="@dimen/dp_12"
             android:text="@string/started"
-            android:focusable="false"
             android:textColor="@color/textColor"
             android:textSize="@dimen/sp_14"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -255,6 +255,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCompleted"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@color/colorWhite"
+            android:elevation="@dimen/dp_1">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.2"
+                android:background="#4EAFE8" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/checked"
+                android:drawablePadding="@dimen/dp_12"
+                android:fontFamily="@font/sans_regular"
+                android:text="@string/service_completed"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

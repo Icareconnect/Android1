@@ -396,6 +396,7 @@
     <string name="gps_not_enabled">GPS Not Enabled</string>
     <string name="want_to_enable_gps">Rooh need GPS enabled to access your location.</string>
     <string name="we_will_need_your_location">We will need your location to give you better experience</string>
+    <string name="we_will_need_call">We will need your call permission to give you better experience</string>
     <string name="reached_destination">Reached Destination</string>
     <string name="status">Status :</string>
     <string name="start_service">Start Service</string>
@@ -414,6 +415,7 @@
 
     <string name="quit">Quit</string>
     <string name="quit_message">Are you sure you want to quit? It will stop your tracking</string>
+    <string name="service_completed">Service Completed</string>
 
 
 </resources>
