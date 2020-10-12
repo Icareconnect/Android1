@@ -402,11 +402,13 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     if (itemFilter.isNotEmpty())
                         itemsQualification.addAll(itemFilter[0].options ?: emptyList())
 
-                    itemsQualification.forEachIndexed { index, filterOption ->
-                        userData?.filters?.get(0)?.options?.forEach {
-                            if (filterOption.id == it.id && it.isSelected) {
-                                itemsQualification[index].isSelected = true
-                                return@forEach
+                    if (!userData?.filters.isNullOrEmpty()) {
+                        itemsQualification.forEachIndexed { index, filterOption ->
+                            userData?.filters?.get(0)?.options?.forEach {
+                                if (filterOption.id == it.id && it.isSelected) {
+                                    itemsQualification[index].isSelected = true
+                                    return@forEach
+                                }
                             }
                         }
                     }
