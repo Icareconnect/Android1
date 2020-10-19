@@ -28,19 +28,11 @@ class CategoriesAdapter(private val fragment: CategoryFragment, private val item
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ITEM) {
-            ViewHolder(
-                    DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context),
-                            R.layout.rv_item_category, parent, false
-                    )
-            )
+            ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+                            R.layout.rv_item_category, parent, false))
         } else {
-            ViewHolderLoader(
-                    DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context),
-                            R.layout.item_paging_loader, parent, false
-                    )
-            )
+            ViewHolderLoader(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+                            R.layout.item_paging_loader, parent, false))
         }
     }
 

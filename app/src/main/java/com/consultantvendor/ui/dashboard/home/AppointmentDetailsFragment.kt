@@ -185,7 +185,8 @@ class AppointmentDetailsFragment : DaggerFragment() {
             }
             CallAction.START_SERVICE -> {
                 startActivityForResult(Intent(requireContext(), DrawerActivity::class.java)
-                        .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE), AppRequestCode.APPOINTMENT_DETAILS)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.UPDATE_SERVICE)
+                        .putExtra(EXTRA_REQUEST_ID, request.id), AppRequestCode.APPOINTMENT_DETAILS)
             }
         }
     }
