@@ -184,7 +184,8 @@ class DocumentsFragment : DaggerFragment() {
                             requireActivity().finish()
                         }
                         userRepository.isUserLoggedIn() -> {
-                            startActivity(Intent(requireContext(), HomeActivity::class.java))
+                            startActivity(Intent(requireContext(), HomeActivity::class.java)
+                                    .putExtra(EXTRA_IS_FIRST,true))
                             requireActivity().finish()
                         }
                         else -> {

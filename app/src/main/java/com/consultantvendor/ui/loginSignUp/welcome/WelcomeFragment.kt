@@ -94,5 +94,6 @@ class WelcomeFragment : DaggerFragment() {
 
     companion object {
         const val EXTRA_SIGNUP = "EXTRA_SIGNUP"
+        const val EXTRA_LOGIN = "EXTRA_LOGIN"
     }
 }

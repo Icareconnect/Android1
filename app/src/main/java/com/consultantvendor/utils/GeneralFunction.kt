@@ -105,10 +105,8 @@ fun logoutUser(activity: Activity?, prefsManager: PrefsManager) {
 
     prefsManager.remove(USER_DATA)
 
-    activity.startActivity(
-            Intent(activity, SignUpActivity::class.java)
-                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-    )
+    activity.startActivity(Intent(activity, SignUpActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
 
     activity.setResult(Activity.RESULT_CANCELED)
     ActivityCompat.finishAffinity(activity)

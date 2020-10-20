@@ -437,21 +437,26 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
                     requireActivity().setResult(Activity.RESULT_OK)
 
-                    if (arguments?.containsKey(UPDATE_PROFILE) == true) {
-                        requireActivity().finish()
-                    } else if (userRepository.isUserLoggedIn()) {
-                        startActivity(Intent(requireContext(), HomeActivity::class.java))
-                        requireActivity().finish()
-                    } else {
-                        val item = Categories()
-                        item.id = CATEGORY_ID
-                        val fragment = DocumentsFragment()
-                        val bundle = Bundle()
-                        bundle.putSerializable(SubCategoryFragment.CATEGORY_PARENT_ID, item)
-                        fragment.arguments = bundle
+                    when {
+                        arguments?.containsKey(UPDATE_PROFILE) == true -> {
+                            requireActivity().finish()
+                        }
+                        userRepository.isUserLoggedIn() -> {
+                            startActivity(Intent(requireContext(), HomeActivity::class.java)
+                                    .putExtra(EXTRA_IS_FIRST,true))
+                            requireActivity().finish()
+                        }
+                        else -> {
+                            val item = Categories()
+                            item.id = CATEGORY_ID
+                            val fragment = DocumentsFragment()
+                            val bundle = Bundle()
+                            bundle.putSerializable(SubCategoryFragment.CATEGORY_PARENT_ID, item)
+                            fragment.arguments = bundle
 
-                        replaceFragment(requireActivity().supportFragmentManager,
-                                fragment, R.id.container)
+                            replaceFragment(requireActivity().supportFragmentManager,
+                                    fragment, R.id.container)
+                        }
                     }
                 }
                 Status.ERROR -> {

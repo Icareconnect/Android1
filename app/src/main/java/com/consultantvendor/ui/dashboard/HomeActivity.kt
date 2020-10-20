@@ -1,19 +1,8 @@
 package com.consultantvendor.ui.dashboard
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
-import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +12,6 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.ActivityHomeBinding
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
-import com.google.android.gms.location.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -98,7 +86,8 @@ class HomeActivity : DaggerAppCompatActivity() {
 
         if (userRepository.getUser()?.isApproved == false) {
             startActivity(Intent(this, DrawerActivity::class.java)
-                    .putExtra(PAGE_TO_OPEN, DrawerActivity.USER_VERIFICATION))
+                    .putExtra(PAGE_TO_OPEN, DrawerActivity.USER_VERIFICATION)
+                    .putExtra(EXTRA_IS_FIRST,intent.getBooleanExtra(EXTRA_IS_FIRST,false)))
         }
     }
 
