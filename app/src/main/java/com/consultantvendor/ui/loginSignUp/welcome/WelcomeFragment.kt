@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.consultantapp.ui.dashboard.covid.CovidFragment
 import com.consultantvendor.R
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentWelcomeBinding
@@ -79,7 +78,7 @@ class WelcomeFragment : DaggerFragment() {
 
         binding.tvLogin.setOnClickListener {
             replaceFragment(requireActivity().supportFragmentManager,
-                    CovidFragment(), R.id.container)
+                    LoginFragment(), R.id.container)
         }
 
         binding.tvSignUpEmail.setOnClickListener {
