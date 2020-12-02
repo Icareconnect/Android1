@@ -119,26 +119,26 @@ class AppointmentDetailsFragment : DaggerFragment() {
             CallAction.ACCEPT -> {
                 binding.tvStatus.text = getString(R.string.accepted)
                 binding.tvAccept.text = getString(R.string.start_request)
-                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                 binding.tvCancel.gone()
             }
             CallAction.START -> {
                 binding.tvStatus.text = getString(R.string.inprogess)
                 binding.tvAccept.text = getString(R.string.track_status)
-                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                 binding.tvCancel.gone()
 //                binding.tvAccept.gone()
             }
             CallAction.REACHED -> {
                 binding.tvStatus.text = getString(R.string.reached_destination)
                 binding.tvAccept.text = getString(R.string.track_status)
-                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                 binding.tvCancel.gone()
             }
             CallAction.START_SERVICE -> {
                 binding.tvStatus.text = getString(R.string.started)
                 binding.tvAccept.text = getString(R.string.track_status)
-                binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                 binding.tvCancel.gone()
             }
 

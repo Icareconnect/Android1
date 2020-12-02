@@ -35,18 +35,18 @@ class WalkthroughDetailFragment : DaggerFragment() {
         when (arguments?.getInt(POSITION)) {
             0 -> {
                 binding.ivImage.setImageResource(R.drawable.walkthrough_1)
-                binding.tvTitle.text = getString(R.string.choose_date_time)
-                //binding.tvDesc.text = getString(R.string.app_name)
+                binding.tvTitle.text = getString(R.string.walkthrough_1)
+                binding.tvDesc.text = getString(R.string.walkthrough_1_desc)
             }
             1 -> {
                 binding.ivImage.setImageResource(R.drawable.walkthrough_2)
-                binding.tvTitle.text = getString(R.string.find_shifts_neaby_you)
-                //binding.tvDesc.text = getString(R.string.app_name)
+                binding.tvTitle.text = getString(R.string.walkthrough_2)
+                binding.tvDesc.text = getString(R.string.walkthrough_2_desc)
             }
             2 -> {
                 binding.ivImage.setImageResource(R.drawable.walkthrough_3)
-                binding.tvTitle.text = getString(R.string.get_paid_quickly)
-                //binding.tvDesc.text = getString(R.string.app_name)
+                binding.tvTitle.text = getString(R.string.walkthrough_3)
+                binding.tvDesc.text = getString(R.string.walkthrough_3_desc)
             }
         }
     }

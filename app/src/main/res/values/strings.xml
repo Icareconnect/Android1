@@ -250,7 +250,7 @@
     <string name="profile">Profile</string>
     <string name="transactions">Transaction History</string>
     <string name="select_working_days">Please select working days</string>
-    <string name="create_a_account">Create a Intelligent Care\nConnect account to continue</string>
+    <string name="create_a_account">Create an iCareConnect account\nto continue</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="you_agree_to_our_terms">By continue, you agree to our\n</string>
     <string name="terms">Terms of service</string>
@@ -371,9 +371,13 @@
     </array>
 
     <!--Walkthrough-->
-    <string name="choose_date_time">Choose your date and time slots for work.</string>
-    <string name="find_shifts_neaby_you">Find shifts neaby you.</string>
-    <string name="get_paid_quickly">Get paid quickly.</string>
+    <string name="walkthrough_1">Take control of your schedule</string>
+    <string name="walkthrough_1_desc">You can also schedule your appointments with the patient, families etc</string>
+    <string name="walkthrough_2">Find shift near you</string>
+    <string name="walkthrough_2_desc">Innovative technology that matches you with the right health care professional</string>
+    <string name="walkthrough_3">Work Flexible hours</string>
+    <string name="walkthrough_3_desc">View Full profiles and credentials of every nurse/nursing assistant</string>
+
     <string name="get_started">Get Started</string>
     <string name="dashboard">Dashboard</string>
     <string name="edit_profile">Edit Profile</string>
@@ -416,6 +420,7 @@
     <string name="quit">Quit</string>
     <string name="quit_message">Are you sure you want to quit? It will stop your tracking</string>
     <string name="service_completed">Service Completed</string>
+    <string name="skip">Skip</string>
 
 
 </resources>

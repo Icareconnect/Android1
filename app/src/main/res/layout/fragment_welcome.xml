@@ -36,6 +36,15 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_end="@dimen/dp_24" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLogo"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:layout_height="wrap_content"/>
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTitle"
@@ -46,16 +55,17 @@
                     android:text="@string/create_a_account"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/sp_18"
+                    android:layout_marginTop="@dimen/dp_48"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSignUpMobile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_38"
-                    android:background="@drawable/drawable_bg_theme"
+                    android:background="@drawable/drawable_theme_8"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -71,26 +81,11 @@
 
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvOr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/or"
-                    android:alpha="0.4"
-                    android:fontFamily="@font/sans_bold"
-                    android:textSize="@dimen/sp_14"
-                    android:textColor="@color/textColor"
-                    android:layout_marginTop="@dimen/dp_32"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
-                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSignUpMobile" />
-
-
-                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSignUpEmail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
-                    android:background="@drawable/drawable_bg_theme"
+                    android:background="@drawable/drawable_theme_8"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -102,7 +97,7 @@
                     android:textColor="@color/colorWhite"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tvOr" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvSignUpMobile" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTerms"

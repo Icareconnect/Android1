@@ -3,6 +3,7 @@ package com.consultantvendor.ui.loginSignUp.prefrence
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.Filter
@@ -13,7 +14,7 @@ import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemPrefrenceBinding
 
 
-class PrefrenceAdapter(private val fragment: PrefrenceFragment, private val items: ArrayList<Filter>) :
+class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayList<Filter>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var allItemsLoaded = true
@@ -51,6 +52,7 @@ class PrefrenceAdapter(private val fragment: PrefrenceFragment, private val item
 
         init {
             binding.root.setOnClickListener {
+                if(fragment is PrefrenceFragment)
                 fragment.clickItem(items[adapterPosition])
             }
 

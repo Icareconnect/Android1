@@ -21,6 +21,7 @@ interface WebService {
         private const val APP_VERSION = "/api/appversion"
         private const val CLIENT_DETAILS = "/api/clientdetail"
         private const val COUNTRY_DATA = "/api/countrydata"
+        private const val PREFERENCES = "/api/master/preferences"
         private const val UPDATE_NUMBER = "/api/update-phone"
         private const val VERIFY_OTP = "/api/verify-otp"
         private const val RESEND_OTP = "api/resend-otp"
@@ -219,6 +220,9 @@ interface WebService {
 
     @GET(COUNTRY_DATA)
     fun countryData(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
+
+    @GET(PREFERENCES)
+    fun preferences(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
 
 
     @GET(REQUESTS)

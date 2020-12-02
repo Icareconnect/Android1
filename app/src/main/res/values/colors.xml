@@ -29,4 +29,7 @@
     <color name="colorAccept">#4CB962</color>
     <color name="colorDecline">#E5E5E5</color>
     <color name="colorBlack40">#66000000</color>
+
+    <color name="colorWalkThroughUnselected">#A9A9A9</color>
+    <color name="colorWalkthrough">#58595B</color>
 </resources>

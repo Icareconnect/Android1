@@ -1,17 +1,20 @@
 package com.consultantvendor.ui.walkthrough
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.consultantvendor.R
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentWalkthroughBinding
 import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
 import com.consultantvendor.utils.POSITION
 import com.consultantvendor.utils.PrefsManager
+import com.consultantvendor.utils.hideShowView
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -48,6 +51,7 @@ class WalkThroughFragment : DaggerFragment() {
     }
 
     private fun initialise() {
+        requireActivity().setResult(Activity.RESULT_OK)
     }
 
     private fun setBanners() {
@@ -66,6 +70,23 @@ class WalkThroughFragment : DaggerFragment() {
     }
 
     private fun listeners() {
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                val show = position == binding.viewPager.adapter?.count?.minus(1)
+
+                binding.tvSkip.hideShowView(!show)
+                binding.tvGetStarted.hideShowView(show)
+            }
+
+        })
+
         binding.tvGetStarted.setOnClickListener {
             prefsManager.save(WALKTHROUGH_SCREEN, true)
             requireActivity().supportFragmentManager.popBackStack()

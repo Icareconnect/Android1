@@ -1,5 +1,6 @@
 package com.consultantvendor.di
 
+import com.consultantapp.ui.dashboard.covid.CovidFragment
 import com.consultantvendor.ui.SplashActivity
 import com.consultantvendor.ui.calling.CallingActivity
 import com.consultantvendor.ui.chat.ChatFragment
@@ -195,6 +196,7 @@ abstract class BindingsModule {
     @ContributesAndroidInjector
     abstract fun dialogStatusFragment(): DialogStatusFragment
 
-
+    @ContributesAndroidInjector
+    abstract fun covidFragment(): CovidFragment
 
 }

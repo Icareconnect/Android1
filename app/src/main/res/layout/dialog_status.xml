@@ -102,7 +102,7 @@
                     android:layout_height="@dimen/dp_32"
                     android:layout_marginTop="@dimen/dp_24"
                     android:layout_marginBottom="@dimen/dp_16"
-                    android:background="@drawable/drawable_bg_theme"
+                    android:background="@drawable/drawable_theme_8"
                     android:fontFamily="@font/sans_regular"
                     android:gravity="center"
                     android:text="@string/update_status"

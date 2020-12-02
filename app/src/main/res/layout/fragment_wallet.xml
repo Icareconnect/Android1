@@ -74,7 +74,7 @@
             android:textAllCaps="false"
             android:fontFamily="@font/circular_bold"
             android:textColor="@color/colorWhite"
-            android:background="@drawable/drawable_theme"
+            android:background="@drawable/drawable_theme_40"
             app:layout_constraintTop_toTopOf="@+id/tvTitle"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/dp_16"

@@ -162,3 +162,7 @@ object BlogType {
     const val BLOG = "blog"
     const val ARTICLE = "article"
 }
+
+object PreferencesType {
+    const val ALL = "All"
+}

@@ -72,4 +72,6 @@ class CommonDataModel {
     /*Request*/
     var request_detail: Request? = null
     var status: String? = null
+
+    var preferences: List<Filter>? = null
 }

@@ -4,14 +4,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:background="@drawable/drawable_walkthrough_gredint">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/dp_24"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_24">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/startGuideLine"
@@ -27,41 +25,32 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/dp_24" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvHeader"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:fontFamily="@font/sans_bold"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/sp_16"
-                app:layout_constraintEnd_toEndOf="@id/endGuideLine"
-                app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivImage"
                 android:layout_width="wrap_content"
-                android:layout_height="340dp"
+                android:layout_height="316dp"
                 android:layout_marginTop="@dimen/dp_64"
+                app:layout_constraintBottom_toTopOf="@+id/tvTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 app:srcCompat="@drawable/walkthrough_1" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_56"
-                android:fontFamily="@font/sans_bold"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_64"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:fontFamily="@font/campton_medium"
                 android:gravity="center"
-                android:text="@string/choose_date_time"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/sp_16"
+                android:text="@string/walkthrough_1"
+                android:textColor="@color/colorWalkthrough"
+                android:textSize="@dimen/sp_20"
+                app:layout_constraintBottom_toTopOf="@+id/tvDesc"
                 app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                 app:layout_constraintStart_toStartOf="@id/startGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/ivImage" />
@@ -70,19 +59,21 @@
                 android:id="@+id/tvDesc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_32"
-                android:alpha="0.5"
-                android:fontFamily="@font/sans_regular"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:alpha="0.8"
+                android:fontFamily="@font/campton_medium"
                 android:gravity="center"
-                android:text="Lorm ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum."
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/sp_14"
+                android:text="@string/walkthrough_1_desc"
+                android:textColor="@color/colorWalkthrough"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                 app:layout_constraintStart_toStartOf="@id/startGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
 
 </layout>

@@ -96,27 +96,27 @@ class AppointmentAdapter(
                 CallAction.ACCEPT -> {
                     tvStatus.text = context.getString(R.string.accepted)
                     tvAccept.text = context.getString(R.string.start_request)
-                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                     tvCancel.gone()
                 }
                 CallAction.START -> {
                     tvStatus.text = context.getString(R.string.inprogess)
                     tvAccept.text = context.getString(R.string.track_status)
-                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                     tvCancel.gone()
                     //tvAccept.gone()
                 }
                 CallAction.REACHED -> {
                     tvStatus.text = context.getString(R.string.reached_destination)
                     tvAccept.text = context.getString(R.string.track_status)
-                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                     //tvAccept.gone()
                     tvCancel.gone()
                 }
                 CallAction.START_SERVICE -> {
                     tvStatus.text = context.getString(R.string.started)
                     tvAccept.text = context.getString(R.string.track_status)
-                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_theme)
+                    binding.tvAccept.setBackgroundResource(R.drawable.drawable_theme_8)
                     tvCancel.gone()
                 }
                 CallAction.COMPLETED -> {
