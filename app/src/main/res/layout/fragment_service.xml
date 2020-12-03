@@ -11,8 +11,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:elevation="4dp"
+            android:background="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_back_white" />
@@ -21,15 +20,29 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:fontFamily="@font/circular_bold"
+            android:fontFamily="@font/campton_semibold"
             android:gravity="center"
             android:text="@string/history"
-            android:elevation="4dp"
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/sp_16"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitleDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/campton_medium"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_margin="@dimen/dp_24"
+            android:text="@string/please_upload_photos"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -37,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/tvNext"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleDesc">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListing"
@@ -53,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_24"
             android:background="@drawable/drawable_theme_40"
-            android:fontFamily="@font/gilroy_bold"
+            android:fontFamily="@font/campton_semibold"
             android:gravity="center"
             android:text="@string/next"
             android:textColor="@color/colorWhite"
@@ -74,7 +87,7 @@
             android:textColor="@color/textColor_50"
             android:textSize="@dimen/sp_14"
             android:visibility="gone"
-            app:fontFamily="@font/circular_medium"
+            app:fontFamily="@font/campton_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

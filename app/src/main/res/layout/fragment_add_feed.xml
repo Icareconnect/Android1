@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_back_white" />
+            app:navigationIcon="@drawable/ic_back" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:elevation="@dimen/dp_4"
-            android:fontFamily="@font/circular_bold"
+            android:fontFamily="@font/campton_semibold"
             android:gravity="center"
             android:text="@string/post_article"
             android:textColor="@color/colorBlack"
@@ -91,7 +91,7 @@
                         android:id="@+id/etTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/circular_medium"
+                        android:fontFamily="@font/campton_medium"
                         android:hint="@string/title"
                         android:imeOptions="actionNext"
                         android:inputType="textCapWords"
@@ -115,7 +115,7 @@
                         android:id="@+id/etDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/circular_medium"
+                        android:fontFamily="@font/campton_medium"
                         android:gravity="start"
                         android:hint="@string/description"
                         android:imeOptions="actionDone"

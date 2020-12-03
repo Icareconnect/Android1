@@ -79,6 +79,14 @@ class WelcomeFragment : DaggerFragment() {
         binding.tvLogin.setOnClickListener {
             replaceFragment(requireActivity().supportFragmentManager,
                     LoginFragment(), R.id.container)
+
+           /* val fragment = CovidFragment()
+            val bundle = Bundle()
+            bundle.putString(CovidFragment.MASTER_PREFRENCE_TYPE, PreferencesType.PERSONAL_INTEREST)
+            fragment.arguments = bundle
+
+            replaceFragment(requireActivity().supportFragmentManager,
+                    fragment, R.id.container)*/
         }
 
         binding.tvSignUpEmail.setOnClickListener {

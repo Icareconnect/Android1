@@ -390,10 +390,11 @@ class AppointmentFragment : DaggerFragment() {
 
     private val refreshRequests = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == PushType.REQUEST_COMPLETED || intent.action == PushType.NEW_REQUEST ||
-                    intent.action == PushType.CANCELED_REQUEST || intent.action == PushType.REQUEST_FAILED ||
-                    intent.action == PushType.RESCHEDULED_REQUEST || intent.action == PushType.PROFILE_APPROVED) {
-                hitApi(true)
+            when (intent.action) {
+                PushType.REQUEST_COMPLETED, PushType.NEW_REQUEST, PushType.CANCELED_REQUEST, PushType.REQUEST_FAILED,
+                PushType.RESCHEDULED_REQUEST, PushType.PROFILE_APPROVED -> {
+                    hitApi(true)
+                }
             }
         }
     }

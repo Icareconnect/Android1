@@ -14,7 +14,7 @@
             android:layout_height="34dp"
             android:background="@drawable/drawable_week_un_selected"
             android:ellipsize="end"
-            android:fontFamily="@font/circular_medium"
+            android:fontFamily="@font/campton_medium"
             android:gravity="center"
             android:maxLines="2"
             android:text="@string/sunday_w"

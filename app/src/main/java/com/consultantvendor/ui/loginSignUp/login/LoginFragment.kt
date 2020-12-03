@@ -100,7 +100,7 @@ class LoginFragment : DaggerFragment() {
     }
 
     private fun bindObservers() {
-        viewModel.sendSMS.observe(this, Observer {
+        viewModel.sendSMS.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

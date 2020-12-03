@@ -1,9 +1,11 @@
 package com.consultantvendor.ui.loginSignUp.prefrence
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.Filter
@@ -12,6 +14,8 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemPrefrenceBinding
+import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
+import com.consultantvendor.utils.PreferencesType
 
 
 class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayList<Filter>) :
@@ -51,9 +55,21 @@ class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayL
             RecyclerView.ViewHolder(binding.root) {
 
         init {
+            if (fragment is CovidFragment) {
+                when (fragment.prefrenceType) {
+                    PreferencesType.PERSONAL_INTEREST, PreferencesType.WORK_ENVIRONMENT -> {
+                        binding.tvName.gravity = Gravity.CENTER_HORIZONTAL
+
+                        val layoutManager = LinearLayoutManager(fragment.requireContext())
+                        binding.rvListing.layoutManager = layoutManager
+                    }
+                }
+
+            }
+
             binding.root.setOnClickListener {
-                if(fragment is PrefrenceFragment)
-                fragment.clickItem(items[adapterPosition])
+                if (fragment is PrefrenceFragment)
+                    fragment.clickItem(items[adapterPosition])
             }
 
         }
@@ -61,12 +77,10 @@ class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayL
         fun bind(item: Filter) = with(binding) {
             tvName.text = item.preference_name
 
-
             val listOptions = ArrayList<FilterOption>()
             listOptions.addAll(item.options ?: emptyList())
             val prefrenceItemAdapter = PrefrenceItemAdapter(item.is_multi == "1", listOptions)
             rvListing.adapter = prefrenceItemAdapter
-
         }
     }
 

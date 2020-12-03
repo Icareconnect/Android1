@@ -59,7 +59,7 @@
             android:background="@drawable/drawable_theme_8"
             android:clickable="true"
             android:focusable="true"
-            android:fontFamily="@font/gilroy_bold"
+            android:fontFamily="@font/campton_semibold"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:visibility="gone"

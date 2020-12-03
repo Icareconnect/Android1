@@ -106,7 +106,7 @@ class LoginEmailFragment : DaggerFragment() {
                 isConnectedToInternet(requireContext(), true) -> {
                     if (arguments?.containsKey(WelcomeFragment.EXTRA_SIGNUP) == true) {
                         val hashMap = HashMap<String, RequestBody>()
-                        hashMap["name"] = getRequestBody("1#123@123")
+                        hashMap["name"] = getRequestBody(DUMMY_NAME)
                         hashMap["email"] = getRequestBody(binding.etEmail.text.toString().trim())
                         hashMap["password"] = getRequestBody(binding.etPassword.text.toString().trim())
                         hashMap["user_type"] = getRequestBody(APP_TYPE)
@@ -133,7 +133,7 @@ class LoginEmailFragment : DaggerFragment() {
 
 
     private fun bindObservers() {
-        viewModel.login.observe(this, Observer {
+        viewModel.login.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -164,7 +164,7 @@ class LoginEmailFragment : DaggerFragment() {
             }
         })
 
-        viewModel.register.observe(this, Observer {
+        viewModel.register.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -196,5 +196,9 @@ class LoginEmailFragment : DaggerFragment() {
                 }
             }
         })
+    }
+
+    companion object{
+        const val DUMMY_NAME="1#123@123"
     }
 }

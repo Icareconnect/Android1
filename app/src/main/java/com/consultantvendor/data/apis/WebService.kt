@@ -27,6 +27,7 @@ interface WebService {
         private const val RESEND_OTP = "api/resend-otp"
         private const val REGISTER = "/api/register"
         private const val FORGOT_PASSWORD = "/api/forgot_password"
+        private const val CHANGE_PASSWORD = "/api/password-change"
         private const val PROFILE_UPDATE = "/api/profile-update"
         private const val LOGOUT = "/api/app_logout"
         private const val SEND_SMS = "/api/send-sms"
@@ -109,6 +110,11 @@ interface WebService {
     @FormUrlEncoded
     @POST(FORGOT_PASSWORD)
     fun forgotPassword(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
+
+    @FormUrlEncoded
+    @POST(CHANGE_PASSWORD)
+    fun changePassword(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
+
 
     @Multipart
     @POST(PROFILE_UPDATE)

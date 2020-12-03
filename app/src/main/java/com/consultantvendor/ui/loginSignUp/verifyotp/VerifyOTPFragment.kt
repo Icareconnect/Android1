@@ -112,7 +112,7 @@ class VerifyOTPFragment : DaggerFragment() {
     }
 
     private fun bindObservers() {
-        viewModel.login.observe(this, Observer {
+        viewModel.login.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -123,7 +123,6 @@ class VerifyOTPFragment : DaggerFragment() {
                     if (userRepository.isUserLoggedIn()) {
                         startActivity(Intent(requireActivity(), HomeActivity::class.java))
                         requireActivity().finish()
-
                     } else {
                         val fragment = RegisterFragment()
                         val bundle = Bundle()
@@ -145,7 +144,7 @@ class VerifyOTPFragment : DaggerFragment() {
             }
         })
 
-        viewModel.sendSMS.observe(this, Observer {
+        viewModel.sendSMS.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -164,7 +163,7 @@ class VerifyOTPFragment : DaggerFragment() {
             }
         })
 
-        viewModel.updateNumber.observe(this, Observer {
+        viewModel.updateNumber.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

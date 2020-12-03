@@ -42,4 +42,7 @@ class UserData : Serializable {
     var custom_fields: ArrayList<Insurance>? = null
 
     var isApproved: Boolean? = null
+
+    /*Prefrences*/
+    var master_preferences: ArrayList<Filter>? = null
 }

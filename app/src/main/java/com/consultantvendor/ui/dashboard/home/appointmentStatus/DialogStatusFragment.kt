@@ -14,7 +14,6 @@ import com.consultantvendor.databinding.DialogStatusBinding
 import com.consultantvendor.ui.chat.UploadFileViewModel
 import com.consultantvendor.utils.PrefsManager
 import com.consultantvendor.utils.dialogs.ProgressDialogImage
-import com.consultantvendor.utils.longToast
 import com.consultantvendor.utils.showSnackBar
 import dagger.android.support.DaggerDialogFragment
 import javax.inject.Inject

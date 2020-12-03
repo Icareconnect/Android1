@@ -2,10 +2,7 @@ package com.consultantvendor.ui.dashboard.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.NonNull
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -13,11 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.network.ApisRespHandler
+import com.consultantvendor.data.network.ProviderType
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentHomeBinding
 import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
 import com.consultantvendor.ui.drawermenu.DrawerActivity
+import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.CHANGE_PASSWORD
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
@@ -30,7 +29,7 @@ import kotlinx.android.synthetic.main.nav_header_home.view.*
 import javax.inject.Inject
 
 
-class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedListener  {
+class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var prefsManager: PrefsManager
@@ -65,10 +64,10 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
             listeners()
             handleHeader()
             bindObservers()
+            hideMenuItem()
         }
         return rootView
     }
-
 
 
     private fun initialise() {
@@ -83,7 +82,7 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
 
         titles.forEachIndexed { index, s ->
 
-            adapter.addTab(titles[index],  AppointmentFragment())
+            adapter.addTab(titles[index], AppointmentFragment())
         }
 
         binding.viewPager.adapter = adapter
@@ -98,7 +97,7 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
         val headerView = binding.navView.getHeaderView(0)
 // set User Name
         headerView.tvName.text = getDoctorName(userData)
-        headerView.tvEmail.text = userData?.email?:""
+        headerView.tvEmail.text = userData?.email ?: ""
         loadImage(headerView.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
 
         headerView.ivPic.setOnClickListener {
@@ -110,6 +109,11 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
         headerView.ivCross.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+    }
+
+    private fun hideMenuItem() {
+        val nav_Menu: Menu = binding.navView.menu
+        nav_Menu.findItem(R.id.changePassword).isVisible = (userRepository.getUser()?.provider_type == ProviderType.email)
     }
 
     private fun listeners() {
@@ -126,15 +130,18 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
     override fun onNavigationItemSelected(@NonNull item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-
-            R.id.editProfile->{
+            R.id.editProfile -> {
                 startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
                         .putExtra(UPDATE_PROFILE, true), AppRequestCode.PROFILE_UPDATE)
             }
-            R.id.documents ->{
+            R.id.documents -> {
                 startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
                         .putExtra(SubCategoryFragment.CATEGORY_PARENT_ID, userRepository.getUser()?.categoryData)
                         .putExtra(DocumentsFragment.UPDATE_DOCUMENTS, true), AppRequestCode.PROFILE_UPDATE)
+            }
+            R.id.changePassword -> {
+                startActivity(Intent(requireContext(), DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, CHANGE_PASSWORD))
             }
 
             R.id.logout -> {
@@ -162,7 +169,7 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun bindObservers() {
-        viewModelLogin.logout.observe(this, Observer {
+        viewModelLogin.logout.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

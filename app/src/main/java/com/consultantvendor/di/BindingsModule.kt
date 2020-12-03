@@ -1,6 +1,5 @@
 package com.consultantvendor.di
 
-import com.consultantapp.ui.dashboard.covid.CovidFragment
 import com.consultantvendor.ui.SplashActivity
 import com.consultantvendor.ui.calling.CallingActivity
 import com.consultantvendor.ui.chat.ChatFragment
@@ -31,6 +30,8 @@ import com.consultantvendor.ui.jitsimeet.JitsiActivity
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.availability.SetAvailabilityFragment
 import com.consultantvendor.ui.loginSignUp.category.CategoryFragment
+import com.consultantvendor.ui.loginSignUp.changepassword.ChangePasswordFragment
+import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.document.add.DialogAddDocumentFragment
 import com.consultantvendor.ui.loginSignUp.forgotpassword.ForgotPasswordFragment
@@ -99,6 +100,9 @@ abstract class BindingsModule {
 
     @ContributesAndroidInjector
     abstract fun forgotPasswordFragment(): ForgotPasswordFragment
+
+    @ContributesAndroidInjector
+    abstract fun changePasswordFragment(): ChangePasswordFragment
 
     @ContributesAndroidInjector
     abstract fun chatFragment(): ChatFragment

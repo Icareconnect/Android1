@@ -1,6 +1,5 @@
 package com.consultantvendor.ui.walkthrough
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +50,6 @@ class WalkThroughFragment : DaggerFragment() {
     }
 
     private fun initialise() {
-        requireActivity().setResult(Activity.RESULT_OK)
     }
 
     private fun setBanners() {
@@ -88,9 +86,17 @@ class WalkThroughFragment : DaggerFragment() {
         })
 
         binding.tvGetStarted.setOnClickListener {
-            prefsManager.save(WALKTHROUGH_SCREEN, true)
-            requireActivity().supportFragmentManager.popBackStack()
+            doneWalkThrough()
         }
+
+        binding.tvSkip.setOnClickListener {
+            doneWalkThrough()
+        }
+    }
+
+    private fun doneWalkThrough() {
+        prefsManager.save(WALKTHROUGH_SCREEN, true)
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     companion object {

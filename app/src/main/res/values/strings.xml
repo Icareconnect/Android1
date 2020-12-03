@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Intely Experts</string>
+    <string name="app_name">iCareConnect Experts</string>
 
     <!--Google-->
     <string name="google_places_api_key" translatable="false">AIzaSyBxwRzUvnbtTjNc8DURP4l4auJWsmrr7Bk</string>
@@ -87,7 +87,7 @@
     <string name="unsuccessful">%s Unsuccessful</string>
     <string name="select_image">Select image</string>
     <string name="update">Update</string>
-    <string name="update_desc">You have new update for Intely Experts!</string>
+    <string name="update_desc">You have new update for iCareConnect Experts!</string>
     <string name="we_need_your_email">We need your registered email to reach you</string>
     <string name="sent_password">We have sent a temporary password in your email. Please check your email.</string>
     <string name="chat_request">Chat request</string>
@@ -312,7 +312,8 @@
     <string name="select_city">Select City</string>
     <string name="submit">Submit</string>
     <string name="add">Add</string>
-    <string name="upload_documents">Upload Documents</string>
+    <string name="upload_documents">Approval Documents</string>
+    <string name="please_upload_photos">Please upload photos of all required documents</string>
     <string name="please_add">Please add</string>
     <string name="manage_documents">Manage Documents</string>
 
@@ -345,29 +346,29 @@
 
 
     <!--Shift-->
-    <string name="day_shift">Day shift</string>
-    <string name="evening_shift">Evening shift</string>
-    <string name="night_shift">Night shift</string>
+    <string name="shift_1">Day shift</string>
+    <string name="shift_2">Evening shift</string>
+    <string name="shift_3">Night shift</string>
 
     <array name="shift">
-        <item>@string/day_shift</item>
-        <item>@string/evening_shift</item>
-        <item>@string/night_shift</item>
+        <item>@string/shift_1</item>
+        <item>@string/shift_2</item>
+        <item>@string/shift_3</item>
     </array>
 
     <!--Experience-->
     <string name="please_select_your_experience">Please select your amount of licensed work experience below.</string>
 
-    <string name="months_0_5">0-5 months</string>
-    <string name="months_6_11">6-11 months</string>
-    <string name="months_12_24">12-24 months</string>
-    <string name="months_24">24+ months</string>
+    <string name="exp_1">0-5 months</string>
+    <string name="exp_2">6-11 months</string>
+    <string name="exp_3">12-24 months</string>
+    <string name="exp_4">24+ months</string>
 
     <array name="experience">
-        <item>@string/months_0_5</item>
-        <item>@string/months_6_11</item>
-        <item>@string/months_12_24</item>
-        <item>@string/months_24</item>
+        <item>@string/exp_1</item>
+        <item>@string/exp_2</item>
+        <item>@string/exp_3</item>
+        <item>@string/exp_4</item>
     </array>
 
     <!--Walkthrough-->
@@ -397,8 +398,6 @@
     <string name="special_instructions">Special Instructions :</string>
     <string name="time">Time</string>
 
-    <string name="gps_not_enabled">GPS Not Enabled</string>
-    <string name="want_to_enable_gps">Rooh need GPS enabled to access your location.</string>
     <string name="we_will_need_your_location">We will need your location to give you better experience</string>
     <string name="we_will_need_call">We will need your call permission to give you better experience</string>
     <string name="reached_destination">Reached Destination</string>
@@ -421,6 +420,13 @@
     <string name="quit_message">Are you sure you want to quit? It will stop your tracking</string>
     <string name="service_completed">Service Completed</string>
     <string name="skip">Skip</string>
+    <string name="covid_19">Covid 19</string>
+    <string name="personal_interests">Personal Interests</string>
+    <string name="work_environment">"Work Environment "</string>
 
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm New Password</string>
+    <string name="password_changed">Password changed successfully</string>
 
 </resources>

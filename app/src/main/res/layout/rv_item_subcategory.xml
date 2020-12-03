@@ -22,7 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/circular_medium"
+            android:fontFamily="@font/campton_medium"
             android:gravity="start"
             android:maxLines="1"
             android:layout_marginStart="@dimen/dp_16"

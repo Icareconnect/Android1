@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.consultantvendor.R
+import com.consultantvendor.data.models.responses.Filter
 import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
@@ -102,21 +103,23 @@ class ProfileFragment : DaggerFragment() {
 
         binding.tvName.text = getDoctorName(userData)
         binding.tvEmailV.text = userData?.email ?: getString(R.string.na)
-        binding.tvPhoneV.text = "${userData?.country_code ?: ""} ${userData?.phone ?: ""}"
+        binding.tvPhoneV.text = "${userData?.country_code ?: getString(R.string.na)} ${userData?.phone ?: ""}"
         binding.tvDOBV.text = userData?.profile?.dob ?: getString(R.string.na)
         binding.tvDesc.text = userData?.categoryData?.name ?: getString(R.string.na)
 
         //binding.tvRating.text = userData?.speciaity ?: getString(R.string.na)
         binding.tvPatientV.text = userData?.patientCount ?: getString(R.string.na)
-        binding.tvExperienceV.text =
-                "${getAge(userData?.profile?.working_since)} ${getString(R.string.years)}"
         binding.tvReviewsV.text = userData?.reviews ?: getString(R.string.na)
 
-        if (!userData?.profile?.dob.isNullOrEmpty())
+        if (userData?.profile?.dob.isNullOrEmpty()) {
+            binding.tvDOB.gone()
+            binding.tvDOBV.gone()
+        } else {
             binding.tvDOBV.text = DateUtils.dateFormatChange(
                     DateFormat.DATE_FORMAT,
                     DateFormat.MON_DAY_YEAR, userData?.profile?.dob ?: ""
             )
+        }
 
         loadImage(binding.ivPic, userData?.profile_image,
                 R.drawable.ic_profile_placeholder)
@@ -125,6 +128,77 @@ class ProfileFragment : DaggerFragment() {
         binding.tvDocuments.gone()
         binding.tvSetAvailability.gone()
         binding.tvUpdateCategory.gone()
+
+
+        userData?.custom_fields?.forEach {
+            when (it.field_name) {
+                CustomFields.WORK_EXPERIENCE -> {
+                    binding.tvExperienceV.text = it.field_value
+                }
+            }
+        }
+
+
+        val covid = ArrayList<Filter>()
+        val personalInterest = ArrayList<Filter>()
+        val workExperience = ArrayList<Filter>()
+        userData?.master_preferences?.forEach {
+            when (it.preference_type) {
+                PreferencesType.COVID ->
+                    covid.add(it)
+                PreferencesType.PERSONAL_INTEREST ->
+                    personalInterest.add(it)
+                PreferencesType.WORK_ENVIRONMENT ->
+                    workExperience.add(it)
+            }
+        }
+
+        if (covid.isNotEmpty()) {
+            binding.tvCovid.visible()
+            binding.tvCovidV.visible()
+
+            var covidText = ""
+            covid.forEach {
+                covidText += it.preference_name + "\n"
+
+                it.options?.forEach {
+                    if (it.isSelected) {
+                        covidText += it.option_name + "\n\n"
+                    }
+                }
+            }
+            binding.tvCovidV.text = covidText
+        }
+
+        if (personalInterest.isNotEmpty()) {
+            binding.tvPersonal.visible()
+            binding.tvPersonalV.visible()
+
+            var personalText = ""
+            personalInterest.forEach {
+                it.options?.forEach {
+                    if (it.isSelected) {
+                        personalText += it.option_name + ", "
+                    }
+                }
+            }
+            binding.tvPersonalV.text = personalText.removeSuffix(", ")
+        }
+
+        if (workExperience.isNotEmpty()) {
+            binding.tvWork.visible()
+            binding.tvWorkV.visible()
+
+            var workText = ""
+            workExperience.forEach {
+                it.options?.forEach {
+                    if (it.isSelected) {
+                        workText += it.option_name + ", "
+                    }
+                }
+            }
+            binding.tvWorkV.text = workText.removeSuffix(", ")
+        }
 
     }
 
@@ -211,7 +285,7 @@ class ProfileFragment : DaggerFragment() {
 
         val hashMap = HashMap<String, RequestBody>()
 
-        hashMap["name"] = getRequestBody( userData?.name)
+        hashMap["name"] = getRequestBody(userData?.name)
 
         if (fileToUpload != null && fileToUpload.exists()) {
             hashMap["type"] = getRequestBody("img")
@@ -225,7 +299,7 @@ class ProfileFragment : DaggerFragment() {
 
 
     private fun bindObservers() {
-        viewModelLogin.updateProfile.observe(this, Observer {
+        viewModelLogin.updateProfile.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -245,23 +319,14 @@ class ProfileFragment : DaggerFragment() {
             }
         })
 
-        viewModelDoctor.doctorDetails.observe(this, Observer {
+        viewModelDoctor.doctorDetails.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
                     progressDialog.setLoading(false)
-                    val doctorData = it.data?.dcotor_detail
+                    userData = it.data?.dcotor_detail
 
-                    binding.tvRating.text = getString(
-                            R.string.s_s_reviews,
-                            getUserRating(doctorData?.totalRating),
-                            doctorData?.reviewCount
-                    )
-                    binding.tvPatientV.text = doctorData?.patientCount ?: getString(R.string.na)
-                    binding.tvExperienceV.text =
-                            "${getAge(doctorData?.profile?.working_since)} ${getString(R.string.years)}"
-                    binding.tvReviewsV.text = doctorData?.reviewCount ?: getString(R.string.na)
-
+                    setUserProfile()
                 }
                 Status.ERROR -> {
                     progressDialog.setLoading(false)

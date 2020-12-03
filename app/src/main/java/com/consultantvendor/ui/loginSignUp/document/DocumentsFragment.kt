@@ -82,7 +82,9 @@ class DocumentsFragment : DaggerFragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
 
-        categoryData = arguments?.getSerializable(SubCategoryFragment.CATEGORY_PARENT_ID) as Categories
+        /*Category Id*/
+        categoryData = Categories()
+        categoryData?.id = CATEGORY_ID
         userData = userRepository.getUser()
     }
 
@@ -99,6 +101,8 @@ class DocumentsFragment : DaggerFragment() {
             binding.tvNext.text = getString(R.string.update)
             //binding.tvNext.gone()
         } else if (isConnectedToInternet(requireContext(), true)) {
+            binding.tvTitleDesc.visible()
+
             val hashMap = HashMap<String, String>()
             hashMap["category_id"] = categoryData?.id ?: ""
 

@@ -17,7 +17,6 @@ import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
 import com.consultantvendor.data.models.requests.SetService
 import com.consultantvendor.data.models.requests.UpdateServices
-import com.consultantvendor.data.models.responses.Categories
 import com.consultantvendor.data.models.responses.Filter
 import com.consultantvendor.data.models.responses.FilterOption
 import com.consultantvendor.data.models.responses.UserData
@@ -29,8 +28,9 @@ import com.consultantvendor.databinding.FragmentRegisterBinding
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.drawermenu.classes.ClassesViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
-import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
-import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
+import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
+import com.consultantvendor.ui.loginSignUp.covid.CovidFragment.Companion.MASTER_PREFRENCE_TYPE
+import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment.Companion.DUMMY_NAME
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.libraries.places.widget.Autocomplete
@@ -116,11 +116,12 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     private fun setEditInformation() {
         userData = userRepository.getUser()
 
-        if (!userData?.name.equals("1#123@123"))
+        if (!userData?.name.equals(DUMMY_NAME))
             binding.etName.setText(userData?.name ?: "")
 
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
             binding.tvName.text = getString(R.string.update)
+            binding.tvDesc.gone()
             binding.cbTerms.gone()
             binding.cvQualification.visible()
 
@@ -138,16 +139,16 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 when (it.field_name) {
                     CustomFields.WORK_EXPERIENCE -> {
                         when (it.field_value) {
-                            getString(R.string.months_0_5) -> {
+                            getString(R.string.exp_1) -> {
                                 itemsExperience[0].isSelected = true
                             }
-                            getString(R.string.months_6_11) -> {
+                            getString(R.string.exp_2) -> {
                                 itemsExperience[1].isSelected = true
                             }
-                            getString(R.string.months_12_24) -> {
+                            getString(R.string.exp_3) -> {
                                 itemsExperience[2].isSelected = true
                             }
-                            getString(R.string.months_24) -> {
+                            getString(R.string.exp_4) -> {
                                 itemsExperience[3].isSelected = true
                             }
                         }
@@ -156,13 +157,13 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                         return@forEach
                     }
                     CustomFields.WORKING_SHIFTS -> {
-                        if (it.field_value?.contains(getString(R.string.day_shift)) == true) {
+                        if (it.field_value?.contains(getString(R.string.shift_1)) == true) {
                             itemsShift[0].isSelected = true
                         }
-                        if (it.field_value?.contains(getString(R.string.evening_shift)) == true) {
+                        if (it.field_value?.contains(getString(R.string.shift_2)) == true) {
                             itemsShift[1].isSelected = true
                         }
-                        if (it.field_value?.contains(getString(R.string.night_shift)) == true) {
+                        if (it.field_value?.contains(getString(R.string.shift_3)) == true) {
                             itemsShift[2].isSelected = true
                         }
 
@@ -347,7 +348,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     }
 
     private fun bindObservers() {
-        viewModel.register.observe(this, Observer {
+        viewModel.register.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -368,7 +369,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             }
         })
 
-        viewModel.updateProfile.observe(this, Observer {
+        viewModel.updateProfile.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -389,7 +390,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             }
         })
 
-        viewModelFilter.getFilters.observe(this, Observer {
+        viewModelFilter.getFilters.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -427,7 +428,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             }
         })
 
-        viewModel.updateServices.observe(this, Observer {
+        viewModel.updateServices.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -443,15 +444,13 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                         }
                         userRepository.isUserLoggedIn() -> {
                             startActivity(Intent(requireContext(), HomeActivity::class.java)
-                                    .putExtra(EXTRA_IS_FIRST,true))
+                                    .putExtra(EXTRA_IS_FIRST, true))
                             requireActivity().finish()
                         }
                         else -> {
-                            val item = Categories()
-                            item.id = CATEGORY_ID
-                            val fragment = DocumentsFragment()
+                            val fragment = CovidFragment()
                             val bundle = Bundle()
-                            bundle.putSerializable(SubCategoryFragment.CATEGORY_PARENT_ID, item)
+                            bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.PERSONAL_INTEREST)
                             fragment.arguments = bundle
 
                             replaceFragment(requireActivity().supportFragmentManager,

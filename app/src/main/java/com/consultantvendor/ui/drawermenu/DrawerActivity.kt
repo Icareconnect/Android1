@@ -17,6 +17,7 @@ import com.consultantvendor.ui.dashboard.wallet.addmoney.AddCardFragment
 import com.consultantvendor.ui.drawermenu.classes.ClassesFragment
 import com.consultantvendor.ui.drawermenu.notification.NotificationFragment
 import com.consultantvendor.ui.drawermenu.profile.ProfileFragment
+import com.consultantvendor.ui.loginSignUp.changepassword.ChangePasswordFragment
 import com.consultantvendor.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -47,6 +48,9 @@ class DrawerActivity : DaggerAppCompatActivity() {
             PROFILE ->
                 addFragment(supportFragmentManager,
                         ProfileFragment(), R.id.container)
+            CHANGE_PASSWORD ->
+                addFragment(supportFragmentManager,
+                        ChangePasswordFragment(), R.id.container)
             NOTIFICATION ->
                 addFragment(supportFragmentManager,
                         NotificationFragment(), R.id.container)
@@ -91,6 +95,7 @@ class DrawerActivity : DaggerAppCompatActivity() {
 
     companion object {
         const val HISTORY = "HISTORY"
+        const val CHANGE_PASSWORD = "CHANGE_PASSWORD"
         const val PROFILE = "PROFILE"
         const val NOTIFICATION = "NOTIFICATION"
         const val USER_CHAT = "USER_CHAT"
