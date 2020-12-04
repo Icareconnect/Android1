@@ -102,6 +102,7 @@ class ProfileFragment : DaggerFragment() {
         userData = userRepository.getUser()
 
         binding.tvName.text = getDoctorName(userData)
+        binding.tvBioV.text = userData?.profile?.bio ?: getString(R.string.na)
         binding.tvEmailV.text = userData?.email ?: getString(R.string.na)
         binding.tvPhoneV.text = "${userData?.country_code ?: getString(R.string.na)} ${userData?.phone ?: ""}"
         binding.tvDOBV.text = userData?.profile?.dob ?: getString(R.string.na)
@@ -129,6 +130,17 @@ class ProfileFragment : DaggerFragment() {
         binding.tvSetAvailability.gone()
         binding.tvUpdateCategory.gone()
 
+
+        var specialisation = ""
+        userData?.filters?.forEach {
+            it.options?.forEach {
+                if (it.isSelected) {
+                    specialisation += "${it.option_name}, "
+                }
+            }
+        }
+        binding.tvSpecialisation.text = specialisation.removeSuffix(", ")
+        binding.tvSpecialisation.hideShowView(specialisation.isNotEmpty())
 
         userData?.custom_fields?.forEach {
             when (it.field_name) {
@@ -168,6 +180,9 @@ class ProfileFragment : DaggerFragment() {
                 }
             }
             binding.tvCovidV.text = covidText
+        } else {
+            binding.tvCovid.visible()
+            binding.tvCovidV.visible()
         }
 
         if (personalInterest.isNotEmpty()) {
@@ -183,6 +198,9 @@ class ProfileFragment : DaggerFragment() {
                 }
             }
             binding.tvPersonalV.text = personalText.removeSuffix(", ")
+        } else {
+            binding.tvPersonal.visible()
+            binding.tvPersonalV.visible()
         }
 
         if (workExperience.isNotEmpty()) {
@@ -198,6 +216,9 @@ class ProfileFragment : DaggerFragment() {
                 }
             }
             binding.tvWorkV.text = workText.removeSuffix(", ")
+        } else {
+            binding.tvWork.gone()
+            binding.tvWorkV.gone()
         }
 
     }

@@ -21,6 +21,7 @@ import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment.Companion.EXT
 import com.consultantvendor.utils.EXTRA_IS_FIRST
 import com.consultantvendor.utils.PrefsManager
 import com.consultantvendor.utils.USER_DATA
+import com.consultantvendor.utils.logoutUser
 import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
@@ -50,6 +51,7 @@ class UserVerificationFragment : DaggerFragment() {
             rootView = binding.root
 
             initialise()
+            listeners()
         }
         return rootView
     }
@@ -67,6 +69,12 @@ class UserVerificationFragment : DaggerFragment() {
                         .putExtra(EXTRA_LOGIN,true)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
             }
+        }
+    }
+
+    private fun listeners() {
+        binding.tvSignOut.setOnClickListener {
+            logoutUser(requireActivity(), prefsManager)
         }
     }
 

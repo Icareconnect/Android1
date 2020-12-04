@@ -166,6 +166,36 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilBio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@drawable/drawable_stroke_grey"
+                    android:padding="@dimen/dp_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilLocation">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etBio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_medium"
+                        android:gravity="start"
+                        android:hint="@string/bio"
+                        android:background="@null"
+                        android:textDirection="locale"
+                        android:padding="@dimen/dp_8"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:maxLines="4"
+                        android:maxLength="1000"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_16" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvQualification"
                     android:layout_width="0dp"
@@ -178,7 +208,7 @@
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ilLocation" />
+                    app:layout_constraintTop_toBottomOf="@+id/ilBio" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvQualificationHint"

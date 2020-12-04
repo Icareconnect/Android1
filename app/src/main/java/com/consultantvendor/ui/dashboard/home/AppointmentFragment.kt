@@ -166,7 +166,7 @@ class AppointmentFragment : DaggerFragment() {
 
                     binding.clNoData.hideShowView(items.isEmpty())
 
-                    if (it.data?.isAprroved == false) {
+                    if (it.data?.isAprroved == false && userRepository.getUser()?.isApproved==false) {
                         binding.clNoData.setBackgroundResource(R.color.colorWhite)
                         binding.clNoData.hideShowView(true)
                         binding.clNoData.ivNoData.setImageResource(R.drawable.ic_verification)

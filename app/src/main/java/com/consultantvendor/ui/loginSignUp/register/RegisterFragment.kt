@@ -107,6 +107,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         viewModelFilter = ViewModelProvider(this, viewModelFactory)[ClassesViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
 
+        editTextScroll(binding.etBio)
         binding.cvQualification.gone()
 
         binding.cbTerms.movementMethod = LinkMovementMethod.getInstance()
@@ -125,6 +126,8 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             binding.cbTerms.gone()
             binding.cvQualification.visible()
 
+
+            binding.etBio.setText(userData?.profile?.bio ?: "")
             if (!userData?.profile?.location_name.isNullOrEmpty()) {
                 binding.etLocation.setText(userData?.profile?.location_name)
 
@@ -268,6 +271,9 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 binding.etLocation.text.toString().isEmpty() -> {
                     binding.etLocation.showSnackBar(getString(R.string.select_address))
                 }
+                binding.etBio.text.toString().trim().isEmpty() -> {
+                    binding.etBio.showSnackBar(getString(R.string.enter_bio))
+                }
                 qualification.isEmpty() -> {
                     binding.tvQualification.showSnackBar(getString(R.string.select_your_qualification_type))
                 }
@@ -297,6 +303,8 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     hashMap["location_name"] = getRequestBody(address?.locationName ?: "")
                     hashMap["lat"] = getRequestBody(address?.location?.get(1).toString())
                     hashMap["long"] = getRequestBody(address?.location?.get(0).toString())
+
+                    hashMap["bio"] = getRequestBody(binding.etBio.text.toString().trim())
 
                     val custom_fields = ArrayList<Insurance>()
 

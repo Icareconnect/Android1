@@ -109,6 +109,24 @@
                     tools:text="@string/na" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSpecialisation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:fontFamily="@font/campton_book"
+                    android:text="@string/app_name"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/sp_12"
+                    android:maxLines="4"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toEndOf="@+id/ivPic"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvRating"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -124,7 +142,7 @@
                     android:textSize="@dimen/sp_12"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toEndOf="@+id/ivPic"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvSpecialisation" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -315,6 +333,40 @@
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvUpdateCategory" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_32"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/bio"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+
+                <com.borjabravo.readmoretextview.ReadMoreTextView
+                    android:id="@+id/tvBioV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:fontFamily="@font/campton_book"
+                    android:gravity="start"
+                    android:textColor="@color/textColor"
+                    android:textDirection="locale"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/sp_14"
+                    app:colorClickableText="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBio"
+                    app:trimCollapsedText="@string/show_more"
+                    app:trimExpandedText="@string/show_less"
+                    app:trimLength="250"
+                    app:trimLines="3"
+                    app:trimMode="trimModeLength" />
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvEmail"
@@ -327,7 +379,7 @@
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/view1" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvBioV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvEmailV"

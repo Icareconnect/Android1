@@ -5,13 +5,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:background="@color/colorUserVerification">
+        android:background="@color/colorUserVerification"
+        android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/dp_24"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp_24">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/startGuideLine"
@@ -26,6 +26,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/dp_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/campton_semibold"
+                android:gravity="center"
+                android:padding="@dimen/dp_8"
+                android:text="@string/sign_out"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.appcompat.widget.AppCompatImageView

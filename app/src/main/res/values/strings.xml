@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iCareConnect Experts</string>
+    <string name="app_name">iCareConnect Nurse</string>
 
     <!--Google-->
     <string name="google_places_api_key" translatable="false">AIzaSyBxwRzUvnbtTjNc8DURP4l4auJWsmrr7Bk</string>
@@ -87,7 +87,7 @@
     <string name="unsuccessful">%s Unsuccessful</string>
     <string name="select_image">Select image</string>
     <string name="update">Update</string>
-    <string name="update_desc">You have new update for iCareConnect Experts!</string>
+    <string name="update_desc">You have new update for iCareConnect Nurse!</string>
     <string name="we_need_your_email">We need your registered email to reach you</string>
     <string name="sent_password">We have sent a temporary password in your email. Please check your email.</string>
     <string name="chat_request">Chat request</string>
@@ -428,5 +428,8 @@
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm New Password</string>
     <string name="password_changed">Password changed successfully</string>
+
+    <string name="show_more">show more</string>
+    <string name="show_less">show less</string>
 
 </resources>
