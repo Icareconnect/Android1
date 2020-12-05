@@ -14,10 +14,7 @@ import com.consultantvendor.data.models.responses.Service
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.databinding.FragmentRevenueBinding
-import com.consultantvendor.utils.PrefsManager
-import com.consultantvendor.utils.getCurrency
-import com.consultantvendor.utils.gone
-import com.consultantvendor.utils.visible
+import com.consultantvendor.utils.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -62,14 +59,20 @@ class RevenueFragment : DaggerFragment() {
         binding.clLoader.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorWhite))
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RevenueViewModel::class.java]
+
+        if (requireActivity().intent.hasExtra(PAGE_TO_OPEN)) {
+            binding.toolbar.visible()
+        }
     }
 
     private fun listeners() {
-
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().finish()
+        }
     }
 
     private fun bindObservers() {
-        viewModel.revenue.observe(this, Observer {
+        viewModel.revenue.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -78,10 +81,10 @@ class RevenueFragment : DaggerFragment() {
                     val revenueData = it.data
 
                     /*Services selected*/
-                    val serviceList = ArrayList<Service>()
+                    /*val serviceList = ArrayList<Service>()
                     serviceList.addAll(revenueData?.services ?: emptyList())
                     val adapter = ServicesAdapter(serviceList)
-                    binding.rvServices.adapter = adapter
+                    binding.rvServices.adapter = adapter*/
 
                     binding.tvAppointmentV.text = revenueData?.totalRequest
                     binding.tvCompleted.text = getString(R.string.s_completed, revenueData?.completedRequest)
@@ -192,7 +195,7 @@ class RevenueFragment : DaggerFragment() {
             binding.lineChart.animateXY(0, 1500)
             binding.lineChart.legend.isEnabled = false
             binding.lineChart.setDescription("")
-            binding.lineChart.setExtraOffsets(0f,5f,0f,8f)
+            binding.lineChart.setExtraOffsets(0f, 5f, 0f, 8f)
         }
     }
 

@@ -16,7 +16,6 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentHomeBinding
 import com.consultantvendor.ui.adapter.CommonFragmentPagerAdapter
 import com.consultantvendor.ui.drawermenu.DrawerActivity
-import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.CHANGE_PASSWORD
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
@@ -141,8 +140,14 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
             }
             R.id.changePassword -> {
                 startActivity(Intent(requireContext(), DrawerActivity::class.java)
-                        .putExtra(PAGE_TO_OPEN, CHANGE_PASSWORD))
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.CHANGE_PASSWORD))
             }
+
+            R.id.myEarnings -> {
+                startActivity(Intent(requireContext(), DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.REVENUE))
+            }
+
 
             R.id.logout -> {
                 showLogoutDialog()

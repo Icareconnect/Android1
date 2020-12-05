@@ -446,6 +446,33 @@
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvDOB" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvServices"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_32"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/providable_services"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDOBV" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvServicesV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:fontFamily="@font/campton_medium"
+                    android:text="@string/dob"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvServices" />
+
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPersonal"
@@ -458,7 +485,7 @@
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDOBV" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvServicesV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPersonalV"

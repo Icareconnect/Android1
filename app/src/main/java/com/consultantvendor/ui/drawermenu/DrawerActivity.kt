@@ -12,6 +12,7 @@ import com.consultantvendor.ui.dashboard.feeds.FeedsFragment
 import com.consultantvendor.ui.dashboard.home.AppointmentDetailsFragment
 import com.consultantvendor.ui.dashboard.home.appointmentStatus.StatusUpdateFragment
 import com.consultantvendor.ui.dashboard.home.verification.UserVerificationFragment
+import com.consultantvendor.ui.dashboard.revenue.RevenueFragment
 import com.consultantvendor.ui.dashboard.wallet.PayoutFragment
 import com.consultantvendor.ui.dashboard.wallet.addmoney.AddCardFragment
 import com.consultantvendor.ui.drawermenu.classes.ClassesFragment
@@ -48,6 +49,9 @@ class DrawerActivity : DaggerAppCompatActivity() {
             PROFILE ->
                 addFragment(supportFragmentManager,
                         ProfileFragment(), R.id.container)
+            REVENUE ->
+                addFragment(supportFragmentManager,
+                        RevenueFragment(), R.id.container)
             CHANGE_PASSWORD ->
                 addFragment(supportFragmentManager,
                         ChangePasswordFragment(), R.id.container)
@@ -95,6 +99,7 @@ class DrawerActivity : DaggerAppCompatActivity() {
 
     companion object {
         const val HISTORY = "HISTORY"
+        const val REVENUE="REVENUE"
         const val CHANGE_PASSWORD = "CHANGE_PASSWORD"
         const val PROFILE = "PROFILE"
         const val NOTIFICATION = "NOTIFICATION"

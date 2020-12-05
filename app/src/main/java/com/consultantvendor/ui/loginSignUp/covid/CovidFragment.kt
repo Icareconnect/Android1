@@ -22,6 +22,7 @@ import com.consultantvendor.ui.AppVersionViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.prefrence.PrefrenceAdapter
+import com.consultantvendor.ui.loginSignUp.service.ServiceFragment.Companion.FILTER_DATA
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.gson.Gson
@@ -72,7 +73,7 @@ class CovidFragment : DaggerFragment() {
             setAdapter()
             listeners()
             bindObservers()
-            hitApi(true)
+            hitApi()
         }
         return rootView
     }
@@ -88,6 +89,9 @@ class CovidFragment : DaggerFragment() {
         when (prefrenceType) {
             PreferencesType.PERSONAL_INTEREST -> {
                 binding.tvTitle.text = getString(R.string.personal_interests)
+            }
+            PreferencesType.PROVIDABLE_SERVICES -> {
+                binding.tvTitle.text = getString(R.string.providable_services)
             }
             PreferencesType.WORK_ENVIRONMENT -> {
                 binding.tvTitle.text = getString(R.string.work_environment)
@@ -112,7 +116,7 @@ class CovidFragment : DaggerFragment() {
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            hitApi(true)
+            hitApi()
         }
 
         binding.rvListing.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -125,7 +129,7 @@ class CovidFragment : DaggerFragment() {
 
                 if (!isLoadingMoreItems && !isLastPage && lastVisibleItemPosition >= totalItemCount) {
                     isLoadingMoreItems = true
-                    hitApi(false)
+                    hitApi()
                 }
             }
         })
@@ -166,12 +170,17 @@ class CovidFragment : DaggerFragment() {
         }
     }
 
-    private fun hitApi(firstHit: Boolean) {
+    private fun hitApi() {
         if (isConnectedToInternet(requireContext(), true)) {
             val hashMap = HashMap<String, String>()
-            hashMap["type"] = PreferencesType.ALL
-            hashMap["preference_type"] = prefrenceType
-            viewModelAppVersion.preferences(hashMap)
+            if(prefrenceType==PreferencesType.PROVIDABLE_SERVICES){
+                hashMap["filter_ids"] = requireActivity().intent.getStringExtra(FILTER_DATA)
+                viewModelAppVersion.duty(hashMap)
+            }else {
+                hashMap["type"] = PreferencesType.ALL
+                hashMap["preference_type"] = prefrenceType
+                viewModelAppVersion.preferences(hashMap)
+            }
         } else
             binding.swipeRefresh.isRefreshing = false
     }
@@ -232,6 +241,10 @@ class CovidFragment : DaggerFragment() {
 
                     when (prefrenceType) {
                         PreferencesType.PERSONAL_INTEREST -> {
+                            fragment = CovidFragment()
+                            bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.PROVIDABLE_SERVICES)
+                        }
+                        PreferencesType.PROVIDABLE_SERVICES -> {
                             fragment = CovidFragment()
                             bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.WORK_ENVIRONMENT)
                         }

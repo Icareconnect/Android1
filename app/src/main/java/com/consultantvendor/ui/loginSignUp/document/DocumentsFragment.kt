@@ -147,7 +147,7 @@ class DocumentsFragment : DaggerFragment() {
 
 
     private fun bindObservers() {
-        viewModel.additionalDetails.observe(this, Observer {
+        viewModel.additionalDetails.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -171,7 +171,7 @@ class DocumentsFragment : DaggerFragment() {
             }
         })
 
-        viewModel.additionalDetailsUpdate.observe(this, Observer {
+        viewModel.additionalDetailsUpdate.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

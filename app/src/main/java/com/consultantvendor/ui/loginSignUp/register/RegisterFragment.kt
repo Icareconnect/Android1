@@ -1,7 +1,10 @@
 package com.consultantvendor.ui.loginSignUp.register
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -12,6 +15,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.consultantvendor.R
 import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
@@ -31,14 +35,22 @@ import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
 import com.consultantvendor.ui.loginSignUp.covid.CovidFragment.Companion.MASTER_PREFRENCE_TYPE
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment.Companion.DUMMY_NAME
+import com.consultantvendor.ui.loginSignUp.service.ServiceFragment.Companion.FILTER_DATA
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
+import droidninja.filepicker.FilePickerBuilder
+import droidninja.filepicker.FilePickerConst
 import okhttp3.RequestBody
+import permissions.dispatcher.*
+import com.consultantvendor.utils.PermissionUtils
+import okhttp3.MediaType
+import java.io.File
 import javax.inject.Inject
 
+@RuntimePermissions
 class RegisterFragment : DaggerFragment(), OnDateSelected {
 
     @Inject
@@ -77,6 +89,8 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     private var address: SaveAddress? = null
 
     private var userData: UserData? = null
+
+    private var fileToUpload: File? = null
 
 
     override fun onCreateView(
@@ -126,7 +140,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             binding.cbTerms.gone()
             binding.cvQualification.visible()
 
-
+            loadImage(binding.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
             binding.etBio.setText(userData?.profile?.bio ?: "")
             if (!userData?.profile?.location_name.isNullOrEmpty()) {
                 binding.etLocation.setText(userData?.profile?.location_name)
@@ -227,6 +241,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 requireActivity().finish()
         }
 
+        binding.ivPic.setOnClickListener {
+            getStorageWithPermissionCheck()
+        }
+
         binding.tvQualificationV.setOnClickListener {
             binding.tvQualificationV.hideKeyboard()
             binding.cvQualification.hideShowView(binding.cvQualification.visibility == View.GONE)
@@ -245,7 +263,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             var qualification = ""
             itemsQualification.forEachIndexed { index, filterOption ->
                 if (filterOption.isSelected) {
-                    qualification += "${filterOption.option_name}, "
+                    qualification += "${filterOption.id},"
                 }
             }
 
@@ -296,6 +314,8 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     binding.cbTerms.showSnackBar(binding.cbTerms.text.toString())
                 }
                 isConnectedToInternet(requireContext(), true) -> {
+                    requireActivity().intent.putExtra(FILTER_DATA, qualification.removePrefix(", "))
+
                     val hashMap = HashMap<String, RequestBody>()
 
                     hashMap["name"] = getRequestBody(binding.etName.text.toString().trim())
@@ -306,13 +326,21 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
                     hashMap["bio"] = getRequestBody(binding.etBio.text.toString().trim())
 
+                    if (fileToUpload != null && fileToUpload?.exists() == true) {
+                        hashMap["type"] = getRequestBody("img")
+
+                        val body: RequestBody =
+                                RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload)
+                        hashMap["profile_image\"; fileName=\"" + fileToUpload?.name] = body
+                    }
+
                     val custom_fields = ArrayList<Insurance>()
 
                     userRepository.getAppSetting()?.custom_fields?.service_provider?.forEach {
                         val item = it
                         when (it.field_name) {
                             CustomFields.WORKING_SHIFTS -> {
-                                item.field_value = shift.removeSuffix(", ")
+                                item.field_value = shift.removeSuffix(",")
                                 custom_fields.add(item)
                             }
                             CustomFields.WORK_EXPERIENCE -> {
@@ -519,6 +547,22 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         binding.etStartDate.setText(date)
     }
 
+    private fun selectImages() {
+        FilePickerBuilder.instance
+                .setMaxCount(1)
+                .setActivityTheme(R.style.AppTheme)
+                .setActivityTitle(getString(R.string.select_image))
+                .enableVideoPicker(false)
+                .enableCameraSupport(true)
+                .showGifs(false)
+                .showFolderView(true)
+                .enableSelectAll(false)
+                .enableImagePicker(true)
+                .setCameraPlaceholder(R.drawable.ic_camera)
+                .withOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .pickPhoto(this, AppRequestCode.IMAGE_PICKER)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -542,7 +586,39 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                         //performAddressSelectAction(false, address)
                     }
                 }
+                AppRequestCode.IMAGE_PICKER -> {
+                    val docPaths = ArrayList<Uri>()
+                    docPaths.addAll(data?.getParcelableArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA)
+                            ?: emptyList())
+
+                    fileToUpload = File(getPathUri(requireContext(), docPaths[0]))
+                    Glide.with(requireContext()).load(fileToUpload).into(binding.ivPic)
+                }
             }
         }
+    }
+
+    @NeedsPermission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun getStorage() {
+        selectImages()
+    }
+
+    @OnShowRationale(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun showLocationRationale(request: PermissionRequest) {
+        PermissionUtils.showRationalDialog(requireContext(), R.string.media_permission, request)
+    }
+
+    @OnNeverAskAgain(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgainRationale() {
+        PermissionUtils.showAppSettingsDialog(
+                requireContext(), R.string.media_permission
+        )
+    }
+
+    @OnPermissionDenied(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun showDeniedForStorage() {
+        PermissionUtils.showAppSettingsDialog(
+                requireContext(), R.string.media_permission
+        )
     }
 }

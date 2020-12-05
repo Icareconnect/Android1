@@ -69,8 +69,9 @@ class AppointmentAdapter(
         fun bind(request: Request) = with(binding) {
             val context = binding.root.context
 
-            tvAccept.visible()
-            tvCancel.hideShowView(request.canCancel)
+            tvAccept.gone()
+            tvCancel.gone()
+            //tvCancel.hideShowView(request.canCancel)
 
             tvName.text = request.from_user?.name
             tvServiceTypeV.text = request.extra_detail?.filter_name ?:""

@@ -109,6 +109,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/ivPic"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_placeholder"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="80dp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ilName"
                     android:layout_width="0dp"
@@ -118,7 +131,7 @@
                     android:padding="@dimen/dp_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/ivPic">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etName"

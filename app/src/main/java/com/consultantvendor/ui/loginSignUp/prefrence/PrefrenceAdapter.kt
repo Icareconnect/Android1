@@ -57,7 +57,8 @@ class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayL
         init {
             if (fragment is CovidFragment) {
                 when (fragment.prefrenceType) {
-                    PreferencesType.PERSONAL_INTEREST, PreferencesType.WORK_ENVIRONMENT -> {
+                    PreferencesType.PERSONAL_INTEREST, PreferencesType.WORK_ENVIRONMENT,
+                    PreferencesType.PROVIDABLE_SERVICES -> {
                         binding.tvName.gravity = Gravity.CENTER_HORIZONTAL
 
                         val layoutManager = LinearLayoutManager(fragment.requireContext())

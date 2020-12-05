@@ -17,11 +17,10 @@ import com.consultantvendor.data.network.PushType
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentUserVerificationBinding
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
+import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
+import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
 import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment.Companion.EXTRA_LOGIN
-import com.consultantvendor.utils.EXTRA_IS_FIRST
-import com.consultantvendor.utils.PrefsManager
-import com.consultantvendor.utils.USER_DATA
-import com.consultantvendor.utils.logoutUser
+import com.consultantvendor.utils.*
 import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
@@ -75,6 +74,12 @@ class UserVerificationFragment : DaggerFragment() {
     private fun listeners() {
         binding.tvSignOut.setOnClickListener {
             logoutUser(requireActivity(), prefsManager)
+        }
+
+        binding.tvDocuments.setOnClickListener {
+            startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
+                    .putExtra(SubCategoryFragment.CATEGORY_PARENT_ID, userRepository.getUser()?.categoryData)
+                    .putExtra(DocumentsFragment.UPDATE_DOCUMENTS, true), AppRequestCode.PROFILE_UPDATE)
         }
     }
 
