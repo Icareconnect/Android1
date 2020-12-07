@@ -10,22 +10,20 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:elevation="4dp"
+            android:background="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_back"
+            app:navigationIcon="@drawable/ic_back_white"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:elevation="4dp"
             android:fontFamily="@font/campton_semibold"
             android:gravity="center"
             android:text="@string/service_detail"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +149,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvServiceType"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_24"
                     android:fontFamily="@font/campton_medium"
@@ -163,7 +161,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvServiceTypeV"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/service_type"
@@ -174,7 +172,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDistance"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
                     android:fontFamily="@font/campton_medium"
@@ -186,7 +184,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDistanceV"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/service_type"
@@ -198,7 +196,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvBookingDate"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
                     android:fontFamily="@font/campton_medium"
@@ -210,7 +208,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvBookingDateV"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
                     android:fontFamily="@font/campton_semibold"
@@ -219,12 +217,11 @@
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
-                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toTopOf="@+id/tvBookingDate" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvBookingTime"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
                     android:fontFamily="@font/campton_medium"
@@ -236,7 +233,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvBookingTimeV"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/service_type"

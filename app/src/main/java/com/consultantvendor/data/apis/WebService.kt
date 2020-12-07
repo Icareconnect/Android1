@@ -24,6 +24,7 @@ interface WebService {
         private const val PREFERENCES = "/api/master/preferences"
         private const val DUTY = "/api/master/duty"
         private const val UPDATE_NUMBER = "/api/update-phone"
+        private const val MANUAL_AVAILABLE = "/api/manual-available"
         private const val VERIFY_OTP = "/api/verify-otp"
         private const val RESEND_OTP = "api/resend-otp"
         private const val REGISTER = "/api/register"
@@ -53,7 +54,6 @@ interface WebService {
         private const val BANK_ACCOUNTS = "/api/bank-accounts"
         private const val REVENUE = "/api/revenue"
         private const val NOTIFICATIONS = "/api/notifications"
-        private const val DOCTOR_DETAIL = "/api/doctor-detail"
 
         private const val CATEGORIES = "/api/categories"
         private const val GET_SLOTS = "/api/get-slots"
@@ -66,6 +66,7 @@ interface WebService {
         private const val UPDATE_SERVICES = "/api/update-services"
         private const val CANCEL_REQUEST = "/api/cancel-request"
         private const val CALL_STATUS = "/api/call-status"
+        private const val PROFILE = "/api/profile"
         private const val PAGES = "/api/pages"
         private const val ADD_CARD = "api/add-card"
         private const val UPDATE_CARD = "/api/update-card"
@@ -95,6 +96,10 @@ interface WebService {
     @FormUrlEncoded
     @POST(UPDATE_NUMBER)
     fun updateNumber(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
+
+    @FormUrlEncoded
+    @POST(MANUAL_AVAILABLE)
+    fun manualAvailable(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
 
     @FormUrlEncoded
     @POST(VERIFY_OTP)
@@ -222,6 +227,9 @@ interface WebService {
 
     /*GET*/
 
+    @GET(PROFILE)
+    fun profile(): Call<ApiResponse<UserData>>
+
     @GET(CLIENT_DETAILS)
     fun clientDetails(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<AppVersion>>
 
@@ -241,8 +249,6 @@ interface WebService {
     @GET(REQUEST_DETAIL)
     fun requestDetail(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
 
-    @GET(DOCTOR_DETAIL)
-    fun doctorDetails(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>
 
     @GET(WALLET_HISTORY)
     fun walletHistory(@QueryMap hashMap: Map<String, String>): Call<ApiResponse<CommonDataModel>>

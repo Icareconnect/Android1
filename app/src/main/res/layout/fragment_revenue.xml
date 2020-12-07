@@ -11,11 +11,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:visibility="gone"
+            android:background="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_back"
+            app:navigationIcon="@drawable/ic_back_white"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
 
@@ -26,8 +25,8 @@
             android:drawablePadding="@dimen/dp_8"
             android:fontFamily="@font/campton_semibold"
             android:gravity="center|center_vertical"
-            android:text="@string/revenue"
-            android:textColor="@color/textColor"
+            android:text="@string/my_earnings"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -141,7 +141,7 @@ class SettingsFragment : DaggerFragment() {
     }
 
     private fun bindObservers() {
-        viewModel.logout.observe(this, Observer {
+        viewModel.logout.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -159,7 +159,7 @@ class SettingsFragment : DaggerFragment() {
             }
         })
 
-        viewModel.pagesLink.observe(this, Observer {
+        viewModel.pagesLink.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

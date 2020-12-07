@@ -58,11 +58,11 @@ class ProfileFragment : DaggerFragment() {
 
     private lateinit var viewModel: AppointmentViewModel
 
-    private lateinit var viewModelDoctor: DoctorViewModel
-
     private lateinit var viewModelLogin: LoginViewModel
 
     private var userData: UserData? = null
+
+    private var apiForAvailability = ""
 
 
     override fun onCreateView(
@@ -85,16 +85,13 @@ class ProfileFragment : DaggerFragment() {
 
     private fun initialise() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AppointmentViewModel::class.java]
-        viewModelDoctor = ViewModelProvider(this, viewModelFactory)[DoctorViewModel::class.java]
         viewModelLogin = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
     }
 
     private fun hiApiDoctorDetail() {
         if (isConnectedToInternet(requireContext(), true)) {
-            val hashMap = HashMap<String, String>()
-            hashMap["doctor_id"] = userRepository.getUser()?.id ?: ""
-            viewModelDoctor.doctorDetails(hashMap)
+            viewModelLogin.profile()
         }
     }
 
@@ -106,6 +103,13 @@ class ProfileFragment : DaggerFragment() {
         binding.tvEmailV.text = userData?.email ?: getString(R.string.na)
         binding.tvPhoneV.text = "${userData?.country_code ?: getString(R.string.na)} ${userData?.phone ?: ""}"
         binding.tvDOBV.text = userData?.profile?.dob ?: getString(R.string.na)
+
+        /*Buttons*/
+        binding.tbAvailability.tag = null
+        binding.tbAvailability.isChecked = userData?.manual_available ?: false
+        binding.tbNotification.tag = null
+        binding.tbNotification.isChecked = userData?.notification_enable ?: false
+
         binding.tvDesc.text = userData?.categoryData?.name ?: getString(R.string.na)
 
         //binding.tvRating.text = userData?.speciaity ?: getString(R.string.na)
@@ -277,12 +281,42 @@ class ProfileFragment : DaggerFragment() {
         binding.tvUpdateCategory.setOnClickListener {
             startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
                     .putExtra(UPDATE_CATEGORY, true), AppRequestCode.PROFILE_UPDATE)
-
         }
 
 
         binding.ivPic.setOnClickListener {
             getStorageWithPermissionCheck()
+        }
+
+        binding.tbAvailability.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.tag != null)
+                return@setOnCheckedChangeListener
+
+            if (isConnectedToInternet(requireContext(), true)) {
+                apiForAvailability = ManualUpdate.AVAILABILITY
+                val hashMap = HashMap<String, Any>()
+                hashMap["manual_available"] = if (isChecked) 1 else 0
+                viewModelLogin.manualAvailable(hashMap)
+            } else {
+                binding.tbAvailability.tag = null
+                binding.tbAvailability.isChecked = !isChecked
+                //binding.tbAvailability.setOnCheckedChangeListener(mListener)
+            }
+        }
+
+        binding.tbNotification.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.tag != null)
+                return@setOnCheckedChangeListener
+
+            if (isConnectedToInternet(requireContext(), true)) {
+                apiForAvailability = ManualUpdate.NOTIFICATION
+                val hashMap = HashMap<String, Any>()
+                hashMap["notification_enable"] = if (isChecked) 1 else 0
+                viewModelLogin.manualAvailable(hashMap)
+            } else {
+                binding.tbNotification.tag = null
+                binding.tbNotification.isChecked = !isChecked
+            }
         }
     }
 
@@ -361,12 +395,46 @@ class ProfileFragment : DaggerFragment() {
             }
         })
 
-        viewModelDoctor.doctorDetails.observe(requireActivity(), Observer {
+        viewModelLogin.manualAvailable.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
                     progressDialog.setLoading(false)
-                    userData = it.data?.dcotor_detail
+
+                    val userData = userRepository.getUser()
+                    if (apiForAvailability==ManualUpdate.AVAILABILITY)
+                        userData?.manual_available = binding.tbAvailability.isChecked
+                    else
+                        userData?.notification_enable = binding.tbNotification.isChecked
+
+                    prefsManager.save(USER_DATA, userData)
+
+                }
+                Status.ERROR -> {
+                    if (apiForAvailability==ManualUpdate.AVAILABILITY) {
+                        binding.tbAvailability.tag = null
+                        binding.tbAvailability.isChecked = !binding.tbAvailability.isChecked
+                    } else {
+                        binding.tbNotification.tag = null
+                        binding.tbNotification.isChecked = !binding.tbNotification.isChecked
+                    }
+
+                    progressDialog.setLoading(false)
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialog.setLoading(true)
+                }
+            }
+        })
+
+        viewModelLogin.profile.observe(requireActivity(), Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialog.setLoading(false)
+
+                    prefsManager.save(USER_DATA, it.data)
 
                     setUserProfile()
                 }
@@ -375,7 +443,7 @@ class ProfileFragment : DaggerFragment() {
                     ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
                 }
                 Status.LOADING -> {
-                    progressDialog.setLoading(true)
+                    progressDialog.setLoading(false)
                 }
             }
         })
@@ -413,5 +481,14 @@ class ProfileFragment : DaggerFragment() {
         PermissionUtils.showAppSettingsDialog(
                 requireContext(), R.string.media_permission
         )
+    }
+
+    companion object {
+
+        object ManualUpdate {
+            const val AVAILABILITY = ""
+            const val NOTIFICATION = ""
+            const val PREMIUM = ""
+        }
     }
 }

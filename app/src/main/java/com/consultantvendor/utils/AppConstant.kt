@@ -55,6 +55,12 @@ object ClassType {
     const val COMPLETED = "completed"
 }
 
+object DocumentStatus {
+    const val APPROVED = "approved"
+    const val IN_PROGRESS = "in_progress"
+    const val DECLINED = "declined"
+}
+
 object CallFrom {
     const val CHAT = "chat"
     const val CALL = "call"

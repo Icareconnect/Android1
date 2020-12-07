@@ -23,10 +23,24 @@
             app:layout_constraintGuide_end="@dimen/dp_0" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:fontFamily="@font/campton_semibold"
+            android:gravity="start"
+            android:text="@string/in_progress"
+            android:textColor="@color/bgCall"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_goneMarginTop="@dimen/dp_16"
             android:fontFamily="@font/campton_book"
             android:gravity="start"
             android:text="@string/app_name"
@@ -34,7 +48,7 @@
             android:textSize="@dimen/sp_14"
             app:layout_constraintEnd_toStartOf="@+id/ivImage"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDesc"

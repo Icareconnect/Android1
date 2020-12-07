@@ -99,11 +99,11 @@
                     android:background="@drawable/drawable_bg_desc"
                     android:fontFamily="@font/campton_medium"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:paddingStart="@dimen/dp_8"
                     android:paddingEnd="@dimen/dp_8"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
+                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@+id/ivPic"
                     app:layout_constraintTop_toBottomOf="@+id/tvName"
                     tools:text="@string/na" />
@@ -114,16 +114,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:ellipsize="end"
                     android:fontFamily="@font/campton_book"
+                    android:maxLines="4"
                     android:text="@string/app_name"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_12"
-                    android:maxLines="4"
-                    android:ellipsize="end"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toEndOf="@+id/ivPic"
                     app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
-
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -240,8 +239,8 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/dp_24"
-                    android:visibility="gone"
                     android:background="@color/lineColor"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvPatientV" />
@@ -327,11 +326,69 @@
                     android:id="@+id/view1"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:background="@color/lineColor"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvUpdateCategory" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAvailability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/availability"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/tbAvailability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvAvailability"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvAvailability" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/notification"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAvailability" />
+
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/tbNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvNotification"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvNotification" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/lineColor"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tbNotification" />
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvBio"
@@ -343,7 +400,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/view1" />
+                    app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 
                 <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -353,9 +410,9 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_book"
                     android:gravity="start"
+                    android:text="@string/app_name"
                     android:textColor="@color/textColor"
                     android:textDirection="locale"
-                    android:text="@string/app_name"
                     android:textSize="@dimen/sp_14"
                     app:colorClickableText="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -471,7 +528,6 @@
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvServices" />
-
 
 
                 <androidx.appcompat.widget.AppCompatTextView

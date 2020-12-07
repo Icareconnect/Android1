@@ -432,5 +432,9 @@
     <string name="show_more">show more</string>
     <string name="show_less">show less</string>
     <string name="providable_services">Providable Services</string>
+    <string name="availability">Availability</string>
+    <string name="in_progress">In Progress</string>
+    <string name="approved">Approved</string>
+    <string name="declined">Declined</string>
 
 </resources>

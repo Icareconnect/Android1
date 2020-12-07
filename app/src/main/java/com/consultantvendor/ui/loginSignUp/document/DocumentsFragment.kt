@@ -81,6 +81,7 @@ class DocumentsFragment : DaggerFragment() {
         binding.tvTitle.text = getString(R.string.upload_documents)
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
+        binding.clLoader.setBackgroundResource(R.color.colorWhite)
 
         /*Category Id*/
         categoryData = Categories()
@@ -94,12 +95,11 @@ class DocumentsFragment : DaggerFragment() {
 
         /*If document already there*/
         if (arguments?.containsKey(UPDATE_DOCUMENTS) == true) {
-            items.addAll(userData?.additionals ?: emptyList())
-            adapter.notifyDataSetChanged()
-
             adapter.setAddOption(false)
             binding.tvNext.text = getString(R.string.update)
-            //binding.tvNext.gone()
+
+            if (isConnectedToInternet(requireContext(), true))
+                viewModel.profile()
         } else if (isConnectedToInternet(requireContext(), true)) {
             binding.tvTitleDesc.visible()
 
@@ -139,7 +139,7 @@ class DocumentsFragment : DaggerFragment() {
 
                     viewModel.additionalDetailsUpdate(updateDocument)
                 }
-            }else{
+            } else {
                 binding.tvNext.showSnackBar(getString(R.string.upload_documents))
             }
         }
@@ -151,7 +151,7 @@ class DocumentsFragment : DaggerFragment() {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
-                    progressDialog.setLoading(false)
+                    binding.clLoader.gone()
 
                     items.clear()
                     items.addAll(it.data?.additional_details ?: emptyList())
@@ -162,11 +162,35 @@ class DocumentsFragment : DaggerFragment() {
                     binding.tvNoData.hideShowView(items.isEmpty())
                 }
                 Status.ERROR -> {
-                    progressDialog.setLoading(false)
+                    binding.clLoader.gone()
                     ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
                 }
                 Status.LOADING -> {
-                    progressDialog.setLoading(true)
+                    binding.clLoader.visible()
+                }
+            }
+        })
+
+        viewModel.profile.observe(requireActivity(), Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.clLoader.gone()
+
+                    items.clear()
+                    items.addAll(it.data?.additionals ?: emptyList())
+
+                    adapter.notifyDataSetChanged()
+
+                    adapter.setAllItemsLoaded(true)
+                    binding.tvNoData.hideShowView(items.isEmpty())
+                }
+                Status.ERROR -> {
+                    binding.clLoader.gone()
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    binding.clLoader.visible()
                 }
             }
         })
@@ -189,7 +213,7 @@ class DocumentsFragment : DaggerFragment() {
                         }
                         userRepository.isUserLoggedIn() -> {
                             startActivity(Intent(requireContext(), HomeActivity::class.java)
-                                    .putExtra(EXTRA_IS_FIRST,true))
+                                    .putExtra(EXTRA_IS_FIRST, true))
                             requireActivity().finish()
                         }
                         else -> {
@@ -219,9 +243,9 @@ class DocumentsFragment : DaggerFragment() {
 
     fun addDocument(pos: Int, editPos: Int?) {
         selectedPos = pos
-        if (editPos != null) {
-            editSelectedPos = editPos
 
+        editSelectedPos = editPos
+        if (editSelectedPos != null) {
             val documentMain: AdditionalFieldDocument? = if (editSelectedPos != -1)
                 items[selectedPos].documents[editSelectedPos ?: 0]
             else null

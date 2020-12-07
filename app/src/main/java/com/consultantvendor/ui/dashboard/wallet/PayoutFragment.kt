@@ -140,7 +140,7 @@ class PayoutFragment : DaggerFragment() {
     }
 
     private fun bindObservers() {
-        viewModelWallet.wallet.observe(this, Observer {
+        viewModelWallet.wallet.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -157,7 +157,7 @@ class PayoutFragment : DaggerFragment() {
             }
         })
 
-        viewModel.bankAccounts.observe(this, Observer {
+        viewModel.bankAccounts.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -189,7 +189,7 @@ class PayoutFragment : DaggerFragment() {
             }
         })
 
-        viewModel.addBank.observe(this, Observer {
+        viewModel.addBank.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -207,7 +207,7 @@ class PayoutFragment : DaggerFragment() {
             }
         })
 
-        viewModel.payout.observe(this, Observer {
+        viewModel.payout.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

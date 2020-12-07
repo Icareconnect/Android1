@@ -12,7 +12,6 @@ import com.consultantvendor.ui.dashboard.revenue.RevenueViewModel
 import com.consultantvendor.ui.dashboard.wallet.BankViewModel
 import com.consultantvendor.ui.dashboard.wallet.WalletViewModel
 import com.consultantvendor.ui.drawermenu.classes.ClassesViewModel
-import com.consultantvendor.ui.drawermenu.profile.DoctorViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.availability.GetSlotsViewModel
 import dagger.Binds
@@ -79,11 +78,6 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(ClassesViewModel::class)
     abstract fun classesViewModel(viewModel: ClassesViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(DoctorViewModel::class)
-    abstract fun doctorViewModel(viewModel: DoctorViewModel): ViewModel
 
     @Binds
     @IntoMap

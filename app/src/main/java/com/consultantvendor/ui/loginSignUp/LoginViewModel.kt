@@ -20,7 +20,11 @@ class LoginViewModel @Inject constructor(private val webService: WebService) : V
 
     val login by lazy { SingleLiveEvent<Resource<UserData>>() }
 
+    val profile by lazy { SingleLiveEvent<Resource<UserData>>() }
+
     val updateNumber by lazy { SingleLiveEvent<Resource<UserData>>() }
+
+    val manualAvailable by lazy { SingleLiveEvent<Resource<UserData>>() }
 
     val register by lazy { SingleLiveEvent<Resource<UserData>>() }
 
@@ -66,6 +70,30 @@ class LoginViewModel @Inject constructor(private val webService: WebService) : V
                 })
     }
 
+    fun profile() {
+        profile.value = Resource.loading()
+
+        webService.profile()
+                .enqueue(object : Callback<ApiResponse<UserData>> {
+
+                    override fun onResponse(call: Call<ApiResponse<UserData>>,
+                                            response: Response<ApiResponse<UserData>>) {
+                        if (response.isSuccessful) {
+                            profile.value = Resource.success(response.body()?.data)
+                        } else {
+                            profile.value = Resource.error(
+                                    ApiUtils.getError(response.code(),
+                                            response.errorBody()?.string()))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<UserData>>, throwable: Throwable) {
+                        profile.value = Resource.error(ApiUtils.failure(throwable))
+                    }
+
+                })
+    }
+
     fun updateNumber(hashMap: HashMap<String, Any>) {
         updateNumber.value = Resource.loading()
 
@@ -85,6 +113,30 @@ class LoginViewModel @Inject constructor(private val webService: WebService) : V
 
                     override fun onFailure(call: Call<ApiResponse<UserData>>, throwable: Throwable) {
                         updateNumber.value = Resource.error(ApiUtils.failure(throwable))
+                    }
+
+                })
+    }
+
+    fun manualAvailable(hashMap: HashMap<String, Any>) {
+        manualAvailable.value = Resource.loading()
+
+        webService.manualAvailable(hashMap)
+                .enqueue(object : Callback<ApiResponse<UserData>> {
+
+                    override fun onResponse(call: Call<ApiResponse<UserData>>,
+                                            response: Response<ApiResponse<UserData>>) {
+                        if (response.isSuccessful) {
+                            manualAvailable.value = Resource.success(response.body()?.data)
+                        } else {
+                            manualAvailable.value = Resource.error(
+                                    ApiUtils.getError(response.code(),
+                                            response.errorBody()?.string()))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<UserData>>, throwable: Throwable) {
+                        manualAvailable.value = Resource.error(ApiUtils.failure(throwable))
                     }
 
                 })

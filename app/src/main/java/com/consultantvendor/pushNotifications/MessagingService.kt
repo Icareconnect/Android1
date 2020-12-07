@@ -24,6 +24,9 @@ import com.consultantvendor.ui.chat.chatdetail.ChatDetailActivity
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.ui.drawermenu.DrawerActivity.Companion.CLASSES
+import com.consultantvendor.ui.loginSignUp.SignUpActivity
+import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
+import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
 import com.consultantvendor.utils.*
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -64,7 +67,7 @@ class MessagingService : FirebaseMessagingService() {
 
         val notificationData = JSONObject(remoteMessage.data as MutableMap<Any?, Any?>)
 
-        if (userRepository.isUserLoggedIn()) {
+        if (userRepository.isUserLoggedIn() && userRepository.getUser()?.notification_enable==true) {
             sendNotification(notificationData)
         }
     }
@@ -128,6 +131,11 @@ class MessagingService : FirebaseMessagingService() {
                         .putExtra(USER_ID, pushData.senderId)
                         .putExtra(USER_NAME, pushData.senderName)
                         .putExtra(EXTRA_REQUEST_ID, pushData.request_id)
+            }
+            PushType.DOCUMENT_STATUS -> {
+                intent = Intent(this, SignUpActivity::class.java)
+                        .putExtra(SubCategoryFragment.CATEGORY_PARENT_ID, userRepository.getUser()?.categoryData)
+                        .putExtra(DocumentsFragment.UPDATE_DOCUMENTS, true)
             }
             PushType.PROFILE_APPROVED, PushType.NEW_REQUEST, PushType.REQUEST_FAILED, PushType.REQUEST_COMPLETED
                 , PushType.CANCELED_REQUEST, PushType.RESCHEDULED_REQUEST -> {

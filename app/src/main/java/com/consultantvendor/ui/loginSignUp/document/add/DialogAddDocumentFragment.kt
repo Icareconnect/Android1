@@ -115,9 +115,11 @@ class DialogAddDocumentFragment(private val fragment: DocumentsFragment,
                         uploadFileOnServer()
                     else if (documentMain != null) {
                         val document = AdditionalFieldDocument()
+                        document.id = documentMain?.id
                         document.title = binding.etName.text.toString().trim()
                         document.description = binding.etDesc.text.toString().trim()
                         document.file_name = documentMain?.file_name ?: ""
+                        document.is_edit = true
 
                         fragment.addedDocument(document)
                         dialog?.dismiss()
@@ -149,9 +151,11 @@ class DialogAddDocumentFragment(private val fragment: DocumentsFragment,
                     progressDialogImage.setLoading(false)
 
                     val document = AdditionalFieldDocument()
+                    document.id = documentMain?.id
                     document.title = binding.etName.text.toString().trim()
                     document.description = binding.etDesc.text.toString().trim()
                     document.file_name = it.data?.image_name ?: ""
+                    document.is_edit = true
 
                     fragment.addedDocument(document)
                     dialog?.dismiss()

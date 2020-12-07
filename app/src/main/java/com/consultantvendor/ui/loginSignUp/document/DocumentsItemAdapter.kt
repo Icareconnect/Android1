@@ -2,6 +2,7 @@ package com.consultantvendor.ui.loginSignUp.document
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
@@ -10,7 +11,7 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemDocumentItemBinding
-import com.consultantvendor.utils.loadImage
+import com.consultantvendor.utils.*
 
 
 class DocumentsItemAdapter(private val fragment: DocumentsFragment, private val positionMain: Int,
@@ -53,9 +54,32 @@ class DocumentsItemAdapter(private val fragment: DocumentsFragment, private val 
         }
 
         fun bind(item: AdditionalFieldDocument) = with(binding) {
+            val context = binding.root.context
+
             tvName.text = item.title
             tvDesc.text = item.description
             loadImage(ivImage, item.file_name, R.drawable.image_placeholder)
+
+            binding.tvStatus.hideShowView(!item.status.isNullOrEmpty())
+            binding.ivEdit.visible()
+            binding.ivDelete.visible()
+
+            when (item.status) {
+                DocumentStatus.APPROVED -> {
+                    binding.ivEdit.gone()
+                    binding.ivDelete.gone()
+                    binding.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.textColorGreen))
+                    binding.tvStatus.text = context.getString(R.string.approved)
+                }
+                DocumentStatus.DECLINED -> {
+                    binding.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorNoShow))
+                    binding.tvStatus.text = context.getString(R.string.declined)
+                }
+                else -> {
+                    binding.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.bgCall))
+                    binding.tvStatus.text = context.getString(R.string.in_progress)
+                }
+            }
         }
     }
 

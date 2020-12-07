@@ -96,18 +96,33 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
         val headerView = binding.navView.getHeaderView(0)
 // set User Name
         headerView.tvName.text = getDoctorName(userData)
-        headerView.tvEmail.text = userData?.email ?: ""
+        if (userData?.email == null)
+            headerView.tvEmail.text = "${userData?.country_code ?: getString(R.string.na)} ${userData?.phone ?: ""}"
+        else
+            headerView.tvEmail.text = userData.email ?: ""
         loadImage(headerView.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
 
         headerView.ivPic.setOnClickListener {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            startActivity(Intent(requireActivity(), DrawerActivity::class.java)
-                    .putExtra(PAGE_TO_OPEN, DrawerActivity.PROFILE))
+            goToProfile()
+        }
+
+        headerView.tvName.setOnClickListener {
+            goToProfile()
+        }
+
+        headerView.tvEmail.setOnClickListener {
+            goToProfile()
         }
 
         headerView.ivCross.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+    }
+
+    private fun goToProfile() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        startActivity(Intent(requireActivity(), DrawerActivity::class.java)
+                .putExtra(PAGE_TO_OPEN, DrawerActivity.PROFILE))
     }
 
     private fun hideMenuItem() {
@@ -147,7 +162,10 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
                 startActivity(Intent(requireContext(), DrawerActivity::class.java)
                         .putExtra(PAGE_TO_OPEN, DrawerActivity.REVENUE))
             }
-
+            R.id.accountDetails -> {
+                startActivity(Intent(requireContext(), DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.PAYOUT))
+            }
 
             R.id.logout -> {
                 showLogoutDialog()
