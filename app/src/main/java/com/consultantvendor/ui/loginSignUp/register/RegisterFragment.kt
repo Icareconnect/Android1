@@ -123,9 +123,6 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
         editTextScroll(binding.etBio)
         binding.cvQualification.gone()
-
-        binding.cbTerms.movementMethod = LinkMovementMethod.getInstance()
-        binding.cbTerms.setText(setAcceptTerms(requireActivity()), TextView.BufferType.SPANNABLE)
     }
 
     private fun setEditInformation() {
@@ -137,7 +134,6 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
             binding.tvName.text = getString(R.string.update)
             binding.tvDesc.gone()
-            binding.cbTerms.gone()
             binding.cvQualification.visible()
 
             loadImage(binding.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
@@ -309,9 +305,6 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 }
                 binding.etStartDate.text.toString().trim().isEmpty() -> {
                     binding.etStartDate.showSnackBar(getString(R.string.start_date))
-                }
-                arguments?.containsKey(UPDATE_PROFILE) == false && !binding.cbTerms.isChecked -> {
-                    binding.cbTerms.showSnackBar(binding.cbTerms.text.toString())
                 }
                 isConnectedToInternet(requireContext(), true) -> {
                     requireActivity().intent.putExtra(FILTER_DATA, qualification.removePrefix(", "))

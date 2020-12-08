@@ -379,6 +379,29 @@
                     app:layout_constraintTop_toTopOf="@+id/tvNotification" />
 
 
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/premium"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNotification" />
+
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/tbPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPremium"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvPremium" />
+
                 <View
                     android:id="@+id/view2"
                     android:layout_width="0dp"
@@ -387,7 +410,7 @@
                     android:background="@color/lineColor"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tbNotification" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView

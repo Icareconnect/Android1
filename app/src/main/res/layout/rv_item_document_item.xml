@@ -5,8 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/startGuideLine"
@@ -35,74 +34,72 @@
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvName"
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivPic"
             android:layout_width="0dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/drawable_grey"
+            android:scaleType="center"
+            android:src="@drawable/bt_ic_camera"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+            app:riv_border_color="@color/lineColor"
+            app:riv_border_width="2dp"
+            app:riv_corner_radius="@dimen/dp_8" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUpload"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            app:layout_goneMarginTop="@dimen/dp_16"
-            android:fontFamily="@font/campton_book"
-            android:gravity="start"
-            android:text="@string/app_name"
-            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/campton_medium"
+            android:paddingBottom="@dimen/dp_20"
+            android:text="@string/add_photo"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_14"
-            app:layout_constraintEnd_toStartOf="@+id/ivImage"
-            app:layout_constraintStart_toStartOf="@id/startGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
+            app:layout_constraintBottom_toBottomOf="@id/ivPic"
+            app:layout_constraintEnd_toEndOf="@id/ivPic"
+            app:layout_constraintStart_toStartOf="@id/ivPic" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:alpha="0.5"
-            android:fontFamily="@font/campton_book"
-            android:gravity="start"
-            android:text="@string/app_name"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintEnd_toStartOf="@+id/ivImage"
-            app:layout_constraintStart_toStartOf="@id/startGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivImage"
-            android:layout_width="@dimen/dp_56"
-            android:layout_height="@dimen/dp_56"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="@dimen/dp_12"
-            app:layout_constraintEnd_toStartOf="@+id/ivEdit"
-            app:layout_constraintTop_toTopOf="@+id/tvName"
-            app:srcCompat="@drawable/image_placeholder" />
-
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivEdit"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
-            android:layout_marginEnd="@dimen/dp_4"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivImage"
-            app:srcCompat="@drawable/ic_edit" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivDelete"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_4"
-            android:layout_marginEnd="@dimen/dp_4"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:background="@drawable/drawable_white_36"
             android:clickable="true"
             android:focusable="true"
             android:padding="@dimen/dp_4"
             android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/ivImage"
-            app:srcCompat="@drawable/ic_delete" />
+            android:src="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="@+id/ivPic"
+            app:layout_constraintTop_toTopOf="@+id/ivPic"
+            app:riv_corner_radius="@dimen/dp_32" />
 
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:background="@drawable/drawable_white_36"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/dp_4"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="@id/ivPic"
+            app:layout_constraintEnd_toEndOf="@+id/ivPic"
+            app:riv_corner_radius="@dimen/dp_32" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@color/lineColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

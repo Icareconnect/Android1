@@ -18,9 +18,7 @@ import com.consultantvendor.R
 import com.consultantvendor.data.network.Config
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.ActivityWebViewBinding
-import com.consultantvendor.utils.EXTRA_REQUEST_ID
-import com.consultantvendor.utils.PrefsManager
-import com.consultantvendor.utils.gone
+import com.consultantvendor.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -55,11 +53,22 @@ class WebViewActivity : DaggerAppCompatActivity() {
 
     private fun initialise() {
         binding.toolbar.title = intent.getStringExtra(LINK_TITLE)
+        binding.clLoader.setBackgroundResource(R.color.colorWhite)
+
+        when (intent.getStringExtra(LINK_URL)) {
+            PageLink.TERMS_CONDITIONS, PageLink.PRIVACY_POLICY -> {
+                binding.tvAgree.visible()
+            }
+            else -> {
+                binding.tvAgree.gone()
+            }
+        }
+
         if (intent.hasExtra(PAYMENT_URL)) {
             transactionId = intent.getStringExtra(EXTRA_REQUEST_ID) ?: ""
             loadUrl = intent.getStringExtra(PAYMENT_URL) ?: ""
         } else {
-            loadUrl = "${Config.baseURL}${intent.getStringExtra(LINK_URL)}"
+            loadUrl =  "${userRepository.getAppSetting()?.domain_url}/${intent.getStringExtra(LINK_URL)}"
         }
     }
 
@@ -90,6 +99,7 @@ class WebViewActivity : DaggerAppCompatActivity() {
         binding.webView.settings.domStorageEnabled = true
         binding.webView.settings.loadWithOverviewMode = true
         binding.webView.settings.useWideViewPort = true
+        binding.webView.setInitialScale(100)
         binding.webView.webChromeClient = WebChromeClient()
 
 
@@ -109,6 +119,10 @@ class WebViewActivity : DaggerAppCompatActivity() {
 
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { finish() }
+
+        binding.tvAgree.setOnClickListener {
+            finish()
+        }
 
     }
 

@@ -48,8 +48,8 @@
     <string name="appointments">Appointments</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
-    <string name="login_care_connect">Login to Intelligent Care Connect</string>
-    <string name="sign_up_care_connect">Sign Up to Intelligent Care Connect</string>
+    <string name="login_care_connect">Login to iCareConnect</string>
+    <string name="sign_up_care_connect">Sign Up to iCareConnect</string>
     <string name="login_with">Login with</string>
     <string name="date_of_birth">Date of Birth</string>
     <string name="password">Password</string>
@@ -252,7 +252,7 @@
     <string name="select_working_days">Please select working days</string>
     <string name="create_a_account">Create an iCareConnect account\nto continue</string>
     <string name="already_have_an_account">Already have an account?</string>
-    <string name="you_agree_to_our_terms">By continue, you agree to our\n</string>
+    <string name="you_agree_to_our_terms">By Continuing, you agree to our\n</string>
     <string name="terms">Terms of service</string>
     <string name="and">and</string>
     <string name="privacy">Privacy Policy</string>
@@ -330,7 +330,7 @@
     <string name="my_articles">My Articles</string>
     <string name="or">Or</string>
     <string name="verification_may_take_some_time">Verification may take some time.</string>
-    <string name="thank_you_for_your_interest">Thank you for your interest in intelligent care connect, one of our care coordinators will connect with you shortly.</string>
+    <string name="thank_you_for_your_interest">Thank you for your interest in iCareConnect, one of our care coordinators will connect with you shortly.</string>
     <string name="register">Register</string>
     <string name="become_a_member">Join our growing team</string>
     <string name="continuee">Continue</string>
@@ -422,7 +422,7 @@
     <string name="skip">Skip</string>
     <string name="covid_19">Covid 19</string>
     <string name="personal_interests">Personal Interests</string>
-    <string name="work_environment">"Work Environment "</string>
+    <string name="work_environment">Work Environment</string>
 
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
@@ -436,5 +436,8 @@
     <string name="in_progress">In Progress</string>
     <string name="approved">Approved</string>
     <string name="declined">Declined</string>
+    <string name="agree">I Agree</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="premium">Premium</string>
 
 </resources>

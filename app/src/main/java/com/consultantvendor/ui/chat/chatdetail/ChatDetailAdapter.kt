@@ -158,7 +158,7 @@ class ChatDetailAdapter(private var context: ChatDetailActivity,
             /*Click*/
             ivImageRight.setOnClickListener {
                 val itemImages = ArrayList<String>()
-                itemImages.add("${Config.imageURL}uploads/${chat.imageUrl}")
+                itemImages.add("${Config.imageURL}${ImageFolder.UPLOADS}${chat.imageUrl}")
                 viewImageFull(context as Activity, itemImages, 0)
             }
 

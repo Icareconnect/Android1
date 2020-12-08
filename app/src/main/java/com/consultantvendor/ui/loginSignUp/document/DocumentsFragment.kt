@@ -123,7 +123,7 @@ class DocumentsFragment : DaggerFragment() {
 
             if (items.isNotEmpty()) {
                 items.forEach {
-                    if (it.documents.isEmpty()) {
+                    if (it.documents.isEmpty() || it.documents[0].file_name.isNullOrEmpty()) {
                         binding.tvNext.showSnackBar("${getString(R.string.please_add)} ${it.name}")
                         return@setOnClickListener
                     }

@@ -109,6 +109,8 @@ class ProfileFragment : DaggerFragment() {
         binding.tbAvailability.isChecked = userData?.manual_available ?: false
         binding.tbNotification.tag = null
         binding.tbNotification.isChecked = userData?.notification_enable ?: false
+        binding.tbPremium.tag = null
+        binding.tbPremium.isChecked = userData?.premium_enable ?: false
 
         binding.tvDesc.text = userData?.categoryData?.name ?: getString(R.string.na)
 
@@ -318,6 +320,21 @@ class ProfileFragment : DaggerFragment() {
                 binding.tbNotification.isChecked = !isChecked
             }
         }
+
+        binding.tbPremium.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.tag != null)
+                return@setOnCheckedChangeListener
+
+            if (isConnectedToInternet(requireContext(), true)) {
+                apiForAvailability = ManualUpdate.PREMIUM
+                val hashMap = HashMap<String, Any>()
+                hashMap["premium_enable"] = if (isChecked) 1 else 0
+                viewModelLogin.manualAvailable(hashMap)
+            } else {
+                binding.tbPremium.tag = null
+                binding.tbPremium.isChecked = !isChecked
+            }
+        }
     }
 
 
@@ -402,21 +419,29 @@ class ProfileFragment : DaggerFragment() {
                     progressDialog.setLoading(false)
 
                     val userData = userRepository.getUser()
-                    if (apiForAvailability==ManualUpdate.AVAILABILITY)
-                        userData?.manual_available = binding.tbAvailability.isChecked
-                    else
-                        userData?.notification_enable = binding.tbNotification.isChecked
+                    when (apiForAvailability) {
+                        ManualUpdate.AVAILABILITY -> userData?.manual_available = binding.tbAvailability.isChecked
+                        ManualUpdate.PREMIUM -> userData?.premium_enable = binding.tbPremium.isChecked
+                        ManualUpdate.NOTIFICATION -> userData?.notification_enable = binding.tbNotification.isChecked
+                    }
 
                     prefsManager.save(USER_DATA, userData)
 
                 }
                 Status.ERROR -> {
-                    if (apiForAvailability==ManualUpdate.AVAILABILITY) {
-                        binding.tbAvailability.tag = null
-                        binding.tbAvailability.isChecked = !binding.tbAvailability.isChecked
-                    } else {
-                        binding.tbNotification.tag = null
-                        binding.tbNotification.isChecked = !binding.tbNotification.isChecked
+                    when (apiForAvailability) {
+                        ManualUpdate.AVAILABILITY -> {
+                            binding.tbAvailability.tag = null
+                            binding.tbAvailability.isChecked = !binding.tbAvailability.isChecked
+                        }
+                        ManualUpdate.PREMIUM -> {
+                            binding.tbPremium.tag = null
+                            binding.tbPremium.isChecked = !binding.tbPremium.isChecked
+                        }
+                        ManualUpdate.NOTIFICATION  -> {
+                            binding.tbNotification.tag = null
+                            binding.tbNotification.isChecked = !binding.tbNotification.isChecked
+                        }
                     }
 
                     progressDialog.setLoading(false)
@@ -486,9 +511,9 @@ class ProfileFragment : DaggerFragment() {
     companion object {
 
         object ManualUpdate {
-            const val AVAILABILITY = ""
-            const val NOTIFICATION = ""
-            const val PREMIUM = ""
+            const val AVAILABILITY = "AVAILABILITY"
+            const val NOTIFICATION = "NOTIFICATION"
+            const val PREMIUM = "PREMIUM"
         }
     }
 }

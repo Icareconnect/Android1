@@ -32,4 +32,5 @@
 
     <color name="colorWalkThroughUnselected">#A9A9A9</color>
     <color name="colorWalkthrough">#58595B</color>
+    <color name="colorDocument">#EFEEEE</color>
 </resources>

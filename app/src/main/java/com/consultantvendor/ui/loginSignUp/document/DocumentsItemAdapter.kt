@@ -1,5 +1,6 @@
 package com.consultantvendor.ui.loginSignUp.document
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -7,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.AdditionalFieldDocument
+import com.consultantvendor.data.network.Config
 import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
@@ -50,19 +52,43 @@ class DocumentsItemAdapter(private val fragment: DocumentsFragment, private val 
             binding.ivDelete.setOnClickListener {
                 items.removeAt(adapterPosition)
                 notifyDataSetChanged()
+
+                if (items.isEmpty()) {
+                    items.add(AdditionalFieldDocument())
+                    notifyDataSetChanged()
+                }
+            }
+
+            binding.ivPic.setOnClickListener {
+                if (items[adapterPosition].file_name == null)
+                    fragment.addDocument(positionMain, adapterPosition)
+                else {
+                    val itemImages = java.util.ArrayList<String>()
+                    itemImages.add("${Config.imageURL}${ImageFolder.UPLOADS}${items[adapterPosition].file_name}")
+                    viewImageFull(fragment.requireActivity(), itemImages, 0)
+                }
             }
         }
 
         fun bind(item: AdditionalFieldDocument) = with(binding) {
             val context = binding.root.context
 
-            tvName.text = item.title
-            tvDesc.text = item.description
-            loadImage(ivImage, item.file_name, R.drawable.image_placeholder)
+            /*tvName.text = item.title
+            tvDesc.text = item.description*/
 
             binding.tvStatus.hideShowView(!item.status.isNullOrEmpty())
             binding.ivEdit.visible()
             binding.ivDelete.visible()
+
+            if (item.file_name == null) {
+                ivPic.setImageResource(R.drawable.bt_ic_camera)
+                tvUpload.visible()
+                binding.ivEdit.gone()
+                binding.ivDelete.gone()
+            } else {
+                loadImage(ivPic, item.file_name, R.drawable.image_placeholder)
+                tvUpload.gone()
+            }
 
             when (item.status) {
                 DocumentStatus.APPROVED -> {

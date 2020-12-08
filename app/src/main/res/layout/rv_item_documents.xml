@@ -26,9 +26,9 @@
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
             android:fontFamily="@font/campton_semibold"
-            android:gravity="start"
+            android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/sp_18"
@@ -63,7 +63,6 @@
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
             tools:listitem="@layout/rv_item_document_item"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

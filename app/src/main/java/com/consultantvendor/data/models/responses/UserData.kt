@@ -20,6 +20,7 @@ class UserData : Serializable {
     var account_step: String? = null
     var manual_available: Boolean? = null
     var notification_enable: Boolean? = null
+    var premium_enable: Boolean? = null
 
     var subscriptions: ArrayList<Subscription>? = null
     var categoryData: Categories? = null

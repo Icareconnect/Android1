@@ -6,10 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.AdditionalField
+import com.consultantvendor.data.models.responses.AdditionalFieldDocument
 import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemDocumentsBinding
+import com.consultantvendor.utils.hideShowView
 
 
 class DocumentsAdapter(private val fragment: DocumentsFragment, private val items: ArrayList<AdditionalField>) :
@@ -29,10 +31,10 @@ class DocumentsAdapter(private val fragment: DocumentsFragment, private val item
         return if (viewType == ITEM) {
             ViewHolder(DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                            R.layout.rv_item_documents, parent, false))
+                    R.layout.rv_item_documents, parent, false))
         } else {
             ViewHolderLoader(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                            R.layout.item_paging_loader, parent, false))
+                    R.layout.item_paging_loader, parent, false))
         }
     }
 
@@ -44,16 +46,21 @@ class DocumentsAdapter(private val fragment: DocumentsFragment, private val item
             RecyclerView.ViewHolder(binding.root) {
 
         init {
-            //binding.tvAdd.hideShowView(addOption)
+            binding.tvAdd.hideShowView(false)
             binding.tvAdd.setOnClickListener {
-                fragment.addDocument(adapterPosition,null)
+                fragment.addDocument(adapterPosition, null)
             }
         }
 
         fun bind(item: AdditionalField) = with(binding) {
             tvName.text = item.name
 
-            val adapterItem = DocumentsItemAdapter(fragment, adapterPosition, item.documents)
+            val documents = item.documents
+            if (documents.isEmpty()) {
+                documents.add(AdditionalFieldDocument())
+            }
+
+            val adapterItem = DocumentsItemAdapter(fragment, adapterPosition, documents)
             rvDocuments.adapter = adapterItem
         }
     }
