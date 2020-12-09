@@ -111,6 +111,15 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.tvStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         binding.tvSpecialInstructionsV.text = request.extra_detail?.reason_for_service
 
+
+        var services = ""
+        request.duties?.forEach {
+            services += it.option_name + ", "
+        }
+        binding.tvServicesV.text = services.removeSuffix(", ")
+        binding.tvServices.hideShowView(services.isNotEmpty())
+        binding.tvServicesV.hideShowView(services.isNotEmpty())
+
         when (request.status) {
             CallAction.PENDING -> {
                 binding.tvStatus.text = getString(R.string.new_request)
@@ -260,7 +269,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
     }
 
     private fun bindObservers() {
-        viewModel.requestDetail.observe(this, Observer {
+        viewModel.requestDetail.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -280,7 +289,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
             }
         })
 
-        viewModel.acceptRequest.observe(this, Observer {
+        viewModel.acceptRequest.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -299,7 +308,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
             }
         })
 
-        viewModel.callStatus.observe(this, Observer {
+        viewModel.callStatus.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -323,7 +332,7 @@ class AppointmentDetailsFragment : DaggerFragment() {
             }
         })
 
-        viewModel.cancelRequest.observe(this, Observer {
+        viewModel.cancelRequest.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

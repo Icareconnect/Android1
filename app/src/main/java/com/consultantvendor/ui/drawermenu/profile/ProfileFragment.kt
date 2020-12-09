@@ -104,6 +104,9 @@ class ProfileFragment : DaggerFragment() {
         binding.tvPhoneV.text = "${userData?.country_code ?: getString(R.string.na)} ${userData?.phone ?: ""}"
         binding.tvDOBV.text = userData?.profile?.dob ?: getString(R.string.na)
 
+        binding.tvRating.text = getString(R.string.s_s_reviews,
+                getUserRating(userData?.totalRating), userData?.reviewCount)
+
         /*Buttons*/
         binding.tbAvailability.tag = null
         binding.tbAvailability.isChecked = userData?.manual_available ?: false
@@ -116,16 +119,14 @@ class ProfileFragment : DaggerFragment() {
 
         //binding.tvRating.text = userData?.speciaity ?: getString(R.string.na)
         binding.tvPatientV.text = userData?.patientCount ?: getString(R.string.na)
-        binding.tvReviewsV.text = userData?.reviews ?: getString(R.string.na)
+        binding.tvReviewsV.text = userData?.reviewCount ?: getString(R.string.na)
 
         if (userData?.profile?.dob.isNullOrEmpty()) {
             binding.tvDOB.gone()
             binding.tvDOBV.gone()
         } else {
-            binding.tvDOBV.text = DateUtils.dateFormatChange(
-                    DateFormat.DATE_FORMAT,
-                    DateFormat.MON_DAY_YEAR, userData?.profile?.dob ?: ""
-            )
+            binding.tvDOBV.text = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT,
+                    DateFormat.MON_DAY_YEAR, userData?.profile?.dob ?: "")
         }
 
         loadImage(binding.ivPic, userData?.profile_image,

@@ -277,12 +277,6 @@ class AppointmentFragment : DaggerFragment() {
         }
     }
 
-    fun viewDetails(request: Request) {
-        startActivityForResult(Intent(requireContext(), DrawerActivity::class.java)
-                .putExtra(PAGE_TO_OPEN, DrawerActivity.APPOINTMENT_DETAILS)
-                .putExtra(EXTRA_REQUEST_ID, request.id), AppRequestCode.APPOINTMENT_DETAILS)
-    }
-
     private fun showAcceptRequestDialog() {
         AlertDialogUtil.instance.createOkCancelDialog(requireActivity(), R.string.accept_request,
                 R.string.accept_request_message, R.string.accept_request, R.string.cancel, false,

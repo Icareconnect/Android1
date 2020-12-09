@@ -19,4 +19,5 @@ class Request : Serializable {
 
     var call_id: String? = null
     var extra_detail: Extra_detail? = null
+    var duties:ArrayList<FilterOption>?=null
 }

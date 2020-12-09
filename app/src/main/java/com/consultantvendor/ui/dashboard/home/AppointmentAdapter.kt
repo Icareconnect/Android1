@@ -1,5 +1,6 @@
 package com.consultantvendor.ui.dashboard.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,6 +12,7 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemAppointmentBinding
+import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 
 
@@ -62,7 +64,9 @@ class AppointmentAdapter(
                 fragment.cancelAppointment(items[adapterPosition])
             }
             binding.clAppointment.setOnClickListener {
-                fragment.viewDetails(items[adapterPosition])
+                fragment.startActivityForResult(Intent(fragment.requireContext(), DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.APPOINTMENT_DETAILS)
+                        .putExtra(EXTRA_REQUEST_ID, items[adapterPosition].id), AppRequestCode.APPOINTMENT_DETAILS)
             }
         }
 
