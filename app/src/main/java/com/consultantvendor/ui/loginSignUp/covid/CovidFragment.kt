@@ -55,12 +55,6 @@ class CovidFragment : DaggerFragment() {
 
     private lateinit var adapter: PrefrenceAdapter
 
-    private var isLastPage = false
-
-    private var isFirstPage = true
-
-    private var isLoadingMoreItems = false
-
     var prefrenceType = ""
 
 
@@ -118,21 +112,6 @@ class CovidFragment : DaggerFragment() {
         binding.swipeRefresh.setOnRefreshListener {
             hitApi()
         }
-
-        binding.rvListing.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = binding.rvListing.layoutManager as LinearLayoutManager
-                val totalItemCount = layoutManager.itemCount - 1
-                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-
-                if (!isLoadingMoreItems && !isLastPage && lastVisibleItemPosition >= totalItemCount) {
-                    isLoadingMoreItems = true
-                    hitApi()
-                }
-            }
-        })
 
         binding.tvNext.setOnClickListener {
             /*Check selected Filter*/
@@ -193,13 +172,9 @@ class CovidFragment : DaggerFragment() {
                     binding.clLoader.gone()
                     binding.swipeRefresh.isRefreshing = false
 
-                    isLoadingMoreItems = false
 
                     val tempList = it.data?.preferences ?: emptyList()
-                    if (isFirstPage) {
-                        isFirstPage = false
                         items.clear()
-                    }
 
                     items.addAll(tempList)
                     adapter.notifyDataSetChanged()
@@ -207,14 +182,12 @@ class CovidFragment : DaggerFragment() {
                     if (items.isNotEmpty())
                         binding.tvNext.visible()
 
-                    isLastPage = tempList.size < PER_PAGE_LOAD
-                    adapter.setAllItemsLoaded(isLastPage)
+                    adapter.setAllItemsLoaded(true)
 
                     binding.tvNoData.hideShowView(items.isEmpty())
                 }
                 Status.ERROR -> {
                     binding.swipeRefresh.isRefreshing = false
-                    isLoadingMoreItems = false
                     adapter.setAllItemsLoaded(true)
                     binding.clLoader.gone()
 
