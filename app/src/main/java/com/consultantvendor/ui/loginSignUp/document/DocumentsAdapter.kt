@@ -56,7 +56,7 @@ class DocumentsAdapter(private val fragment: DocumentsFragment, private val item
             tvName.text = item.name
 
             val documents = item.documents
-            if (documents.size < 2) {
+            if (documents.isEmpty()) {
                 documents.add(AdditionalFieldDocument())
             }
 
