@@ -16,6 +16,7 @@ import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemPrefrenceBinding
 import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
 import com.consultantvendor.utils.PreferencesType
+import com.consultantvendor.utils.visible
 
 
 class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayList<Filter>) :
@@ -63,6 +64,8 @@ class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayL
 
                         val layoutManager = LinearLayoutManager(fragment.requireContext())
                         binding.rvListing.layoutManager = layoutManager
+
+                        binding.cbCheckAll.visible()
                     }
                 }
 
@@ -73,6 +76,14 @@ class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayL
                     fragment.clickItem(items[adapterPosition])
             }
 
+            binding.cbCheckAll.setOnCheckedChangeListener { buttonView, isChecked ->
+                items[adapterPosition].options?.forEachIndexed { index, filterOption ->
+                    run {
+                        items[adapterPosition].options?.get(index)?.isSelected = isChecked
+                    }
+                }
+                notifyDataSetChanged()
+            }
         }
 
         fun bind(item: Filter) = with(binding) {

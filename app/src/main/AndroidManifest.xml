@@ -62,7 +62,7 @@
         <activity
             android:name=".ui.loginSignUp.SignUpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".ui.dashboard.HomeActivity"
             android:screenOrientation="portrait" />

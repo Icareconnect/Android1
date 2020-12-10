@@ -98,6 +98,15 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.tvAccept.visible()
         binding.tvCancel.hideShowView(request.canCancel)
 
+        /*Approval*/
+        binding.tvUserApprovalT.gone()
+        binding.tvUserApproval.gone()
+        binding.tvUserApprovalComment.gone()
+        binding.tvFeedbackT.gone()
+        binding.tvFeedback.gone()
+        binding.tvFeedbackComment.gone()
+        binding.view1.gone()
+
         binding.tvName.text = request.from_user?.name
         binding.tvServiceTypeV.text = request.extra_detail?.filter_name ?: ""
         binding.tvDistanceV.text = request.extra_detail?.distance ?: ""
@@ -109,7 +118,11 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.tvBookingTimeV.text = "${request.extra_detail?.start_time ?: ""} - ${request.extra_detail?.end_time ?: ""}"
 
         binding.tvStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-        binding.tvSpecialInstructionsV.text = request.extra_detail?.reason_for_service
+
+        /*Hide now*/
+        //binding.tvSpecialInstructionsV.text = request.extra_detail?.reason_for_service
+        binding.tvSpecialInstructions.gone()
+        binding.tvSpecialInstructionsV.gone()
 
 
         var services = ""
@@ -155,6 +168,35 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 binding.tvStatus.text = getString(R.string.done)
                 binding.tvAccept.gone()
                 binding.tvCancel.gone()
+
+                if (request.rating != null) {
+                    binding.tvFeedbackT.visible()
+                    binding.tvFeedback.visible()
+                    binding.tvFeedbackComment.visible()
+                    binding.view1.visible()
+
+                    binding.tvFeedback.text = request.rating
+                    binding.tvFeedbackComment.text = request.comment
+                }
+
+
+                when (request.user_status) {
+                    CallAction.APPROVED, CallAction.DECLINED -> {
+                        binding.tvUserApprovalT.visible()
+                        binding.tvUserApproval.visible()
+                        binding.tvUserApprovalComment.visible()
+                        binding.view1.visible()
+
+                        binding.tvUserApproval.text = request.user_status
+                        binding.tvUserApprovalComment.text = request.user_comment
+
+                        if (request.user_status == CallAction.APPROVED)
+                            binding.tvUserApproval.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                        else if (request.user_status == CallAction.DECLINED)
+                            binding.tvUserApproval.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorNoShow))
+
+                    }
+                }
             }
             CallAction.FAILED -> {
                 binding.tvAccept.gone()

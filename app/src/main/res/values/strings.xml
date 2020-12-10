@@ -439,5 +439,8 @@
     <string name="agree">I Agree</string>
     <string name="add_photo">Add Photo</string>
     <string name="premium">Premium</string>
+    <string name="approval_status">Approval Status</string>
+    <string name="feedback">Feedback</string>
+    <string name="check_all">Check All</string>
 
 </resources>

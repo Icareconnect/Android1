@@ -27,19 +27,12 @@ class PrefrenceItemAdapter(private val multiSelect: Boolean, private val items: 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ITEM) {
-            ViewHolder(
-                    DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context),
-                            R.layout.rv_item_prefrence_option, parent, false
-                    )
-            )
+            ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+                            R.layout.rv_item_prefrence_option, parent, false))
         } else {
-            ViewHolderLoader(
-                    DataBindingUtil.inflate(
+            ViewHolderLoader(DataBindingUtil.inflate(
                             LayoutInflater.from(parent.context),
-                            R.layout.item_paging_loader, parent, false
-                    )
-            )
+                            R.layout.item_paging_loader, parent, false))
         }
     }
 

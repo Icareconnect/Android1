@@ -15,6 +15,10 @@ class Request : Serializable {
     var created_at: String? = null
     var bookingDateUTC: String? = null
     var canReschedule = false
+    var rating: String? = null
+    var comment:String?=null
+    var user_status: String? = null
+    var user_comment: String? = null
     var canCancel = false
 
     var call_id: String? = null
