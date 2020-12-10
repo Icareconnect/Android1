@@ -102,9 +102,6 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.tvUserApprovalT.gone()
         binding.tvUserApproval.gone()
         binding.tvUserApprovalComment.gone()
-        binding.tvFeedbackT.gone()
-        binding.tvFeedback.gone()
-        binding.tvFeedbackComment.gone()
         binding.view1.gone()
 
         binding.tvName.text = request.from_user?.name
@@ -168,17 +165,6 @@ class AppointmentDetailsFragment : DaggerFragment() {
                 binding.tvStatus.text = getString(R.string.done)
                 binding.tvAccept.gone()
                 binding.tvCancel.gone()
-
-                if (request.rating != null) {
-                    binding.tvFeedbackT.visible()
-                    binding.tvFeedback.visible()
-                    binding.tvFeedbackComment.visible()
-                    binding.view1.visible()
-
-                    binding.tvFeedback.text = request.rating
-                    binding.tvFeedbackComment.text = request.comment
-                }
-
 
                 when (request.user_status) {
                     CallAction.APPROVED, CallAction.DECLINED -> {
