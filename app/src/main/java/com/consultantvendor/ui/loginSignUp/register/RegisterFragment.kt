@@ -6,12 +6,10 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,8 +30,8 @@ import com.consultantvendor.databinding.FragmentRegisterBinding
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.drawermenu.classes.ClassesViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
-import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
-import com.consultantvendor.ui.loginSignUp.covid.CovidFragment.Companion.MASTER_PREFRENCE_TYPE
+import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
+import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment.Companion.MASTER_PREFRENCE_TYPE
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment.Companion.DUMMY_NAME
 import com.consultantvendor.ui.loginSignUp.service.ServiceFragment.Companion.FILTER_DATA
 import com.consultantvendor.utils.*
@@ -477,7 +475,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                             requireActivity().finish()
                         }
                         else -> {
-                            val fragment = CovidFragment()
+                            val fragment = MasterPrefrenceFragment()
                             val bundle = Bundle()
                             bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.PERSONAL_INTEREST)
                             fragment.arguments = bundle

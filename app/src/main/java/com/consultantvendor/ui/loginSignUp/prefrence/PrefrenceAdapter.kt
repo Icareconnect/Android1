@@ -14,7 +14,7 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemPrefrenceBinding
-import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
+import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
 import com.consultantvendor.utils.PreferencesType
 import com.consultantvendor.utils.visible
 
@@ -56,7 +56,7 @@ class PrefrenceAdapter(private val fragment: Fragment, private val items: ArrayL
             RecyclerView.ViewHolder(binding.root) {
 
         init {
-            if (fragment is CovidFragment) {
+            if (fragment is MasterPrefrenceFragment) {
                 when (fragment.prefrenceType) {
                     PreferencesType.PERSONAL_INTEREST, PreferencesType.WORK_ENVIRONMENT,
                     PreferencesType.PROVIDABLE_SERVICES -> {

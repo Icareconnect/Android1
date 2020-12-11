@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentWelcomeBinding
-import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
 import com.consultantvendor.ui.loginSignUp.login.LoginFragment
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
 import com.consultantvendor.ui.walkthrough.WalkThroughFragment

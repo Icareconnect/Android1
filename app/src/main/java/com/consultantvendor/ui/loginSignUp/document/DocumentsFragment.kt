@@ -258,6 +258,10 @@ class DocumentsFragment : DaggerFragment() {
         }
     }
 
+    fun notifyDocument() {
+        adapter.notifyDataSetChanged()
+    }
+
     fun addedDocument(document: AdditionalFieldDocument) {
         if (editSelectedPos != null)
             items[selectedPos].documents[editSelectedPos ?: 0] = document

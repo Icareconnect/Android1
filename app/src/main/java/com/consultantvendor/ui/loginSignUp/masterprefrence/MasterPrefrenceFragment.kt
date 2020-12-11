@@ -1,4 +1,4 @@
-package com.consultantvendor.ui.loginSignUp.covid
+package com.consultantvendor.ui.loginSignUp.masterprefrence
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.requests.SetFilter
 import com.consultantvendor.data.models.responses.Filter
 import com.consultantvendor.data.network.ApisRespHandler
-import com.consultantvendor.data.network.PER_PAGE_LOAD
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentServiceBinding
@@ -30,7 +27,7 @@ import dagger.android.support.DaggerFragment
 import okhttp3.RequestBody
 import javax.inject.Inject
 
-class CovidFragment : DaggerFragment() {
+class MasterPrefrenceFragment : DaggerFragment() {
 
     @Inject
     lateinit var userRepository: UserRepository
@@ -214,15 +211,15 @@ class CovidFragment : DaggerFragment() {
 
                     when (prefrenceType) {
                         PreferencesType.PERSONAL_INTEREST -> {
-                            fragment = CovidFragment()
+                            fragment = MasterPrefrenceFragment()
                             bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.PROVIDABLE_SERVICES)
                         }
                         PreferencesType.PROVIDABLE_SERVICES -> {
-                            fragment = CovidFragment()
+                            fragment = MasterPrefrenceFragment()
                             bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.WORK_ENVIRONMENT)
                         }
                         PreferencesType.WORK_ENVIRONMENT -> {
-                            fragment = CovidFragment()
+                            fragment = MasterPrefrenceFragment()
                             bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.COVID)
                         }
                         PreferencesType.COVID -> {

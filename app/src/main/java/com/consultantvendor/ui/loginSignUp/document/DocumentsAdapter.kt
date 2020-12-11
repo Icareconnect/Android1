@@ -46,7 +46,7 @@ class DocumentsAdapter(private val fragment: DocumentsFragment, private val item
             RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.tvAdd.hideShowView(false)
+            //binding.tvAdd.hideShowView(false)
             binding.tvAdd.setOnClickListener {
                 fragment.addDocument(adapterPosition, null)
             }
@@ -54,6 +54,7 @@ class DocumentsAdapter(private val fragment: DocumentsFragment, private val item
 
         fun bind(item: AdditionalField) = with(binding) {
             tvName.text = item.name
+            binding.tvAdd.hideShowView(item.documents.isNotEmpty())
 
             val documents = item.documents
             if (documents.isEmpty()) {

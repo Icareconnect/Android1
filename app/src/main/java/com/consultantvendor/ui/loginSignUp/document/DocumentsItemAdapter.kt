@@ -1,6 +1,5 @@
 package com.consultantvendor.ui.loginSignUp.document
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -53,10 +52,7 @@ class DocumentsItemAdapter(private val fragment: DocumentsFragment, private val 
                 items.removeAt(adapterPosition)
                 notifyDataSetChanged()
 
-                if (items.isEmpty()) {
-                    items.add(AdditionalFieldDocument())
-                    notifyDataSetChanged()
-                }
+                fragment.notifyDocument()
             }
 
             binding.ivPic.setOnClickListener {

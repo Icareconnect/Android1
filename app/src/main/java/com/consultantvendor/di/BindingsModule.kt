@@ -31,7 +31,7 @@ import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.availability.SetAvailabilityFragment
 import com.consultantvendor.ui.loginSignUp.category.CategoryFragment
 import com.consultantvendor.ui.loginSignUp.changepassword.ChangePasswordFragment
-import com.consultantvendor.ui.loginSignUp.covid.CovidFragment
+import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.document.add.DialogAddDocumentFragment
 import com.consultantvendor.ui.loginSignUp.forgotpassword.ForgotPasswordFragment
@@ -201,6 +201,6 @@ abstract class BindingsModule {
     abstract fun dialogStatusFragment(): DialogStatusFragment
 
     @ContributesAndroidInjector
-    abstract fun covidFragment(): CovidFragment
+    abstract fun masterPrefrenceFragment(): MasterPrefrenceFragment
 
 }

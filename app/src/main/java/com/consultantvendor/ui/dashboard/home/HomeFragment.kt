@@ -145,8 +145,7 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.editProfile -> {
-                startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
-                        .putExtra(UPDATE_PROFILE, true), AppRequestCode.PROFILE_UPDATE)
+                goToProfile()
             }
             R.id.documents -> {
                 startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
