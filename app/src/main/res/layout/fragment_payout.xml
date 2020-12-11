@@ -83,6 +83,7 @@
             android:fontFamily="@font/campton_semibold"
             android:paddingStart="@dimen/dp_24"
             android:paddingEnd="@dimen/dp_24"
+            android:visibility="gone"
             android:gravity="center"
             android:text="@string/pay_out"
             android:textAllCaps="false"

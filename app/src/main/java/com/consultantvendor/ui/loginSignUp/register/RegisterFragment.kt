@@ -298,9 +298,9 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 binding.etLiscence.text.toString().trim().isEmpty() -> {
                     binding.etLiscence.showSnackBar(getString(R.string.professional_liscence))
                 }
-                binding.etCertification.text.toString().trim().isEmpty() -> {
-                    binding.etCertification.showSnackBar(getString(R.string.certification))
-                }
+                /* binding.etCertification.text.toString().trim().isEmpty() -> {
+                     binding.etCertification.showSnackBar(getString(R.string.certification))
+                 }*/
                 binding.etStartDate.text.toString().trim().isEmpty() -> {
                     binding.etStartDate.showSnackBar(getString(R.string.start_date))
                 }
@@ -343,8 +343,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                                 custom_fields.add(item)
                             }
                             CustomFields.CERTIFICATION -> {
-                                item.field_value = binding.etLiscence.text.toString().trim()
-                                custom_fields.add(item)
+                                if (binding.etLiscence.text.toString().trim().isNotEmpty()) {
+                                    item.field_value = binding.etLiscence.text.toString().trim()
+                                    custom_fields.add(item)
+                                }
                             }
                             CustomFields.START_DATE -> {
                                 item.field_value = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
