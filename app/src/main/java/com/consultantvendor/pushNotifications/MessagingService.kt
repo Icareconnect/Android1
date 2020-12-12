@@ -67,7 +67,7 @@ class MessagingService : FirebaseMessagingService() {
 
         val notificationData = JSONObject(remoteMessage.data as MutableMap<Any?, Any?>)
 
-        if (userRepository.isUserLoggedIn() && userRepository.getUser()?.notification_enable==true) {
+        if (userRepository.isUserLoggedIn() && userRepository.getUser()?.notification_enable == true) {
             sendNotification(notificationData)
         }
     }
@@ -137,22 +137,30 @@ class MessagingService : FirebaseMessagingService() {
                         .putExtra(SubCategoryFragment.CATEGORY_PARENT_ID, userRepository.getUser()?.categoryData)
                         .putExtra(DocumentsFragment.UPDATE_DOCUMENTS, true)
             }
-            PushType.PROFILE_APPROVED, PushType.NEW_REQUEST, PushType.REQUEST_FAILED, PushType.REQUEST_COMPLETED
-                , PushType.CANCELED_REQUEST, PushType.RESCHEDULED_REQUEST -> {
+            PushType.NEW_REQUEST, PushType.REQUEST_FAILED, PushType.REQUEST_COMPLETED,
+            PushType.CANCELED_REQUEST, PushType.RESCHEDULED_REQUEST -> {
+                intent = Intent(this, DrawerActivity::class.java)
+                        .putExtra(PAGE_TO_OPEN, DrawerActivity.APPOINTMENT_DETAILS)
+                        .putExtra(EXTRA_REQUEST_ID, pushData.request_id)
 
-                if (pushData.pushType == PushType.PROFILE_APPROVED) {
-                    val userData = userRepository.getUser()
-                    if (userData?.isApproved == false) {
-                        userData.isApproved = true
-                        prefsManager.save(USER_DATA, userData)
-                    }
+                val intentBroadcast = Intent()
+                intentBroadcast.action = pushData.pushType
+                intentBroadcast.putExtra(EXTRA_REQUEST_ID, pushData.request_id)
+
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intentBroadcast)
+            }
+            PushType.PROFILE_APPROVED -> {
+                val userData = userRepository.getUser()
+                if (userData?.isApproved == false) {
+                    userData.isApproved = true
+                    prefsManager.save(USER_DATA, userData)
                 }
 
-                val intent = Intent()
-                intent.action = pushData.pushType
-                intent.putExtra(EXTRA_REQUEST_ID, pushData.request_id)
+                val intentBroadcast = Intent()
+                intentBroadcast.action = pushData.pushType
+                intentBroadcast.putExtra(EXTRA_REQUEST_ID, pushData.request_id)
 
-                LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intentBroadcast)
             }
             PushType.AMOUNT_RECEIVED, PushType.PAYOUT_PROCESSED -> {
                 homeIntent.putExtra(EXTRA_TAB, "1")

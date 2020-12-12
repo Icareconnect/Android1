@@ -91,6 +91,23 @@
                     app:layout_constraintTop_toTopOf="@+id/ivPic" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvApproved"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/campton_medium"
+                    android:maxLines="1"
+                    app:textAllCaps="true"
+                    android:text="@string/approved"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toEndOf="@+id/ivPic"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_32"
@@ -105,7 +122,7 @@
                     android:textSize="@dimen/sp_14"
                     android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@+id/ivPic"
-                    app:layout_constraintTop_toBottomOf="@+id/tvName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvApproved"
                     tools:text="@string/na" />
 
                 <androidx.appcompat.widget.AppCompatTextView

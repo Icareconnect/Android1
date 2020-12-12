@@ -93,6 +93,12 @@ class PayoutFragment : DaggerFragment() {
             binding.etBankName.setText(bank?.bank_name ?: "")
             binding.etIFSCCode.setText(bank?.ifc_code ?: "")
 
+            val listCountry = resources.getStringArray(R.array.country)
+            binding.spnCountry.setSelection(listCountry.indexOf(bank?.country ?: ""))
+
+            val listCurrency = resources.getStringArray(R.array.currency)
+            binding.spnCurrency.setSelection(listCurrency.indexOf(bank?.currency ?: ""))
+
         }
 
         binding.btnAddBank.setOnClickListener {

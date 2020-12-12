@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
@@ -253,7 +254,7 @@ class SignUpFragment : DaggerFragment(), OnDateSelected {
 
 
     private fun bindObservers() {
-        viewModel.register.observe(this, Observer {
+        viewModel.register.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -281,7 +282,7 @@ class SignUpFragment : DaggerFragment(), OnDateSelected {
             }
         })
 
-        viewModel.updateProfile.observe(this, Observer {
+        viewModel.updateProfile.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -291,8 +292,7 @@ class SignUpFragment : DaggerFragment(), OnDateSelected {
 
                     requireActivity().setResult(Activity.RESULT_OK)
 
-                    val appSetting = userRepository.getAppSetting()
-                    if (appSetting?.insurance == true || appSetting?.clientFeaturesKeys?.isAddress == true) {
+                    if (appVersion.insurance == true || appVersion.clientFeaturesKeys.isAddress == true) {
                         val fragment = InsuranceFragment()
                         val bundle = Bundle()
                         if (arguments?.containsKey(UPDATE_PROFILE) == true)

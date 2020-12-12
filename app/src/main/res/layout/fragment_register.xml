@@ -341,7 +341,8 @@
                         android:id="@+id/rvShift"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:spanCount="2"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         tools:itemCount="2"
                         tools:listitem="@layout/rv_item_check" />
                 </androidx.cardview.widget.CardView>

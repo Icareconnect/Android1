@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
+import com.consultantvendor.data.models.responses.Filter
 import com.consultantvendor.data.models.responses.Request
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
@@ -20,7 +21,12 @@ import com.consultantvendor.ui.drawermenu.DrawerActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
+import kotlin.collections.forEach
+import kotlin.collections.isNotEmpty
+import kotlin.collections.set
 
 
 class AppointmentDetailsFragment : DaggerFragment() {
@@ -105,11 +111,40 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.view1.gone()
 
         binding.tvName.text = request.from_user?.name
-        binding.tvServiceTypeV.text = request.extra_detail?.filter_name ?: ""
-        binding.tvDistanceV.text = request.extra_detail?.distance ?: ""
-        binding.tvLocation.text = request.extra_detail?.service_address
         loadImage(binding.ivPic, request.from_user?.profile_image,
                 R.drawable.ic_profile_placeholder)
+
+        /*Work Environment user*/
+        val workExperience = ArrayList<Filter>()
+        request.from_user?.master_preferences?.forEach {
+            when (it.preference_type) {
+                PreferencesType.WORK_ENVIRONMENT ->
+                    workExperience.add(it)
+            }
+        }
+
+        if (workExperience.isNotEmpty()) {
+            var workText = ""
+            workExperience.forEach {
+                it.options?.forEach {
+                    if (it.isSelected) {
+                        workText += it.option_name + ", "
+                    }
+                }
+            }
+            binding.tvWorkEnvironment.text = workText.removeSuffix(", ")
+            binding.tvWorkEnvironment.hideShowView(workText.isNotEmpty())
+        } else {
+            binding.tvWorkEnvironment.gone()
+        }
+
+
+        binding.tvServiceTypeV.text = request.extra_detail?.filter_name ?: ""
+        binding.tvServiceType.gone()
+        binding.tvServiceTypeV.gone()
+
+        binding.tvDistanceV.text = request.extra_detail?.distance ?: ""
+        binding.tvLocation.text = request.extra_detail?.service_address
 
         binding.tvBookingDateV.text = getDatesComma(request.extra_detail?.working_dates)
         binding.tvBookingTimeV.text = "${request.extra_detail?.start_time ?: ""} - ${request.extra_detail?.end_time ?: ""}"

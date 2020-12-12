@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.MonthlyRevenue
-import com.consultantvendor.data.models.responses.Service
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.databinding.FragmentRevenueBinding

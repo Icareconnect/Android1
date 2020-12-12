@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.models.responses.CountryCity
 import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.models.responses.appdetails.AppVersion
@@ -54,8 +55,6 @@ class InsuranceFragment : DaggerFragment() {
     private lateinit var viewModelVersion: AppVersionViewModel
 
     private val items = ArrayList<Insurance>()
-
-    private var appDetail: AppVersion? = null
 
     private var userData: UserData? = null
 
@@ -108,14 +107,14 @@ class InsuranceFragment : DaggerFragment() {
         if (isConnectedToInternet(requireContext(), true)) {
             val hashMap = HashMap<String, String>()
             hashMap["type"] = CountryListType.STATE
-            hashMap["country_id"] = appDetail?.country_id ?: ""
+            hashMap["country_id"] = appVersion.country_id ?: ""
 
             viewModelVersion.countryCity(hashMap)
 
             if (!userData?.profile?.state_id.isNullOrEmpty()) {
                 val hashMap = HashMap<String, String>()
                 hashMap["type"] = CountryListType.CITY
-                hashMap["country_id"] = appDetail?.country_id ?: ""
+                hashMap["country_id"] = appVersion.country_id ?: ""
                 hashMap["state_id"] = userData?.profile?.state_id ?: ""
 
                 viewModelVersion.countryCity(hashMap)
@@ -125,10 +124,9 @@ class InsuranceFragment : DaggerFragment() {
 
     /*Get and update address insurance*/
     private fun setUpdateInsurance() {
-        appDetail = userRepository.getAppSetting()
         userData = userRepository.getUser()
 
-        if (appDetail?.clientFeaturesKeys?.isAddress == true) {
+        if (appVersion.clientFeaturesKeys.isAddress == true) {
             setAdapters()
             binding.groupAddress.visible()
 
@@ -147,9 +145,9 @@ class InsuranceFragment : DaggerFragment() {
             binding.groupAddress.gone()
         }
 
-        items.addAll(appDetail?.insurances ?: emptyList())
+        items.addAll(appVersion.insurances ?: emptyList())
 
-        if (appDetail?.insurance == true) {
+        if (appVersion.insurance == true) {
             binding.groupInsurance.visible()
 
             /*Check Selected Insurance*/
@@ -213,7 +211,7 @@ class InsuranceFragment : DaggerFragment() {
                         if (isConnectedToInternet(requireContext(), true)) {
                             val hashMap = HashMap<String, String>()
                             hashMap["type"] = CountryListType.CITY
-                            hashMap["country_id"] = appDetail?.country_id ?: ""
+                            hashMap["country_id"] = appVersion.country_id ?: ""
                             hashMap["state_id"] = itemsState.get(position).id ?: ""
 
                             viewModelVersion.countryCity(hashMap)
@@ -328,7 +326,7 @@ class InsuranceFragment : DaggerFragment() {
 
                 /*Check if zip id is there in custom fields*/
 
-                userRepository.getAppSetting()?.custom_fields?.service_provider?.forEach {
+                appVersion.custom_fields?.service_provider?.forEach {
                     if (it.field_name == CustomFields.ZIP_CODE) {
                         val customer = ArrayList<Insurance>()
                         val item = it

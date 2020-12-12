@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.consultantvendor.ConsultantApplication
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.network.Config
 import com.consultantvendor.data.repos.UserRepository
@@ -457,16 +458,16 @@ fun shareDeepLink(deepLink: String, activity: Activity, userRepository: UserRepo
 
     val shortLinkTask = Firebase.dynamicLinks.shortLinkAsync {
         link = Uri.parse(longLink)
-        domainUriPrefix = "https://royoconsult.page.link"
+        domainUriPrefix = "https://${activity.getString(R.string.deep_link_url)}"
         // Open links with this app on Android
-        androidParameters("com.consultantvendor") { }
+        androidParameters(BuildConfig.APPLICATION_ID) { }
         // Open links with com.example.ios on iOS
-        iosParameters("com.codebrew.RoyoConsultantVendor") { }
+        iosParameters(activity.getString(R.string.deep_link_ios_bundle)) { }
 
         socialMetaTagParameters {
             title = activity.getString(R.string.app_name)
             description = activity.getString(R.string.invite_text)
-            imageUrl = Uri.parse(getImageBaseUrl(true, userRepository.getAppSetting()?.applogo
+            imageUrl = Uri.parse(getImageBaseUrl(true, appVersion.applogo
                     ?: ""))
         }
     }.addOnSuccessListener { result ->

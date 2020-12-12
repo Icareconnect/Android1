@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">iCareConnect Nurse</string>
 
+    <!--Deep Link-->
+    <string name="deep_link_url" translatable="false">intely.page.link</string>
+    <string name="deep_link_ios_bundle" translatable="false">com.codebrew.RoyoConsultant</string>
+
     <!--Google-->
     <string name="google_places_api_key" translatable="false">AIzaSyBxwRzUvnbtTjNc8DURP4l4auJWsmrr7Bk</string>
 
@@ -227,6 +231,7 @@
 
     <array name="country">
         <item>@string/select_country</item>
+        <item>CA</item>
         <item>IN</item>
         <item>US</item>
 
@@ -234,9 +239,9 @@
 
     <array name="currency">
         <item>@string/select_currency</item>
+        <item>CAD</item>
         <item>INR</item>
         <item>USD</item>
-
     </array>
 
     <array name="dr_title">
@@ -346,11 +351,15 @@
 
 
     <!--Shift-->
+    <string name="shift_0">Weekends</string>
+    <string name="shift_01">Live in</string>
     <string name="shift_1">Day shift</string>
     <string name="shift_2">Evening shift</string>
     <string name="shift_3">Night shift</string>
 
     <array name="shift">
+        <item>@string/shift_0</item>
+        <item>@string/shift_01</item>
         <item>@string/shift_1</item>
         <item>@string/shift_2</item>
         <item>@string/shift_3</item>

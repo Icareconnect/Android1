@@ -2,6 +2,7 @@ package com.consultantvendor
 
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
+import com.consultantvendor.data.models.responses.appdetails.AppVersion
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.di.DaggerAppComponent
 import com.consultantvendor.utils.PrefsManager
@@ -11,6 +12,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
 
+var appVersion = AppVersion()
 
 class ConsultantApplication : DaggerApplication() {
 
@@ -33,6 +35,7 @@ class ConsultantApplication : DaggerApplication() {
         // Initialize Places.
         Places.initialize(applicationContext, getString(R.string.google_places_api_key))
 
+        appVersion = userRepository.getAppSetting()
         setsApplication(this)
     }
 

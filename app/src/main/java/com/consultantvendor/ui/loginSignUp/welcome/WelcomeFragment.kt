@@ -15,7 +15,10 @@ import com.consultantvendor.ui.loginSignUp.login.LoginFragment
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
 import com.consultantvendor.ui.walkthrough.WalkThroughFragment
 import com.consultantvendor.ui.walkthrough.WalkThroughFragment.Companion.WALKTHROUGH_SCREEN
-import com.consultantvendor.utils.*
+import com.consultantvendor.utils.PrefsManager
+import com.consultantvendor.utils.hideKeyboard
+import com.consultantvendor.utils.replaceFragment
+import com.consultantvendor.utils.setAcceptTerms
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

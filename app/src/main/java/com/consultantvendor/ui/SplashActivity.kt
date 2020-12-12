@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.ConsultantApplication
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
@@ -80,6 +81,7 @@ class SplashActivity : DaggerAppCompatActivity() {
                     }
 
                     prefsManager.save(APP_DETAILS, appDetails)
+                    appVersion = userRepository.getAppSetting()
                     ConsultantApplication.currencyCode = appDetails?.currency ?: ""
 
                     /*Check App Version*/

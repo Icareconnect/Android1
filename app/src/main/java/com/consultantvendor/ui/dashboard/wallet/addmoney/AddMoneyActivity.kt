@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.models.responses.Wallet
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
@@ -314,7 +315,7 @@ class AddMoneyActivity : DaggerAppCompatActivity(), PaymentResultListener {
         * */
         val activity: Activity = this
         val co = Checkout()
-        co.setKeyID(userRepository.getAppSetting()?.razorKey ?: "rzp_test_NIJ8Fwm7fvVNDU")
+        co.setKeyID(appVersion.razorKey ?: "rzp_test_NIJ8Fwm7fvVNDU")
 
         try {
             val userData = userRepository.getUser()

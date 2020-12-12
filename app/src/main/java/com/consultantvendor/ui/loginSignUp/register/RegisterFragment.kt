@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
 import com.consultantvendor.data.models.requests.SetService
@@ -30,21 +31,21 @@ import com.consultantvendor.databinding.FragmentRegisterBinding
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.drawermenu.classes.ClassesViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
+import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment.Companion.DUMMY_NAME
 import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
 import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment.Companion.MASTER_PREFRENCE_TYPE
-import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment.Companion.DUMMY_NAME
 import com.consultantvendor.ui.loginSignUp.service.ServiceFragment.Companion.FILTER_DATA
 import com.consultantvendor.utils.*
+import com.consultantvendor.utils.PermissionUtils
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
+import okhttp3.MediaType
 import okhttp3.RequestBody
 import permissions.dispatcher.*
-import com.consultantvendor.utils.PermissionUtils
-import okhttp3.MediaType
 import java.io.File
 import javax.inject.Inject
 
@@ -168,14 +169,20 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                         return@forEach
                     }
                     CustomFields.WORKING_SHIFTS -> {
-                        if (it.field_value?.contains(getString(R.string.shift_1)) == true) {
+                        if (it.field_value?.contains(getString(R.string.shift_0)) == true) {
                             itemsShift[0].isSelected = true
                         }
-                        if (it.field_value?.contains(getString(R.string.shift_2)) == true) {
+                        if (it.field_value?.contains(getString(R.string.shift_01)) == true) {
                             itemsShift[1].isSelected = true
                         }
-                        if (it.field_value?.contains(getString(R.string.shift_3)) == true) {
+                        if (it.field_value?.contains(getString(R.string.shift_1)) == true) {
                             itemsShift[2].isSelected = true
+                        }
+                        if (it.field_value?.contains(getString(R.string.shift_2)) == true) {
+                            itemsShift[3].isSelected = true
+                        }
+                        if (it.field_value?.contains(getString(R.string.shift_3)) == true) {
+                            itemsShift[4].isSelected = true
                         }
 
                         adapterShift.notifyDataSetChanged()
@@ -327,7 +334,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
                     val custom_fields = ArrayList<Insurance>()
 
-                    userRepository.getAppSetting()?.custom_fields?.service_provider?.forEach {
+                    appVersion.custom_fields?.service_provider?.forEach {
                         val item = it
                         when (it.field_name) {
                             CustomFields.WORKING_SHIFTS -> {
@@ -343,8 +350,8 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                                 custom_fields.add(item)
                             }
                             CustomFields.CERTIFICATION -> {
-                                if (binding.etLiscence.text.toString().trim().isNotEmpty()) {
-                                    item.field_value = binding.etLiscence.text.toString().trim()
+                                if (binding.etCertification.text.toString().trim().isNotEmpty()) {
+                                    item.field_value = binding.etCertification.text.toString().trim()
                                     custom_fields.add(item)
                                 }
                             }

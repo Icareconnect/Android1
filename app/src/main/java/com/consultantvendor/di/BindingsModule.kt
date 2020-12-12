@@ -31,13 +31,13 @@ import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.availability.SetAvailabilityFragment
 import com.consultantvendor.ui.loginSignUp.category.CategoryFragment
 import com.consultantvendor.ui.loginSignUp.changepassword.ChangePasswordFragment
-import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.document.add.DialogAddDocumentFragment
 import com.consultantvendor.ui.loginSignUp.forgotpassword.ForgotPasswordFragment
 import com.consultantvendor.ui.loginSignUp.insurance.InsuranceFragment
 import com.consultantvendor.ui.loginSignUp.login.LoginFragment
 import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
+import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
 import com.consultantvendor.ui.loginSignUp.prefrence.PrefrenceFragment
 import com.consultantvendor.ui.loginSignUp.register.RegisterFragment
 import com.consultantvendor.ui.loginSignUp.service.ServiceFragment

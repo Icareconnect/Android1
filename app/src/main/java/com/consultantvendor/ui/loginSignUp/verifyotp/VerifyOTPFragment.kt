@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
+import com.consultantvendor.appVersion
 import com.consultantvendor.data.network.ApiKeys
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.ProviderType
@@ -171,8 +172,7 @@ class VerifyOTPFragment : DaggerFragment() {
 
                     prefsManager.save(USER_DATA, it.data)
 
-                    val appSetting = userRepository.getAppSetting()
-                    if (appSetting?.insurance == true || appSetting?.clientFeaturesKeys?.isAddress == true) {
+                    if (appVersion.insurance == true || appVersion.clientFeaturesKeys.isAddress == true) {
                         val fragment = InsuranceFragment()
                         val bundle = Bundle()
                         if (arguments?.containsKey(UPDATE_PROFILE) == true)

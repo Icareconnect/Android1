@@ -33,7 +33,6 @@ class UserRepository @Inject constructor(
 
     fun isUserLoggedIn(): Boolean {
         val user = prefsManager.getObject(USER_DATA, UserData::class.java)
-        val appSetting = prefsManager.getObject(APP_DETAILS, AppVersion::class.java)
 
         return if (user?.id.isNullOrEmpty() || user?.name.isNullOrEmpty())
             false
@@ -50,8 +49,8 @@ class UserRepository @Inject constructor(
         return prefsManager.getObject(USER_DATA, UserData::class.java)
     }
 
-    fun getAppSetting(): AppVersion? {
-        return prefsManager.getObject(APP_DETAILS, AppVersion::class.java)
+    fun getAppSetting(): AppVersion {
+        return prefsManager.getObject(APP_DETAILS, AppVersion::class.java)  ?:AppVersion()
     }
 
     fun getUserLanguage(): String {
