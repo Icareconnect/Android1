@@ -345,7 +345,7 @@
     <string name="start_date">Start Date?</string>
 
     <!--qualification-->
-    <string name="select_your_qualification_type">Select your qualification type ?</string>
+    <string name="select_your_qualification_type">Select your qualification type</string>
     <string name="can_select_more_than_one">(Can select more than one)</string>
     <string name="what_type_of_shifts">What type of shifts are you interested in?</string>
 
@@ -383,9 +383,9 @@
     <!--Walkthrough-->
     <string name="walkthrough_1">Take control of your schedule</string>
     <string name="walkthrough_1_desc">You can also schedule your appointments with the patient, families etc</string>
-    <string name="walkthrough_2">Find shift near you</string>
+    <string name="walkthrough_2">Work Flexible hours</string>
     <string name="walkthrough_2_desc">Innovative technology that matches you with the right health care professional</string>
-    <string name="walkthrough_3">Work Flexible hours</string>
+    <string name="walkthrough_3">Competitive Pay &amp; Bonuses</string>
     <string name="walkthrough_3_desc">View Full profiles and credentials of every nurse/nursing assistant</string>
 
     <string name="get_started">Get Started</string>
@@ -399,7 +399,7 @@
     <string name="select_address">Select address</string>
     <string name="accept">Accept</string>
     <string name="distance">Distance :</string>
-    <string name="date_amp_time"><![CDATA[Date & Time :]]></string>
+    <string name="date_amp_time">Date &amp; Time :</string>
     <string name="service_detail">Service Detail</string>
     <string name="view_map">View map</string>
     <string name="time_from_to">Time (from - to) :</string>
