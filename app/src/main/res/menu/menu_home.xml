@@ -17,11 +17,6 @@
         android:title="@string/change_password" />
 
     <item
-        android:id="@+id/logs"
-        android:icon="@drawable/reservation"
-        android:title="@string/logs" />
-
-    <item
         android:id="@+id/helpSupport"
         android:icon="@drawable/interface_2"
         android:title="@string/contact_us" />
@@ -31,10 +26,10 @@
         android:icon="@drawable/business_and_finance"
         android:title="@string/account_details" />
 
-    <item
+   <!-- <item
         android:id="@+id/changeAddress"
         android:icon="@drawable/address"
-        android:title="@string/change_address" />
+        android:title="@string/change_address" />-->
 
     <item
         android:id="@+id/myEarnings"
@@ -43,7 +38,6 @@
 
     <item
         android:id="@+id/logout"
-        android:iconTint="@color/colorPrimary"
         android:icon="@drawable/ic_logout"
         android:title="@string/logout" />
 

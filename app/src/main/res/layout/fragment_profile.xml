@@ -98,13 +98,13 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/campton_medium"
                     android:maxLines="1"
-                    app:textAllCaps="true"
                     android:text="@string/approved"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toEndOf="@+id/ivPic"
-                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvName"
+                    app:textAllCaps="true" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -396,7 +396,6 @@
                     app:layout_constraintTop_toTopOf="@+id/tvNotification" />
 
 
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPremium"
                     android:layout_width="wrap_content"
@@ -493,16 +492,33 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPhone"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/phone_number"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvEmailV" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPhoneUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/dp_4"
+                    android:visibility="gone"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/update"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPhone"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvPhone" />
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPhoneV"

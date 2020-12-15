@@ -264,6 +264,11 @@ class ProfileFragment : DaggerFragment() {
                     .putExtra(UPDATE_PROFILE, true), AppRequestCode.PROFILE_UPDATE)
         }
 
+        binding.tvPhoneUpdate.setOnClickListener {
+            startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
+                    .putExtra(UPDATE_NUMBER, true), AppRequestCode.PROFILE_UPDATE)
+        }
+
         binding.tvSetAvailability.setOnClickListener {
             startActivityForResult(Intent(requireActivity(), SignUpActivity::class.java)
                     .putExtra(CATEGORY_PARENT_ID, userData?.categoryData)

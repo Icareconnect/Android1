@@ -1,5 +1,6 @@
 package com.consultantvendor.ui.loginSignUp.verifyotp
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -172,18 +173,10 @@ class VerifyOTPFragment : DaggerFragment() {
 
                     prefsManager.save(USER_DATA, it.data)
 
-                    if (appVersion.insurance == true || appVersion.clientFeaturesKeys.isAddress == true) {
-                        val fragment = InsuranceFragment()
-                        val bundle = Bundle()
-                        if (arguments?.containsKey(UPDATE_PROFILE) == true)
-                            bundle.putBoolean(UPDATE_PROFILE, true)
-                        fragment.arguments = bundle
-
-                        replaceFragment(requireActivity().supportFragmentManager,
-                                fragment, R.id.container)
-                    } else
-                        replaceFragment(requireActivity().supportFragmentManager,
-                                CategoryFragment(), R.id.container)
+                    if (userRepository.isUserLoggedIn()) {
+                        requireActivity().setResult(Activity.RESULT_OK)
+                        requireActivity().finish()
+                    }
 
                 }
                 Status.ERROR -> {

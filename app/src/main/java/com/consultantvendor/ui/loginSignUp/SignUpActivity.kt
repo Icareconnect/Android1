@@ -49,6 +49,10 @@ class SignUpActivity : DaggerAppCompatActivity() {
                 fragment = RegisterFragment()
                 bundle.putBoolean(UPDATE_PROFILE, true)
             }
+            intent.hasExtra(UPDATE_NUMBER) -> {
+                fragment = LoginFragment()
+                bundle.putBoolean(UPDATE_NUMBER, true)
+            }
             intent.hasExtra(UPDATE_DOCUMENTS) -> {
                 fragment = DocumentsFragment()
                 bundle.putBoolean(UPDATE_DOCUMENTS, true)

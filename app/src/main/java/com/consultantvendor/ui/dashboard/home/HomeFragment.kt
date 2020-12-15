@@ -20,6 +20,7 @@ import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
+import com.consultantvendor.ui.webview.WebViewActivity
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import com.google.android.material.navigation.NavigationView
@@ -165,7 +166,11 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
                 startActivity(Intent(requireContext(), DrawerActivity::class.java)
                         .putExtra(PAGE_TO_OPEN, DrawerActivity.PAYOUT))
             }
-
+            R.id.helpSupport->{
+                startActivity(Intent(requireContext(), WebViewActivity::class.java)
+                        .putExtra(WebViewActivity.LINK_TITLE, getString(R.string.contact_us))
+                        .putExtra(WebViewActivity.LINK_URL, PageLink.CONTACT_US))
+            }
             R.id.logout -> {
                 showLogoutDialog()
             }

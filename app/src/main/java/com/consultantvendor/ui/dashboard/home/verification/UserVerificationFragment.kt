@@ -57,10 +57,10 @@ class UserVerificationFragment : DaggerFragment() {
 
     private fun initialise() {
 
-        if (requireActivity().intent.hasExtra(EXTRA_IS_FIRST) &&
+       /* if (requireActivity().intent.hasExtra(EXTRA_IS_FIRST) &&
                 requireActivity().intent.getBooleanExtra(EXTRA_IS_FIRST, false)) {
 
-            Timer().schedule(4000) {
+            Timer().schedule(60000) {
                 prefsManager.remove(USER_DATA)
                 ActivityCompat.finishAffinity(requireActivity())
 
@@ -68,7 +68,7 @@ class UserVerificationFragment : DaggerFragment() {
                         .putExtra(EXTRA_LOGIN,true)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
             }
-        }
+        }*/
     }
 
     private fun listeners() {

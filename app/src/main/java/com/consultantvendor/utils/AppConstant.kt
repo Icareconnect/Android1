@@ -151,6 +151,7 @@ object DeepLink {
 object PageLink {
     const val TERMS_CONDITIONS = "terms-conditions"
     const val PRIVACY_POLICY = "privacy-policy"
+    const val CONTACT_US = "contact-us"
 }
 
 object PaymentFrom {

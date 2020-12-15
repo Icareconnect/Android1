@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/YourAnimation.Activity</item>
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="YourAnimation.Activity" parent="@android:style/Animation.Activity">

@@ -335,7 +335,7 @@
     <string name="my_articles">My Articles</string>
     <string name="or">Or</string>
     <string name="verification_may_take_some_time">Verification may take some time.</string>
-    <string name="thank_you_for_your_interest">Thank you for your interest in iCareConnect, one of our care coordinators will connect with you shortly.</string>
+    <string name="thank_you_for_your_interest">Thank you for your interest in joining our growing team! You\’re almost there. The final steps are background check, after which you will be able to accept shifts. Final hiring is contingent upon a clear background check.</string>
     <string name="register">Register</string>
     <string name="become_a_member">Join our growing team</string>
     <string name="continuee">Continue</string>
@@ -351,7 +351,7 @@
 
 
     <!--Shift-->
-    <string name="shift_0">Weekends</string>
+    <string name="shift_0">Weekend Only</string>
     <string name="shift_01">Live in</string>
     <string name="shift_1">Day shift</string>
     <string name="shift_2">Evening shift</string>

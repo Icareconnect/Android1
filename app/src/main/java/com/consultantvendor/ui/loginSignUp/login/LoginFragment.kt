@@ -67,6 +67,12 @@ class LoginFragment : DaggerFragment() {
 
             binding.tvLoginScreen.gone()
             binding.tvLoginTitle.gone()
+        } else if (arguments?.containsKey(UPDATE_NUMBER) == true) {
+            binding.tvTitle.text = getString(R.string.update)
+
+            binding.tvLoginScreen.gone()
+            binding.tvLoginTitle.gone()
+            binding.tvTerms.gone()
         }
     }
 
@@ -114,10 +120,8 @@ class LoginFragment : DaggerFragment() {
                         bundle.putBoolean(UPDATE_NUMBER, true)
                     fragment.arguments = bundle
 
-                    replaceFragment(
-                            requireActivity().supportFragmentManager,
-                            fragment, R.id.container
-                    )
+                    replaceFragment(requireActivity().supportFragmentManager,
+                            fragment, R.id.container)
 
                 }
                 Status.ERROR -> {
