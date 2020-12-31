@@ -24,6 +24,8 @@ import com.consultantvendor.ui.dashboard.home.AppointmentViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
+import com.consultantvendor.ui.loginSignUp.masterprefrence.MasterPrefrenceFragment
+import com.consultantvendor.ui.loginSignUp.service.ServiceFragment
 import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment.Companion.CATEGORY_PARENT_ID
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.PermissionUtils
@@ -99,7 +101,7 @@ class ProfileFragment : DaggerFragment() {
         userData = userRepository.getUser()
 
         binding.tvName.text = getDoctorName(userData)
-        binding.tvApproved.text="${getString(R.string.approved)} : " +
+        binding.tvApproved.text = "${getString(R.string.approved)} : " +
                 "${DateUtils.dateTimeFormatFromUTC(DateFormat.MON_YEAR_FORMAT, userData?.account_verified_at)}"
 
         binding.tvBioV.text = userData?.profile?.bio ?: getString(R.string.na)
@@ -121,6 +123,8 @@ class ProfileFragment : DaggerFragment() {
         binding.tvDesc.text = userData?.categoryData?.name ?: getString(R.string.na)
 
         //binding.tvRating.text = userData?.speciaity ?: getString(R.string.na)
+        binding.tvPatient.gone()
+        binding.tvPatientV.gone()
         binding.tvPatientV.text = userData?.patientCount ?: getString(R.string.na)
         binding.tvReviewsV.text = userData?.reviewCount ?: getString(R.string.na)
 
@@ -344,6 +348,36 @@ class ProfileFragment : DaggerFragment() {
                 binding.tbPremium.isChecked = !isChecked
             }
         }
+
+        binding.tvWorkUpdate.setOnClickListener {
+
+            val fragment = MasterPrefrenceFragment()
+            val bundle = Bundle()
+            bundle.putString(MasterPrefrenceFragment.MASTER_PREFRENCE_TYPE, PreferencesType.WORK_ENVIRONMENT)
+            bundle.putBoolean(UPDATE_PROFILE, true)
+            fragment.arguments = bundle
+
+            replaceResultFragment(this, fragment, R.id.container, AppRequestCode.PROFILE_UPDATE)
+        }
+
+        binding.tvServiceUpdate.setOnClickListener {
+            var qualification = ""
+            userData?.filters?.forEach { it1 ->
+                it1.options?.forEach {
+                    if (it.isSelected)
+                        qualification += "${it.id},"
+                }
+            }
+            requireActivity().intent.putExtra(ServiceFragment.FILTER_DATA, qualification.removeSuffix(","))
+
+            val fragment = MasterPrefrenceFragment()
+            val bundle = Bundle()
+            bundle.putString(MasterPrefrenceFragment.MASTER_PREFRENCE_TYPE, PreferencesType.PROVIDABLE_SERVICES)
+            bundle.putBoolean(UPDATE_PROFILE, true)
+            fragment.arguments = bundle
+
+            replaceResultFragment(this, fragment, R.id.container, AppRequestCode.PROFILE_UPDATE)
+        }
     }
 
 
@@ -447,7 +481,7 @@ class ProfileFragment : DaggerFragment() {
                             binding.tbPremium.tag = null
                             binding.tbPremium.isChecked = !binding.tbPremium.isChecked
                         }
-                        ManualUpdate.NOTIFICATION  -> {
+                        ManualUpdate.NOTIFICATION -> {
                             binding.tbNotification.tag = null
                             binding.tbNotification.isChecked = !binding.tbNotification.isChecked
                         }

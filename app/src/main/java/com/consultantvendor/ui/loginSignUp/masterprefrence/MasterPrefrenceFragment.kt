@@ -1,5 +1,6 @@
 package com.consultantvendor.ui.loginSignUp.masterprefrence
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -149,10 +150,10 @@ class MasterPrefrenceFragment : DaggerFragment() {
     private fun hitApi() {
         if (isConnectedToInternet(requireContext(), true)) {
             val hashMap = HashMap<String, String>()
-            if(prefrenceType==PreferencesType.PROVIDABLE_SERVICES){
+            if (prefrenceType == PreferencesType.PROVIDABLE_SERVICES) {
                 hashMap["filter_ids"] = requireActivity().intent.getStringExtra(FILTER_DATA)
                 viewModelAppVersion.duty(hashMap)
-            }else {
+            } else {
                 hashMap["type"] = PreferencesType.ALL
                 hashMap["preference_type"] = prefrenceType
                 viewModelAppVersion.preferences(hashMap)
@@ -169,11 +170,10 @@ class MasterPrefrenceFragment : DaggerFragment() {
                     binding.clLoader.gone()
                     binding.swipeRefresh.isRefreshing = false
 
-
                     val tempList = it.data?.preferences ?: emptyList()
-                        items.clear()
-
+                    items.clear()
                     items.addAll(tempList)
+
                     adapter.notifyDataSetChanged()
 
                     if (items.isNotEmpty())
@@ -206,33 +206,38 @@ class MasterPrefrenceFragment : DaggerFragment() {
 
                     prefsManager.save(USER_DATA, it.data)
 
-                    val fragment: Fragment
-                    val bundle = Bundle()
+                    if (arguments?.getBoolean(UPDATE_PROFILE, false) == true) {
+                        resultFragmentIntent(this, targetFragment ?: this,
+                                AppRequestCode.PROFILE_UPDATE, Intent())
+                    } else {
+                        val fragment: Fragment
+                        val bundle = Bundle()
 
-                    when (prefrenceType) {
-                        PreferencesType.PERSONAL_INTEREST -> {
-                            fragment = MasterPrefrenceFragment()
-                            bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.PROVIDABLE_SERVICES)
+                        when (prefrenceType) {
+                            PreferencesType.PERSONAL_INTEREST -> {
+                                fragment = MasterPrefrenceFragment()
+                                bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.PROVIDABLE_SERVICES)
+                            }
+                            PreferencesType.PROVIDABLE_SERVICES -> {
+                                fragment = MasterPrefrenceFragment()
+                                bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.WORK_ENVIRONMENT)
+                            }
+                            PreferencesType.WORK_ENVIRONMENT -> {
+                                fragment = MasterPrefrenceFragment()
+                                bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.COVID)
+                            }
+                            PreferencesType.COVID -> {
+                                fragment = DocumentsFragment()
+                            }
+                            else -> {
+                                fragment = DocumentsFragment()
+                            }
                         }
-                        PreferencesType.PROVIDABLE_SERVICES -> {
-                            fragment = MasterPrefrenceFragment()
-                            bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.WORK_ENVIRONMENT)
-                        }
-                        PreferencesType.WORK_ENVIRONMENT -> {
-                            fragment = MasterPrefrenceFragment()
-                            bundle.putString(MASTER_PREFRENCE_TYPE, PreferencesType.COVID)
-                        }
-                        PreferencesType.COVID -> {
-                            fragment = DocumentsFragment()
-                        }
-                        else -> {
-                            fragment = DocumentsFragment()
-                        }
+
+                        fragment.arguments = bundle
+                        replaceFragment(requireActivity().supportFragmentManager,
+                                fragment, R.id.container)
                     }
-
-                    fragment.arguments = bundle
-                    replaceFragment(requireActivity().supportFragmentManager,
-                            fragment, R.id.container)
 
                 }
                 Status.ERROR -> {

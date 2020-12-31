@@ -260,7 +260,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPatientV" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvReviewsV" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -449,7 +449,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_book"
                     android:gravity="start"
-                    android:text="@string/app_name"
+                    tools:text="@string/app_name"
                     android:textColor="@color/textColor"
                     android:textDirection="locale"
                     android:textSize="@dimen/sp_14"
@@ -483,7 +483,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/email"
+                    tools:text="@string/email"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -510,7 +510,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="@dimen/dp_4"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/update"
                     android:textColor="@color/colorPrimary"
@@ -526,7 +526,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/phone_number"
+                    tools:text="@string/phone_number"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -552,7 +552,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/dob"
+                    tools:text="@string/dob"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -573,12 +573,29 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvDOBV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvServiceUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/dp_4"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/update"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvServices"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvServices" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvServicesV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/dob"
+                    tools:text="@string/dob"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -605,7 +622,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/dob"
+                    tools:text="@string/dob"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -626,12 +643,29 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvPersonalV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvWorkUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/dp_4"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/update"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvWork"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvWork" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvWorkV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/dob"
+                    tools:text="@string/dob"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -657,7 +691,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
-                    android:text="@string/dob"
+                    tools:text="@string/dob"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_14"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"

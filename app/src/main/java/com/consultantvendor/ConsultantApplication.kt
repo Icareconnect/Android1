@@ -12,7 +12,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
 
-var appVersion = AppVersion()
+var appClientDetails = AppVersion()
 
 class ConsultantApplication : DaggerApplication() {
 
@@ -35,7 +35,7 @@ class ConsultantApplication : DaggerApplication() {
         // Initialize Places.
         Places.initialize(applicationContext, getString(R.string.google_places_api_key))
 
-        appVersion = userRepository.getAppSetting()
+        appClientDetails = userRepository.getAppSetting()
         setsApplication(this)
     }
 
@@ -43,8 +43,6 @@ class ConsultantApplication : DaggerApplication() {
         DaggerAppComponent.builder().create(this)
 
     companion object {
-
-        var currencyCode = ""
 
         private var isApplication: Application? = null
 

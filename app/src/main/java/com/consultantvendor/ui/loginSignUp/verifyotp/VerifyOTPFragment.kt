@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
-import com.consultantvendor.appVersion
 import com.consultantvendor.data.network.ApiKeys
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.ProviderType
@@ -19,12 +18,11 @@ import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentVerifyOtpBinding
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
-import com.consultantvendor.ui.loginSignUp.category.CategoryFragment
-import com.consultantvendor.ui.loginSignUp.insurance.InsuranceFragment
 import com.consultantvendor.ui.loginSignUp.register.RegisterFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class VerifyOTPFragment : DaggerFragment() {
@@ -67,7 +65,16 @@ class VerifyOTPFragment : DaggerFragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
 
-        phoneNumber = arguments?.getString(COUNTRY_CODE).toString() + arguments?.getString(PHONE_NUMBER).toString()
+        phoneNumber = when {
+            arguments?.containsKey(EXTRA_EMAIL) == true -> {
+                arguments?.getString(EXTRA_EMAIL) ?: ""
+            }
+            arguments?.containsKey(COUNTRY_CODE) == true -> {
+                arguments?.getString(COUNTRY_CODE).toString() + arguments?.getString(PHONE_NUMBER).toString()
+            }
+            else -> ""
+        }
+
         binding.tvMsg.text = getString(R.string.we_sent_you_a_code, phoneNumber)
     }
 
@@ -87,17 +94,25 @@ class VerifyOTPFragment : DaggerFragment() {
                         val hashMap = HashMap<String, Any>()
                         hashMap["country_code"] = arguments?.getString(COUNTRY_CODE).toString()
 
-                        if (arguments?.containsKey(UPDATE_NUMBER) == true) {
-                            hashMap["phone"] = arguments?.getString(PHONE_NUMBER).toString()
-                            hashMap["otp"] = binding.pvOtp.text.toString()
-                            viewModel.updateNumber(hashMap)
-                        } else {
-                            hashMap["provider_id"] = arguments?.getString(PHONE_NUMBER).toString()
-                            hashMap[ApiKeys.PROVIDER_TYPE] = ProviderType.phone
-                            hashMap[ApiKeys.PROVIDER_VERIFICATION] = binding.pvOtp.text.toString()
-                            hashMap[ApiKeys.USER_TYPE] = APP_TYPE
+                        when {
+                            arguments?.containsKey(EXTRA_EMAIL) == true -> {
+                                hashMap["email"] = arguments?.getString(EXTRA_EMAIL).toString()
+                                hashMap["otp"] = binding.pvOtp.text.toString()
+                                viewModel.emailVerify(hashMap)
+                            }
+                            arguments?.containsKey(UPDATE_NUMBER) == true -> {
+                                hashMap["phone"] = arguments?.getString(PHONE_NUMBER).toString()
+                                hashMap["otp"] = binding.pvOtp.text.toString()
+                                viewModel.updateNumber(hashMap)
+                            }
+                            else -> {
+                                hashMap["provider_id"] = arguments?.getString(PHONE_NUMBER).toString()
+                                hashMap[ApiKeys.PROVIDER_TYPE] = ProviderType.phone
+                                hashMap[ApiKeys.PROVIDER_VERIFICATION] = binding.pvOtp.text.toString()
+                                hashMap[ApiKeys.USER_TYPE] = APP_TYPE
 
-                            viewModel.login(hashMap)
+                                viewModel.login(hashMap)
+                            }
                         }
                     }
                 }
@@ -106,10 +121,14 @@ class VerifyOTPFragment : DaggerFragment() {
 
         binding.tvResentOTP.setOnClickListener {
             val hashMap = HashMap<String, Any>()
-            hashMap["country_code"] = arguments?.getString(COUNTRY_CODE).toString()
-            hashMap["phone"] = arguments?.getString(PHONE_NUMBER).toString()
-
-            viewModel.sendSms(hashMap)
+            if(arguments?.containsKey(EXTRA_EMAIL)==true){
+                hashMap["email"] = arguments?.getString(EXTRA_EMAIL).toString()
+                viewModel.sendEmailOtp(hashMap)
+            }else {
+                hashMap["country_code"] = arguments?.getString(COUNTRY_CODE).toString()
+                hashMap["phone"] = arguments?.getString(PHONE_NUMBER).toString()
+                viewModel.sendSms(hashMap)
+            }
         }
     }
 
@@ -188,5 +207,62 @@ class VerifyOTPFragment : DaggerFragment() {
                 }
             }
         })
+
+        viewModel.emailVerify.observe(requireActivity(), Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialog.setLoading(false)
+
+                   viewModel.register(arguments?.getSerializable(EXTRA_EMAIL_DATA) as HashMap<String, RequestBody>)
+
+                }
+                Status.ERROR -> {
+                    progressDialog.setLoading(false)
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialog.setLoading(true)
+                }
+            }
+        })
+
+        viewModel.register.observe(requireActivity(), Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialog.setLoading(false)
+
+                    prefsManager.save(USER_DATA, it.data)
+
+                    if (userRepository.isUserLoggedIn()) {
+                        startActivity(Intent(requireActivity(), HomeActivity::class.java))
+                        requireActivity().finish()
+                    } else {
+                        requireActivity().supportFragmentManager.popBackStack()
+                        val fragment = RegisterFragment()
+                        val bundle = Bundle()
+                        bundle.putBoolean(UPDATE_NUMBER, true)
+                        fragment.arguments = bundle
+
+                        replaceFragment(requireActivity().supportFragmentManager,
+                                fragment, R.id.container)
+                    }
+
+                }
+                Status.ERROR -> {
+                    progressDialog.setLoading(false)
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialog.setLoading(true)
+                }
+            }
+        })
+    }
+
+    companion object{
+        const val EXTRA_EMAIL = "EXTRA_EMAIL"
+        const val EXTRA_EMAIL_DATA = "EXTRA_EMAIL_DATA"
     }
 }

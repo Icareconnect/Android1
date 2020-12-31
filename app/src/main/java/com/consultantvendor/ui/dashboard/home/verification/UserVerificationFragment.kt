@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -19,12 +18,11 @@ import com.consultantvendor.databinding.FragmentUserVerificationBinding
 import com.consultantvendor.ui.loginSignUp.SignUpActivity
 import com.consultantvendor.ui.loginSignUp.document.DocumentsFragment
 import com.consultantvendor.ui.loginSignUp.subcategory.SubCategoryFragment
-import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment.Companion.EXTRA_LOGIN
-import com.consultantvendor.utils.*
+import com.consultantvendor.utils.AppRequestCode
+import com.consultantvendor.utils.PrefsManager
+import com.consultantvendor.utils.logoutUser
 import dagger.android.support.DaggerFragment
-import java.util.*
 import javax.inject.Inject
-import kotlin.concurrent.schedule
 
 class UserVerificationFragment : DaggerFragment() {
 

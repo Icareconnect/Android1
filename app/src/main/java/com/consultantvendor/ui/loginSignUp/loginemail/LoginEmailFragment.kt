@@ -21,6 +21,7 @@ import com.consultantvendor.ui.loginSignUp.LoginViewModel
 import com.consultantvendor.ui.loginSignUp.forgotpassword.ForgotPasswordFragment
 import com.consultantvendor.ui.loginSignUp.login.LoginFragment
 import com.consultantvendor.ui.loginSignUp.register.RegisterFragment
+import com.consultantvendor.ui.loginSignUp.verifyotp.VerifyOTPFragment
 import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
@@ -50,13 +51,13 @@ class LoginEmailFragment : DaggerFragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         if (rootView == null) {
             binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_login_email, container, false)
+                    DataBindingUtil.inflate(inflater, R.layout.fragment_login_email, container, false)
             rootView = binding.root
 
             initialise()
@@ -75,6 +76,7 @@ class LoginEmailFragment : DaggerFragment() {
 
             binding.tvLoginScreen.gone()
             binding.tvLoginTitle.gone()
+            binding.tvForgetPass.gone()
         }
     }
 
@@ -105,13 +107,10 @@ class LoginEmailFragment : DaggerFragment() {
                 }
                 isConnectedToInternet(requireContext(), true) -> {
                     if (arguments?.containsKey(WelcomeFragment.EXTRA_SIGNUP) == true) {
-                        val hashMap = HashMap<String, RequestBody>()
-                        hashMap["name"] = getRequestBody(DUMMY_NAME)
-                        hashMap["email"] = getRequestBody(binding.etEmail.text.toString().trim())
-                        hashMap["password"] = getRequestBody(binding.etPassword.text.toString().trim())
-                        hashMap["user_type"] = getRequestBody(APP_TYPE)
-                        viewModel.register(hashMap)
-                    }else{
+                        val hashMap = HashMap<String, Any>()
+                        hashMap["email"] = binding.etEmail.text.toString().trim()
+                        viewModel.sendEmailOtp(hashMap)
+                    } else {
                         val hashMap = HashMap<String, Any>()
                         hashMap[ApiKeys.PROVIDER_TYPE] = ProviderType.email
                         hashMap["provider_id"] = binding.etEmail.text.toString()
@@ -124,10 +123,8 @@ class LoginEmailFragment : DaggerFragment() {
         }
 
         binding.tvForgetPass.setOnClickListener {
-            replaceFragment(
-                requireActivity().supportFragmentManager,
-                ForgotPasswordFragment(), R.id.container
-            )
+            replaceFragment(requireActivity().supportFragmentManager,
+                    ForgotPasswordFragment(), R.id.container)
         }
     }
 
@@ -164,27 +161,26 @@ class LoginEmailFragment : DaggerFragment() {
             }
         })
 
-        viewModel.register.observe(requireActivity(), Observer {
+        viewModel.sendEmailOtp.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
                     progressDialog.setLoading(false)
 
-                    prefsManager.save(USER_DATA, it.data)
+                    val hashMap = HashMap<String, RequestBody>()
+                    hashMap["name"] = getRequestBody(DUMMY_NAME)
+                    hashMap["email"] = getRequestBody(binding.etEmail.text.toString().trim())
+                    hashMap["password"] = getRequestBody(binding.etPassword.text.toString().trim())
+                    hashMap["user_type"] = getRequestBody(APP_TYPE)
 
-                    if (userRepository.isUserLoggedIn()) {
-                        startActivity(Intent(requireActivity(), HomeActivity::class.java))
-                        requireActivity().finish()
+                    val fragment = VerifyOTPFragment()
+                    val bundle = Bundle()
+                    bundle.putString(VerifyOTPFragment.EXTRA_EMAIL, binding.etEmail.text.toString().trim())
+                    bundle.putSerializable(VerifyOTPFragment.EXTRA_EMAIL_DATA, hashMap)
+                    fragment.arguments = bundle
 
-                    } else {
-                        val fragment = RegisterFragment()
-                        val bundle = Bundle()
-                        bundle.putBoolean(UPDATE_NUMBER, true)
-                        fragment.arguments = bundle
-
-                        replaceFragment(requireActivity().supportFragmentManager,
-                                fragment, R.id.container)
-                    }
+                    replaceFragment(requireActivity().supportFragmentManager,
+                            fragment, R.id.container)
 
                 }
                 Status.ERROR -> {
@@ -198,7 +194,7 @@ class LoginEmailFragment : DaggerFragment() {
         })
     }
 
-    companion object{
-        const val DUMMY_NAME="1#123@123"
+    companion object {
+        const val DUMMY_NAME = "1#123@123"
     }
 }

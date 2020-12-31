@@ -24,8 +24,6 @@ import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashMap
-import kotlin.collections.forEach
-import kotlin.collections.isNotEmpty
 import kotlin.collections.set
 
 

@@ -16,7 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.consultantvendor.R
-import com.consultantvendor.appVersion
+import com.consultantvendor.appClientDetails
 import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
@@ -292,7 +292,7 @@ class SignUpFragment : DaggerFragment(), OnDateSelected {
 
                     requireActivity().setResult(Activity.RESULT_OK)
 
-                    if (appVersion.insurance == true || appVersion.clientFeaturesKeys.isAddress == true) {
+                    if (appClientDetails.insurance == true || appClientDetails.clientFeaturesKeys.isAddress == true) {
                         val fragment = InsuranceFragment()
                         val bundle = Bundle()
                         if (arguments?.containsKey(UPDATE_PROFILE) == true)

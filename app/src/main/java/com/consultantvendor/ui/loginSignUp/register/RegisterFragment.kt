@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.consultantvendor.R
-import com.consultantvendor.appVersion
+import com.consultantvendor.appClientDetails
 import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
 import com.consultantvendor.data.models.requests.SetService
@@ -121,7 +121,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         progressDialog = ProgressDialog(requireActivity())
 
         editTextScroll(binding.etBio)
-        binding.cvQualification.gone()
+        //binding.cvQualification.gone()
     }
 
     private fun setEditInformation() {
@@ -133,7 +133,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
             binding.tvName.text = getString(R.string.update)
             binding.tvDesc.gone()
-            binding.cvQualification.visible()
+            //binding.cvQualification.visible()
 
             loadImage(binding.ivPic, userData?.profile_image, R.drawable.ic_profile_placeholder)
             binding.etBio.setText(userData?.profile?.bio ?: "")
@@ -248,7 +248,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
         binding.tvQualificationV.setOnClickListener {
             binding.tvQualificationV.hideKeyboard()
-            binding.cvQualification.hideShowView(binding.cvQualification.visibility == View.GONE)
+            //binding.cvQualification.hideShowView(binding.cvQualification.visibility == View.GONE)
         }
 
         binding.etStartDate.setOnClickListener {
@@ -312,7 +312,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     binding.etStartDate.showSnackBar(getString(R.string.start_date))
                 }
                 isConnectedToInternet(requireContext(), true) -> {
-                    requireActivity().intent.putExtra(FILTER_DATA, qualification.removePrefix(", "))
+                    requireActivity().intent.putExtra(FILTER_DATA, qualification.removeSuffix(","))
 
                     val hashMap = HashMap<String, RequestBody>()
 
@@ -334,7 +334,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
                     val custom_fields = ArrayList<Insurance>()
 
-                    appVersion.custom_fields?.service_provider?.forEach {
+                    appClientDetails.custom_fields?.service_provider?.forEach {
                         val item = it
                         when (it.field_name) {
                             CustomFields.WORKING_SHIFTS -> {
