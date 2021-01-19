@@ -122,7 +122,7 @@ class SettingsFragment : DaggerFragment() {
         }
 
         binding.tvInvite.setOnClickListener {
-            shareDeepLink(DeepLink.INVITE, requireActivity(),userRepository)
+            shareDeepLink(DeepLink.INVITE, requireActivity())
         }
     }
 

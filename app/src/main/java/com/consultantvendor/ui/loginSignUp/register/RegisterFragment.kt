@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -127,10 +128,23 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     private fun setEditInformation() {
         userData = userRepository.getUser()
 
+        /*Todo*/
+        binding.etLocation.setText("Test")
+        address = SaveAddress()
+        address?.locationName = "Test"
+        address?.location = ArrayList()
+        address?.location?.add(0.0)
+        address?.location?.add(0.0)
+
         if (!userData?.name.equals(DUMMY_NAME))
             binding.etName.setText(userData?.name ?: "")
 
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
+            binding.ccpCountryCode.gone()
+            binding.ivLine.gone()
+            binding.etMobileNumber.gone()
+            binding.ivLine1.gone()
+
             binding.tvName.text = getString(R.string.update)
             binding.tvDesc.gone()
             //binding.cvQualification.visible()
@@ -205,7 +219,16 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 }
             }
         } else if (arguments?.containsKey(UPDATE_NUMBER) == true) {
+            if (!userData?.phone.isNullOrEmpty()) {
+                binding.ccpCountryCode.gone()
+                binding.ivLine.gone()
+                binding.etMobileNumber.gone()
+                binding.ivLine1.gone()
+            }
 
+            if (!userData?.email.isNullOrEmpty()) {
+                binding.ilEmail.gone()
+            }
         }
     }
 
@@ -246,11 +269,6 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             getStorageWithPermissionCheck()
         }
 
-        binding.tvQualificationV.setOnClickListener {
-            binding.tvQualificationV.hideKeyboard()
-            //binding.cvQualification.hideShowView(binding.cvQualification.visibility == View.GONE)
-        }
-
         binding.etStartDate.setOnClickListener {
             binding.etStartDate.hideKeyboard()
             DateUtils.openDatePicker(requireActivity(), this, false, true)
@@ -286,6 +304,17 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             when {
                 binding.etName.text.toString().trim().isEmpty() -> {
                     binding.etName.showSnackBar(getString(R.string.enter_name))
+                }
+                (binding.etMobileNumber.visibility==View.VISIBLE &&
+                        (binding.etMobileNumber.text.toString().isEmpty() || binding.etMobileNumber.text.toString().length < 6)) -> {
+                    binding.etEmail.showSnackBar(getString(R.string.enter_phone_number))
+                }
+                (binding.ilEmail.visibility==View.VISIBLE && binding.etEmail.text.toString().trim().isEmpty()) -> {
+                    binding.etEmail.showSnackBar(getString(R.string.enter_email))
+                }
+                (binding.etEmail.text.toString().trim().isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(
+                        binding.etEmail.text.toString().trim()).matches()) -> {
+                    binding.etEmail.showSnackBar(getString(R.string.enter_correct_email))
                 }
                 binding.etLocation.text.toString().isEmpty() -> {
                     binding.etLocation.showSnackBar(getString(R.string.select_address))
@@ -330,6 +359,14 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                         val body: RequestBody =
                                 RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload)
                         hashMap["profile_image\"; fileName=\"" + fileToUpload?.name] = body
+                    }
+
+                    if (binding.etMobileNumber.text.toString().trim().isNotEmpty()) {
+                        hashMap["country_code"] = getRequestBody(binding.ccpCountryCode.selectedCountryCodeWithPlus)
+                        hashMap["phone"] = getRequestBody(binding.etMobileNumber.text.toString())
+                    }
+                    if (binding.etEmail.text.toString().trim().isNotEmpty()) {
+                        hashMap["email"] = getRequestBody(binding.etEmail.text.toString())
                     }
 
                     val custom_fields = ArrayList<Insurance>()

@@ -1,11 +1,9 @@
 package com.consultantvendor.ui.loginSignUp.welcome
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.R
@@ -16,9 +14,7 @@ import com.consultantvendor.ui.loginSignUp.loginemail.LoginEmailFragment
 import com.consultantvendor.ui.walkthrough.WalkThroughFragment
 import com.consultantvendor.ui.walkthrough.WalkThroughFragment.Companion.WALKTHROUGH_SCREEN
 import com.consultantvendor.utils.PrefsManager
-import com.consultantvendor.utils.hideKeyboard
 import com.consultantvendor.utils.replaceFragment
-import com.consultantvendor.utils.setAcceptTerms
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -54,10 +50,6 @@ class WelcomeFragment : DaggerFragment() {
     }
 
     private fun initialise() {
-        binding.tvTerms.hideKeyboard()
-        binding.tvTerms.movementMethod = LinkMovementMethod.getInstance()
-        binding.tvTerms.setText(setAcceptTerms(requireActivity()), TextView.BufferType.SPANNABLE)
-
         if(!prefsManager.getBoolean(WALKTHROUGH_SCREEN,false)){
             replaceFragment(requireActivity().supportFragmentManager,
                     WalkThroughFragment(), R.id.container)

@@ -2,10 +2,12 @@ package com.consultantvendor.ui.loginSignUp.loginemail
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -71,12 +73,17 @@ class LoginEmailFragment : DaggerFragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
 
+
         if (arguments?.containsKey(WelcomeFragment.EXTRA_SIGNUP) == true) {
             binding.tvTitle.text = getString(R.string.sign_up_care_connect)
 
             binding.tvLoginScreen.gone()
             binding.tvLoginTitle.gone()
             binding.tvForgetPass.gone()
+
+            binding.cbTerms.movementMethod = LinkMovementMethod.getInstance()
+            binding.cbTerms.setText(setAcceptTerms(requireActivity()), TextView.BufferType.SPANNABLE)
+            binding.cbTerms.visible()
         }
     }
 
@@ -104,6 +111,9 @@ class LoginEmailFragment : DaggerFragment() {
                 }
                 binding.etPassword.text.toString().length < 8 -> {
                     binding.etPassword.showSnackBar(getString(R.string.enter_password))
+                }
+                binding.cbTerms.visibility==View.VISIBLE && !binding.cbTerms.isChecked -> {
+                    binding.cbTerms.showSnackBar(getString(R.string.check_all_terms))
                 }
                 isConnectedToInternet(requireContext(), true) -> {
                     if (arguments?.containsKey(WelcomeFragment.EXTRA_SIGNUP) == true) {

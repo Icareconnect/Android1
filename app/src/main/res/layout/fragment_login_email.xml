@@ -91,6 +91,22 @@
                 android:textSize="@dimen/sp_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/cbTerms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_32"
+            android:fontFamily="@font/campton_medium"
+            android:padding="@dimen/dp_8"
+            android:checked="false"
+            android:visibility="gone"
+            android:text="@string/you_agree_to_our_terms"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/ilPassword" />
+
 
         <TextView
             android:id="@+id/tvForgetPass"
@@ -106,7 +122,7 @@
             android:alpha="0.4"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/sp_12"
-            app:layout_constraintTop_toBottomOf="@+id/ilPassword"
+            app:layout_constraintTop_toBottomOf="@+id/cbTerms"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
             android:text="@string/forgot_password" />
 

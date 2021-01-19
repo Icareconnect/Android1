@@ -195,10 +195,8 @@ class ProfileFragment : DaggerFragment() {
             }
             binding.tvCovidV.text = covidText
 
-            binding.tvCovid.hideShowView(covidText.isNotEmpty())
             binding.tvCovidV.hideShowView(covidText.isNotEmpty())
         } else {
-            binding.tvCovid.gone()
             binding.tvCovidV.gone()
         }
 
@@ -213,10 +211,8 @@ class ProfileFragment : DaggerFragment() {
             }
             binding.tvServicesV.text = servicesText.removeSuffix(", ")
 
-            binding.tvServices.hideShowView(servicesText.isNotEmpty())
             binding.tvServicesV.hideShowView(servicesText.isNotEmpty())
         } else {
-            binding.tvServices.gone()
             binding.tvServicesV.gone()
         }
 
@@ -231,10 +227,8 @@ class ProfileFragment : DaggerFragment() {
             }
             binding.tvPersonalV.text = personalText.removeSuffix(", ")
 
-            binding.tvPersonal.hideShowView(personalText.isNotEmpty())
             binding.tvPersonalV.hideShowView(personalText.isNotEmpty())
         } else {
-            binding.tvPersonal.gone()
             binding.tvPersonalV.gone()
         }
 
@@ -249,10 +243,8 @@ class ProfileFragment : DaggerFragment() {
             }
             binding.tvWorkV.text = workText.removeSuffix(", ")
 
-            binding.tvWork.hideShowView(workText.isNotEmpty())
             binding.tvWorkV.hideShowView(workText.isNotEmpty())
         } else {
-            binding.tvWork.gone()
             binding.tvWorkV.gone()
         }
 
@@ -354,6 +346,17 @@ class ProfileFragment : DaggerFragment() {
             val fragment = MasterPrefrenceFragment()
             val bundle = Bundle()
             bundle.putString(MasterPrefrenceFragment.MASTER_PREFRENCE_TYPE, PreferencesType.WORK_ENVIRONMENT)
+            bundle.putBoolean(UPDATE_PROFILE, true)
+            fragment.arguments = bundle
+
+            replaceResultFragment(this, fragment, R.id.container, AppRequestCode.PROFILE_UPDATE)
+        }
+
+        binding.tvCovidUpdate.setOnClickListener {
+
+            val fragment = MasterPrefrenceFragment()
+            val bundle = Bundle()
+            bundle.putString(MasterPrefrenceFragment.MASTER_PREFRENCE_TYPE, PreferencesType.COVID)
             bundle.putBoolean(UPDATE_PROFILE, true)
             fragment.arguments = bundle
 

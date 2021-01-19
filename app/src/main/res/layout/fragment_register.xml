@@ -117,8 +117,8 @@
                     android:layout_marginEnd="@dimen/dp_24"
                     android:scaleType="centerCrop"
                     android:src="@drawable/image_placeholder"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:riv_corner_radius="80dp" />
 
@@ -149,6 +149,89 @@
                         android:textSize="@dimen/sp_16" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccpCountryCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:gravity="center|start"
+                    app:ccp_contentColor="@color/colorBlack"
+                    app:ccp_showArrow="false"
+                    app:ccp_showFlag="false"
+                    app:ccp_showNameCode="true"
+                    app:ccp_textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilName" />
+
+
+                <View
+                    android:id="@+id/ivLine"
+                    android:layout_width="2dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:background="@color/lineColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/ccpCountryCode"
+                    app:layout_constraintStart_toEndOf="@+id/ccpCountryCode"
+                    app:layout_constraintTop_toTopOf="@+id/ccpCountryCode" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etMobileNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@null"
+                    android:digits="0123456789"
+                    android:ellipsize="end"
+                    android:hint="@string/enter_phone_number"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivLine"
+                    app:layout_constraintTop_toBottomOf="@+id/ilName" />
+
+                <View
+                    android:id="@+id/ivLine1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintEnd_toEndOf="@+id/etMobileNumber"
+                    app:layout_constraintStart_toStartOf="@+id/ccpCountryCode"
+                    app:layout_constraintTop_toBottomOf="@+id/etMobileNumber" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@drawable/drawable_stroke_grey"
+                    android:padding="@dimen/dp_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etMobileNumber">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
+                        android:padding="@dimen/dp_8"
+                        android:background="@null"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_16" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ilLocation"
@@ -160,7 +243,7 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ilName">
+                    app:layout_constraintTop_toBottomOf="@+id/ilEmail">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etLocation"
@@ -194,17 +277,17 @@
                         android:id="@+id/etBio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@null"
                         android:fontFamily="@font/campton_medium"
                         android:gravity="start"
                         android:hint="@string/bio"
-                        android:background="@null"
-                        android:textDirection="locale"
-                        android:padding="@dimen/dp_8"
                         android:imeOptions="actionDone"
                         android:inputType="textCapSentences|textMultiLine"
-                        android:maxLines="4"
                         android:maxLength="1000"
+                        android:maxLines="4"
+                        android:padding="@dimen/dp_8"
                         android:textColor="@color/textColor"
+                        android:textDirection="locale"
                         android:textSize="@dimen/sp_16" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,46 +297,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
-                    android:alpha="0.7"
+                    android:alpha="0.8"
                     android:fontFamily="@font/campton_semibold"
+                    android:gravity="center"
                     android:text="@string/select_your_qualification_type"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ilBio" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvQualificationHint"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:alpha="0.4"
-                    android:fontFamily="@font/campton_medium"
-                    android:text="@string/can_select_more_than_one"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvQualification" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvQualificationV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:background="@drawable/drawable_stroke_grey"
-                    android:fontFamily="@font/campton_medium"
-                    android:gravity="center_vertical"
-                    android:hint="@string/select_your_qualification_type"
-                    android:paddingStart="@dimen/dp_16"
-                    android:paddingEnd="@dimen/dp_16"
-                    android:visibility="gone"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvQualificationHint" />
 
 
                 <androidx.cardview.widget.CardView
@@ -263,11 +315,11 @@
                     android:layout_margin="@dimen/dp_4"
                     app:cardCornerRadius="@dimen/dp_8"
                     app:cardElevation="@dimen/dp_4"
-                    app:layout_goneMarginTop="@dimen/dp_8"
                     app:cardPreventCornerOverlap="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvQualificationV">
+                    app:layout_constraintTop_toBottomOf="@+id/tvQualification"
+                    app:layout_goneMarginTop="@dimen/dp_8">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvQualification"
@@ -284,47 +336,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
-                    android:alpha="0.7"
+                    android:alpha="0.8"
                     android:fontFamily="@font/campton_semibold"
+                    android:gravity="center"
                     android:text="@string/what_type_of_shifts"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cvQualification" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvShiftHint"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:alpha="0.4"
-                    android:fontFamily="@font/campton_medium"
-                    android:text="@string/can_select_more_than_one"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvShift" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvShiftV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:background="@drawable/drawable_stroke_grey"
-                    android:drawableEnd="@drawable/ic_dropdown"
-                    android:fontFamily="@font/campton_medium"
-                    android:gravity="center_vertical"
-                    android:hint="@string/what_type_of_shifts"
-                    android:paddingStart="@dimen/dp_16"
-                    android:visibility="gone"
-                    android:paddingEnd="@dimen/dp_16"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvShiftHint" />
 
 
                 <androidx.cardview.widget.CardView
@@ -333,19 +353,19 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_4"
                     app:cardCornerRadius="@dimen/dp_8"
-                    app:layout_goneMarginTop="@dimen/dp_8"
                     app:cardElevation="@dimen/dp_4"
                     app:cardPreventCornerOverlap="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvShiftV">
+                    app:layout_constraintTop_toBottomOf="@+id/tvShift"
+                    app:layout_goneMarginTop="@dimen/dp_8">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvShift"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:spanCount="2"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
                         tools:itemCount="2"
                         tools:listitem="@layout/rv_item_check" />
                 </androidx.cardview.widget.CardView>
@@ -355,27 +375,39 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
-                    android:alpha="0.7"
+                    android:alpha="0.8"
                     android:fontFamily="@font/campton_semibold"
+                    android:gravity="center"
                     android:text="@string/please_select_your_experience"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cvShift" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvExperience"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvExperience"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:layout_margin="@dimen/dp_4"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:cardPreventCornerOverlap="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvExperience"
-                    app:spanCount="2"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/rv_item_check" />
+                    app:layout_goneMarginTop="@dimen/dp_8">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvExperience"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_16"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/rv_item_check" />
+                </androidx.cardview.widget.CardView>
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -387,7 +419,7 @@
                     android:padding="@dimen/dp_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvExperience">
+                    app:layout_constraintTop_toBottomOf="@+id/cvExperience">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etLiscence"

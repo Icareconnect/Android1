@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_invite_drawer"
+                    android:drawableStart="@drawable/ic_invite"
                     android:drawablePadding="@dimen/dp_16"
                     android:focusable="true"
                     android:fontFamily="@font/campton_medium"
@@ -224,7 +224,6 @@
                     android:text="@string/invite_people"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp_16"
-                    app:drawableTint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvArticle" />

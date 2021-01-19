@@ -171,6 +171,9 @@ class HomeFragment : DaggerFragment(), NavigationView.OnNavigationItemSelectedLi
                         .putExtra(WebViewActivity.LINK_TITLE, getString(R.string.contact_us))
                         .putExtra(WebViewActivity.LINK_URL, PageLink.CONTACT_US))
             }
+            R.id.invitePeople -> {
+                shareDeepLink(DeepLink.INVITE, requireActivity())
+            }
             R.id.logout -> {
                 showLogoutDialog()
             }

@@ -466,14 +466,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvEmail"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/email"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvBioV" />
 
@@ -561,14 +560,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvServices"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/providable_services"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvDOBV" />
 
@@ -605,14 +603,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPersonal"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/personal_interests"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvServicesV" />
 
@@ -631,14 +628,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvWork"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/work_environment"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvPersonalV" />
 
@@ -674,16 +670,32 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvCovid"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_32"
                     android:fontFamily="@font/campton_semibold"
                     android:text="@string/covid_19"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_14"
-                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvWorkV" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCovidUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/dp_4"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/update"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvCovid"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvCovid" />
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvCovidV"

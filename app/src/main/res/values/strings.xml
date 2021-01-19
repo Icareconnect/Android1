@@ -3,7 +3,7 @@
 
     <!--Deep Link-->
     <string name="deep_link_url" translatable="false">intely.page.link</string>
-    <string name="deep_link_ios_bundle" translatable="false">com.codebrew.RoyoConsultant</string>
+    <string name="deep_link_ios_bundle" translatable="false">com.team.iCare-Nurse</string>
 
     <!--Google-->
     <string name="google_places_api_key" translatable="false">AIzaSyBxwRzUvnbtTjNc8DURP4l4auJWsmrr7Bk</string>
@@ -78,7 +78,7 @@
     <string name="enter_email">Please enter email</string>
     <string name="enter_correct_email">Please enter correct email</string>
     <string name="enter_password">Password length must be atleast 8 characters</string>
-    <string name="enter_bio">Please enter bio</string>
+    <string name="enter_bio">Please enter Personal Profile</string>
 
     <string name="sign_out">Sign out</string>
     <string name="logout_dialog_message">Are you sure you want to sign out?</string>
@@ -128,7 +128,7 @@
     <string name="active_now">Active now</string>
     <string name="offline">Offline</string>
     <string name="enter_message">Enter message</string>
-    <string name="type_your_message_here">Type your message...</string>
+    <string name="type_your_message_here">Type your message…</string>
     <string name="photo">Photo</string>
     <string name="chat_first_message">Hi %s\nI am Available for chat lets discuss the problem</string>
     <string name="end_chat">End Chat</string>
@@ -257,8 +257,8 @@
     <string name="select_working_days">Please select working days</string>
     <string name="create_a_account">Create an iCareConnect account\nto continue</string>
     <string name="already_have_an_account">Already have an account?</string>
-    <string name="you_agree_to_our_terms">By Continuing, you agree to our\n</string>
-    <string name="terms">Terms of service</string>
+    <string name="you_agree_to_our_terms">I have read and agreed to iCareConnect\'s</string>
+    <string name="terms">Terms and Condition</string>
     <string name="and">and</string>
     <string name="privacy">Privacy Policy</string>
     <string name="chat_online_with_top_doctors">Chat Online\nwith Top Doctors</string>
@@ -291,7 +291,7 @@
 
     <!--Share text-->
     <string name="share">Share</string>
-    <string name="invite_text">Hey, Here is app for taking Online Consultancy Platform for Doctors, Physiotherapists, Accountants, Lawyers, Consultants etc. You should try it.</string>
+    <string name="invite_text">Hey, Here is app for taking Online Consultancy Platform. You should try it.</string>
     <string name="edit_card">Edit card</string>
     <string name="delete">Delete</string>
     <string name="pay">Pay</string>
@@ -312,7 +312,7 @@
     <string name="do_you_have_insurance">Do you accept insurance</string>
     <string name="if_yes_what_insurance">If \'Yes\' what Insurance</string>
     <string name="select_insurance">Your Accepted Insurance</string>
-    <string name="check_all_terms">Please check all terms</string>
+    <string name="check_all_terms">Please agree to terms before continue</string>
     <string name="select_state">Select State</string>
     <string name="select_city">Select City</string>
     <string name="submit">Submit</string>
@@ -335,8 +335,8 @@
     <string name="my_articles">My Articles</string>
     <string name="or">Or</string>
     <string name="verification_may_take_some_time">Verification may take some time.</string>
-    <string name="thank_you_for_your_interest">Thank you for your interest in joining our growing team! You\’re almost there. The final steps are background check, after which you will be able to accept shifts. Final hiring is contingent upon a clear background check.</string>
-    <string name="register">Register</string>
+    <string name="thank_you_for_your_interest">Thank you for your interest in joining our growing team. You are almost there. The finals steps are verifying your documents and background check after which you will be able to accept shifts. Final hiring is contingent upon a clear background check.\n\n You can log back anytime to check the status of your application.</string>
+    <string name="register">Registration</string>
     <string name="become_a_member">Join our growing team</string>
     <string name="continuee">Continue</string>
 

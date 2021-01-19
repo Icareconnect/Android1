@@ -64,12 +64,12 @@
         <View
             android:id="@+id/ivLine"
             android:layout_width="2dp"
-            app:layout_constraintStart_toEndOf="@+id/ccpCountryCode"
+            android:layout_height="24dp"
             android:layout_marginStart="@dimen/dp_4"
-            android:background="@color/textTitleColor"
-            app:layout_constraintTop_toTopOf="@+id/ccpCountryCode"
+            android:background="@color/lineColor"
             app:layout_constraintBottom_toBottomOf="@+id/ccpCountryCode"
-            android:layout_height="32dp"/>
+            app:layout_constraintStart_toEndOf="@+id/ccpCountryCode"
+            app:layout_constraintTop_toTopOf="@+id/ccpCountryCode" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etMobileNumber"
@@ -77,32 +77,45 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
             android:layout_marginTop="@dimen/dp_42"
+            android:background="@null"
             android:digits="0123456789"
+            android:ellipsize="end"
             android:hint="@string/enter_phone_number"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="15"
-            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_20"
             android:maxLines="1"
-            android:ellipsize="end"
+            android:padding="@dimen/dp_10"
             android:textAppearance="@style/Toolbar.TitleText"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
             app:layout_constraintStart_toEndOf="@+id/ivLine"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTerms"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/lineColor"
+            app:layout_constraintEnd_toEndOf="@+id/etMobileNumber"
+            app:layout_constraintStart_toStartOf="@+id/ccpCountryCode"
+            app:layout_constraintTop_toBottomOf="@+id/etMobileNumber" />
+
+
+        <CheckBox
+            android:id="@+id/cbTerms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_32"
             android:fontFamily="@font/campton_medium"
-            android:gravity="start"
+            android:padding="@dimen/dp_8"
+            android:visibility="gone"
+            android:checked="false"
             android:text="@string/you_agree_to_our_terms"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/sp_14"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/etMobileNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/etMobileNumber" />
 
 
         <TextView
@@ -113,10 +126,10 @@
             android:text="@string/login_with"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="@id/ivNext"
             app:layout_constraintEnd_toStartOf="@+id/tvLoginScreen"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
-            app:layout_constraintTop_toTopOf="@id/ivNext"
-            app:layout_constraintBottom_toBottomOf="@id/ivNext" />
+            app:layout_constraintTop_toTopOf="@id/ivNext" />
 
         <TextView
             android:id="@+id/tvLoginScreen"
