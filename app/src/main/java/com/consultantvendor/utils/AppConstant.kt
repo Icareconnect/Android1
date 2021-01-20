@@ -123,9 +123,11 @@ object AppRequestCode {
     const val ASK_FOR_LOCATION: Int = 111
 }
 
-object ChatType {
-    const val MESSAGE_TYPE_TEXT = "TEXT"
-    const val MESSAGE_TYPE_IMAGE = "IMAGE"
+object DocType {
+    const val TEXT = "TEXT"
+    const val IMAGE = "IMAGE"
+    const val PDF = "PDF"
+    const val AUDIO = "AUDIO"
     const val MESSAGE_TYPING = "TYPING"
 }
 

@@ -29,6 +29,7 @@ import com.consultantvendor.data.network.ApisRespHandler
 import com.consultantvendor.data.network.responseUtil.Status
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.databinding.FragmentRegisterBinding
+import com.consultantvendor.ui.chat.UploadFileViewModel
 import com.consultantvendor.ui.dashboard.HomeActivity
 import com.consultantvendor.ui.drawermenu.classes.ClassesViewModel
 import com.consultantvendor.ui.loginSignUp.LoginViewModel
@@ -39,6 +40,7 @@ import com.consultantvendor.ui.loginSignUp.service.ServiceFragment.Companion.FIL
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.PermissionUtils
 import com.consultantvendor.utils.dialogs.ProgressDialog
+import com.consultantvendor.utils.dialogs.ProgressDialogImage
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
@@ -70,7 +72,11 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
     private lateinit var viewModelFilter: ClassesViewModel
 
+    private lateinit var viewModelUpload: UploadFileViewModel
+
     private lateinit var progressDialog: ProgressDialog
+
+    private lateinit var progressDialogImage: ProgressDialogImage
 
     private lateinit var adapterQualification: CheckItemAdapter
 
@@ -91,6 +97,12 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     private var userData: UserData? = null
 
     private var fileToUpload: File? = null
+
+    private var hashMap = HashMap<String, Any>()
+
+    private var qualification = ""
+    private var shift = ""
+    private var experience = ""
 
 
     override fun onCreateView(
@@ -118,8 +130,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
     private fun initialise() {
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+        viewModelUpload = ViewModelProvider(this, viewModelFactory)[UploadFileViewModel::class.java]
         viewModelFilter = ViewModelProvider(this, viewModelFactory)[ClassesViewModel::class.java]
         progressDialog = ProgressDialog(requireActivity())
+        progressDialogImage = ProgressDialogImage(requireActivity())
 
         editTextScroll(binding.etBio)
         //binding.cvQualification.gone()
@@ -128,17 +142,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
     private fun setEditInformation() {
         userData = userRepository.getUser()
 
-        /*Todo*/
-        binding.etLocation.setText("Test")
-        address = SaveAddress()
-        address?.locationName = "Test"
-        address?.location = ArrayList()
-        address?.location?.add(0.0)
-        address?.location?.add(0.0)
-
         if (!userData?.name.equals(DUMMY_NAME))
             binding.etName.setText(userData?.name ?: "")
 
+        binding.etEmail.setText(userData?.email ?: "")
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
             binding.ccpCountryCode.gone()
             binding.ivLine.gone()
@@ -279,21 +286,21 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         }
 
         binding.tvContinue.setOnClickListener {
-            var qualification = ""
+            qualification = ""
             itemsQualification.forEachIndexed { index, filterOption ->
                 if (filterOption.isSelected) {
                     qualification += "${filterOption.id},"
                 }
             }
 
-            var shift = ""
+            shift = ""
             itemsShift.forEachIndexed { index, filterOption ->
                 if (filterOption.isSelected) {
                     shift += "${filterOption.option_name}, "
                 }
             }
 
-            var experience = ""
+            experience = ""
             itemsExperience.forEachIndexed { index, filterOption ->
                 if (filterOption.isSelected) {
                     experience = filterOption.option_name ?: ""
@@ -305,11 +312,11 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 binding.etName.text.toString().trim().isEmpty() -> {
                     binding.etName.showSnackBar(getString(R.string.enter_name))
                 }
-                (binding.etMobileNumber.visibility==View.VISIBLE &&
+                (binding.etMobileNumber.visibility == View.VISIBLE &&
                         (binding.etMobileNumber.text.toString().isEmpty() || binding.etMobileNumber.text.toString().length < 6)) -> {
                     binding.etEmail.showSnackBar(getString(R.string.enter_phone_number))
                 }
-                (binding.ilEmail.visibility==View.VISIBLE && binding.etEmail.text.toString().trim().isEmpty()) -> {
+                (binding.ilEmail.visibility == View.VISIBLE && binding.etEmail.text.toString().trim().isEmpty()) -> {
                     binding.etEmail.showSnackBar(getString(R.string.enter_email))
                 }
                 (binding.etEmail.text.toString().trim().isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(
@@ -343,79 +350,92 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 isConnectedToInternet(requireContext(), true) -> {
                     requireActivity().intent.putExtra(FILTER_DATA, qualification.removeSuffix(","))
 
-                    val hashMap = HashMap<String, RequestBody>()
-
-                    hashMap["name"] = getRequestBody(binding.etName.text.toString().trim())
-
-                    hashMap["location_name"] = getRequestBody(address?.locationName ?: "")
-                    hashMap["lat"] = getRequestBody(address?.location?.get(1).toString())
-                    hashMap["long"] = getRequestBody(address?.location?.get(0).toString())
-
-                    hashMap["bio"] = getRequestBody(binding.etBio.text.toString().trim())
-
                     if (fileToUpload != null && fileToUpload?.exists() == true) {
-                        hashMap["type"] = getRequestBody("img")
-
-                        val body: RequestBody =
-                                RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload)
-                        hashMap["profile_image\"; fileName=\"" + fileToUpload?.name] = body
-                    }
-
-                    if (binding.etMobileNumber.text.toString().trim().isNotEmpty()) {
-                        hashMap["country_code"] = getRequestBody(binding.ccpCountryCode.selectedCountryCodeWithPlus)
-                        hashMap["phone"] = getRequestBody(binding.etMobileNumber.text.toString())
-                    }
-                    if (binding.etEmail.text.toString().trim().isNotEmpty()) {
-                        hashMap["email"] = getRequestBody(binding.etEmail.text.toString())
-                    }
-
-                    val custom_fields = ArrayList<Insurance>()
-
-                    appClientDetails.custom_fields?.service_provider?.forEach {
-                        val item = it
-                        when (it.field_name) {
-                            CustomFields.WORKING_SHIFTS -> {
-                                item.field_value = shift.removeSuffix(",")
-                                custom_fields.add(item)
-                            }
-                            CustomFields.WORK_EXPERIENCE -> {
-                                item.field_value = experience
-                                custom_fields.add(item)
-                            }
-                            CustomFields.PROFESSIONAL_LISCENCE -> {
-                                item.field_value = binding.etLiscence.text.toString().trim()
-                                custom_fields.add(item)
-                            }
-                            CustomFields.CERTIFICATION -> {
-                                if (binding.etCertification.text.toString().trim().isNotEmpty()) {
-                                    item.field_value = binding.etCertification.text.toString().trim()
-                                    custom_fields.add(item)
-                                }
-                            }
-                            CustomFields.START_DATE -> {
-                                item.field_value = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
-                                        DateFormat.DATE_FORMAT, binding.etStartDate.text.toString())
-                                custom_fields.add(item)
-                            }
-                        }
-                    }
-
-                    hashMap["custom_fields"] = getRequestBody(Gson().toJson(custom_fields))
-
-                    /*Update profile or register*/
-                    when {
-                        arguments?.containsKey(UPDATE_NUMBER) == true -> {
-                            viewModel.updateProfile(hashMap)
-                        }
-                        arguments?.containsKey(UPDATE_PROFILE) == true -> {
-                            viewModel.updateProfile(hashMap)
-                        }
-                        else -> {
-                            hashMap["user_type"] = getRequestBody(APP_TYPE)
-                            viewModel.register(hashMap)
-                        }
+                        uploadFileOnServer(fileToUpload)
+                    } else {
+                        hitApi(null)
                     }
                 }
+            }
+        }
+    }
+
+    private fun uploadFileOnServer(fileToUpload: File?) {
+        val hashMap = HashMap<String, RequestBody>()
+
+        hashMap["type"] = getRequestBody(DocType.IMAGE)
+
+        val body: RequestBody =
+                RequestBody.create(MediaType.parse("text/plain"), fileToUpload)
+        hashMap["image\"; fileName=\"" + fileToUpload?.name] = body
+
+        viewModelUpload.uploadFile(hashMap)
+
+    }
+
+    private fun hitApi(image: String?) {
+        val hashMap = HashMap<String, Any>()
+
+        hashMap["name"] = binding.etName.text.toString().trim()
+        hashMap["location_name"] = address?.locationName ?: ""
+        hashMap["lat"] = address?.location?.get(1).toString()
+        hashMap["long"] = address?.location?.get(0).toString()
+        hashMap["bio"] = binding.etBio.text.toString().trim()
+        if (binding.etMobileNumber.text.toString().trim().isNotEmpty()) {
+            hashMap["country_code"] = binding.ccpCountryCode.selectedCountryCodeWithPlus
+            hashMap["phone"] = binding.etMobileNumber.text.toString()
+        }
+        if (binding.etEmail.text.toString().trim().isNotEmpty())
+            hashMap["email"] = binding.etEmail.text.toString()
+
+
+        val custom_fields = ArrayList<Insurance>()
+
+        appClientDetails.custom_fields?.service_provider?.forEach {
+            val item = it
+            when (it.field_name) {
+                CustomFields.WORKING_SHIFTS -> {
+                    item.field_value = shift.removeSuffix(",")
+                    custom_fields.add(item)
+                }
+                CustomFields.WORK_EXPERIENCE -> {
+                    item.field_value = experience
+                    custom_fields.add(item)
+                }
+                CustomFields.PROFESSIONAL_LISCENCE -> {
+                    item.field_value = binding.etLiscence.text.toString().trim()
+                    custom_fields.add(item)
+                }
+                CustomFields.CERTIFICATION -> {
+                    if (binding.etCertification.text.toString().trim().isNotEmpty()) {
+                        item.field_value = binding.etCertification.text.toString().trim()
+                        custom_fields.add(item)
+                    }
+                }
+                CustomFields.START_DATE -> {
+                    item.field_value = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
+                            DateFormat.DATE_FORMAT, binding.etStartDate.text.toString())
+                    custom_fields.add(item)
+                }
+            }
+        }
+
+        hashMap["custom_fields"] = Gson().toJson(custom_fields)
+
+        if (image != null)
+            hashMap["profile_image"] = image
+
+        /*Update profile or register*/
+        when {
+            arguments?.containsKey(UPDATE_NUMBER) == true -> {
+                viewModel.updateProfile(hashMap)
+            }
+            arguments?.containsKey(UPDATE_PROFILE) == true -> {
+                viewModel.updateProfile(hashMap)
+            }
+            else -> {
+                hashMap["user_type"] = APP_TYPE
+                viewModel.register(hashMap)
             }
         }
     }
@@ -463,6 +483,25 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             }
         })
 
+        viewModelUpload.uploadFile.observe(requireActivity(), Observer {
+            it ?: return@Observer
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressDialogImage.setLoading(false)
+
+                    hitApi(it.data?.image_name ?: "")
+                }
+                Status.ERROR -> {
+                    progressDialogImage.setLoading(false)
+                    ApisRespHandler.handleError(it.error, requireActivity(), prefsManager)
+                }
+                Status.LOADING -> {
+                    progressDialogImage.setLoading(true)
+
+                }
+            }
+        })
+
         viewModelFilter.getFilters.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
@@ -487,7 +526,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                         }
                     }
 
-                    adapterQualification = CheckItemAdapter(true, itemsQualification)
+                    adapterQualification = CheckItemAdapter(false, itemsQualification)
                     binding.rvQualification.adapter = adapterQualification
                 }
                 Status.ERROR -> {

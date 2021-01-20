@@ -141,6 +141,8 @@ class AppointmentDetailsFragment : DaggerFragment() {
         binding.tvServiceType.gone()
         binding.tvServiceTypeV.gone()
 
+        binding.tvServiceForV.text = request.extra_detail?.service_for ?: ""
+        binding.tvServiceName.text = request.extra_detail?.first_name ?: ""
         binding.tvDistanceV.text = request.extra_detail?.distance ?: ""
         binding.tvLocation.text = request.extra_detail?.service_address
 

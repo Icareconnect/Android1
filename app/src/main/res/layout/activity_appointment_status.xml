@@ -108,12 +108,12 @@
                     android:id="@+id/ivCall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/interface_2"
                     android:layout_marginEnd="@dimen/dp_16"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_call_phone"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivPic"
                     app:layout_constraintTop_toTopOf="@+id/ivPic" />
 

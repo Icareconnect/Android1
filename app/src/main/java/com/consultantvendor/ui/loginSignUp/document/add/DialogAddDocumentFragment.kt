@@ -30,11 +30,14 @@ import dagger.android.support.DaggerDialogFragment
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import okhttp3.MediaType
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import permissions.dispatcher.*
 import java.io.File
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
+import kotlin.collections.emptyList
+import kotlin.collections.set
 
 
 @RuntimePermissions
@@ -130,17 +133,14 @@ class DialogAddDocumentFragment(private val fragment: DocumentsFragment,
     }
 
     private fun uploadFileOnServer() {
-        val typeRequest = RequestBody.create(MediaType.parse("text/plain"), "img")
+        val hashMap = HashMap<String, RequestBody>()
+        hashMap["type"] = getRequestBody(DocType.IMAGE)
 
-        val filesPartArray = arrayOfNulls<MultipartBody.Part>(1)
-        val mimeType = "img"
+        val body: RequestBody =
+                RequestBody.create(MediaType.parse("text/plain"), fileToUpload)
+        hashMap["image\"; fileName=\"" + fileToUpload?.name] = body
 
-        fileToUpload = compressImage(requireActivity(), fileToUpload)
-
-        val fileImage = RequestBody.create(MediaType.parse(mimeType), fileToUpload)
-        filesPartArray[0] = MultipartBody.Part.createFormData("image", fileToUpload?.name, fileImage)
-
-        viewModelUpload.uploadFile(typeRequest, filesPartArray)
+        viewModelUpload.uploadFile(hashMap)
     }
 
     private fun binObservers() {

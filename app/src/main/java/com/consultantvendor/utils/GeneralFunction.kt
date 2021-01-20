@@ -255,8 +255,8 @@ val requestOptions = RequestOptions()
         .dontAnimate()
         .dontTransform()
 fun loadImage(ivImage: ImageView, image: String?, placeholder: Int) {
-    val imageLink = "${Config.imageURL}${ImageFolder.UPLOADS}$image"
-    val imageThumbnail = "${Config.imageURL}${ImageFolder.THUMBS}$image"
+    val imageLink = getImageBaseUrl(ImageFolder.UPLOADS, image)
+    val imageThumbnail = getImageBaseUrl(ImageFolder.THUMBS, image)
 
     val glide = Glide.with(ivImage.context)
 
@@ -268,11 +268,9 @@ fun loadImage(ivImage: ImageView, image: String?, placeholder: Int) {
 
 }
 
-fun getImageBaseUrl(upload: Boolean, image: String): String {
-    return if (upload)
-        "${Config.imageURL}${ImageFolder.UPLOADS}$image"
-    else
-        "${Config.imageURL}${ImageFolder.THUMBS}$image"
+
+fun getImageBaseUrl(folderType: String, image: String?): String {
+    return "${Config.imageURL}$folderType$image"
 }
 
 fun pxFromDp(context: Context, dp: Float): Float {
@@ -454,7 +452,7 @@ fun shareDeepLink(deepLink: String, activity: Activity) {
         socialMetaTagParameters {
             title = activity.getString(R.string.app_name)
             description = activity.getString(R.string.invite_text)
-            imageUrl = Uri.parse(getImageBaseUrl(true, appClientDetails.applogo
+            imageUrl = Uri.parse(getImageBaseUrl(ImageFolder.UPLOADS, appClientDetails.applogo
                     ?: ""))
         }
     }.addOnSuccessListener { result ->

@@ -142,11 +142,12 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
         loadImage(binding.ivPic, request?.from_user?.profile_image,
                 R.drawable.ic_profile_placeholder)
 
+        binding.ivCall.hideShowView(!request?.extra_detail?.phone_number.isNullOrEmpty())
+
         when (request?.status) {
             CallAction.START -> {
                 binding.tvReached.visible()
                 binding.groupOne.gone()
-                binding.ivCall.gone()
 
                 if (markerToMove == null && ::placeLatLng.isInitialized) {
                     markerToMove = mMap?.addMarker(MarkerOptions()
@@ -160,7 +161,6 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
                 binding.tvReached.gone()
                 binding.groupOne.visible()
                 binding.tvTime.gone()
-                binding.ivCall.hideShowView(!request?.from_user?.phone.isNullOrEmpty())
 
                 mMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
                 mMap?.animateCamera(CameraUpdateFactory.zoomTo(14f))
@@ -582,7 +582,7 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     @NeedsPermission(Manifest.permission.CALL_PHONE)
     fun getCall() {
         val user = request?.from_user
-        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "${user?.country_code}${user?.phone}"))
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "${request?.extra_detail?.country_code}${request?.extra_detail?.phone_number}"))
         startActivity(intent)
     }
 

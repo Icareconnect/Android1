@@ -614,6 +614,23 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvServicesV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPersonalUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/dp_4"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/update"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPersonal"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintTop_toTopOf="@+id/tvPersonal" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPersonalV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

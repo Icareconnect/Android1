@@ -32,8 +32,6 @@ import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import permissions.dispatcher.*
 import java.io.File
 import javax.inject.Inject
@@ -212,39 +210,28 @@ class SignUpFragment : DaggerFragment(), OnDateSelected {
             }
             isConnectedToInternet(requireContext(), true) -> {
 
-                val hashMap = HashMap<String, RequestBody>()
-                hashMap["title"] = getRequestBody( binding.etTitle.text.toString())
-                hashMap["name"] = getRequestBody( binding.etName.text.toString().trim())
-                hashMap["dob"] = getRequestBody(DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
-                                DateFormat.DATE_FORMAT, binding.etDob.text.toString()))
-                hashMap["working_since"] = getRequestBody(DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
-                                DateFormat.DATE_FORMAT, binding.etYears.text.toString()))
-                hashMap["bio"] =getRequestBody(binding.etBio.text.toString().trim())
-
-                if (fileToUpload != null && fileToUpload?.exists() == true) {
-                    hashMap["type"] = getRequestBody( "img")
-
-                    val body: RequestBody =
-                            RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload)
-
-                    hashMap["profile_image\"; fileName=\"" + fileToUpload?.name] = body
-                }
+                val hashMap = HashMap<String, Any>()
+                hashMap["title"] = binding.etTitle.text.toString()
+                hashMap["name"] = binding.etName.text.toString().trim()
+                hashMap["dob"] = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
+                        DateFormat.DATE_FORMAT, binding.etDob.text.toString())
+                hashMap["working_since"] = DateUtils.dateFormatChange(DateFormat.DATE_FORMAT_SLASH,
+                        DateFormat.DATE_FORMAT, binding.etYears.text.toString())
+                hashMap["bio"] = binding.etBio.text.toString().trim()
 
 
+                hashMap["email"] = binding.etEmail.text.toString().trim()
                 /*Update profile or register*/
                 when {
                     arguments?.containsKey(UPDATE_NUMBER) == true -> {
-                        hashMap["email"] = getRequestBody(binding.etEmail.text.toString().trim())
                         viewModel.updateProfile(hashMap)
                     }
                     arguments?.containsKey(UPDATE_PROFILE) == true -> {
-                        hashMap["email"] = getRequestBody( binding.etEmail.text.toString().trim())
                         viewModel.updateProfile(hashMap)
                     }
                     else -> {
-                        hashMap["email"] = getRequestBody( binding.etEmail.text.toString().trim())
-                        hashMap["password"] = getRequestBody(binding.etPassword.text.toString().trim())
-                        hashMap["user_type"] = getRequestBody( APP_TYPE)
+                        hashMap["password"] = binding.etPassword.text.toString().trim()
+                        hashMap["user_type"] = APP_TYPE
                         viewModel.register(hashMap)
                     }
                 }

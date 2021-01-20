@@ -28,7 +28,6 @@ import dagger.android.support.DaggerFragment
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import okhttp3.MediaType
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import permissions.dispatcher.*
 import java.io.File
@@ -160,23 +159,19 @@ class AddFeedFragment : DaggerFragment() {
         }
     }
 
-
     private fun uploadFileOnServer() {
-        val typeRequest = RequestBody.create(MediaType.parse("text/plain"), "img")
+        val hashMap = java.util.HashMap<String, RequestBody>()
+        hashMap["type"] = getRequestBody(DocType.IMAGE)
 
-        val filesPartArray = arrayOfNulls<MultipartBody.Part>(1)
-        val mimeType = "img"
+        val body: RequestBody =
+                RequestBody.create(MediaType.parse("text/plain"), fileToUpload)
+        hashMap["image\"; fileName=\"" + fileToUpload?.name] = body
 
-        fileToUpload = compressImage(requireActivity(), fileToUpload)
-
-        val fileImage = RequestBody.create(MediaType.parse(mimeType), fileToUpload)
-        filesPartArray[0] = MultipartBody.Part.createFormData("image", fileToUpload?.name, fileImage)
-
-        viewModelUpload.uploadFile(typeRequest, filesPartArray)
+        viewModelUpload.uploadFile(hashMap)
     }
 
     private fun bindObservers() {
-        viewModelUpload.uploadFile.observe(this, Observer {
+        viewModelUpload.uploadFile.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
@@ -203,7 +198,7 @@ class AddFeedFragment : DaggerFragment() {
             }
         })
 
-        viewModel.feeds.observe(this, Observer {
+        viewModel.feeds.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {

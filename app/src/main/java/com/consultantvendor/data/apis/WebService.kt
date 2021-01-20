@@ -8,7 +8,6 @@ import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.models.responses.appdetails.AppVersion
 import com.consultantvendor.data.models.responses.directions.Direction
 import com.consultantvendor.data.network.responseUtil.ApiResponse
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -111,9 +110,9 @@ interface WebService {
     @POST(RESEND_OTP)
     fun resendOtp(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
 
-    @Multipart
+    @FormUrlEncoded
     @POST(REGISTER)
-    fun register(@PartMap map: HashMap<String, RequestBody>): Call<ApiResponse<UserData>>
+    fun register(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
 
     @FormUrlEncoded
     @POST(FORGOT_PASSWORD)
@@ -123,10 +122,9 @@ interface WebService {
     @POST(CHANGE_PASSWORD)
     fun changePassword(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
 
-
-    @Multipart
+    @FormUrlEncoded
     @POST(PROFILE_UPDATE)
-    fun updateProfile(@PartMap map: HashMap<String, RequestBody>): Call<ApiResponse<UserData>>
+    fun updateProfile(@FieldMap hashMap: HashMap<String, Any>): Call<ApiResponse<UserData>>
 
     @FormUrlEncoded
     @POST(SEND_SMS)
@@ -173,10 +171,7 @@ interface WebService {
 
     @Multipart
     @POST(UPLOAD_IMAGE)
-    fun uploadFile(
-            @Part("type") typeRequest: RequestBody,
-            @Part file: Array<MultipartBody.Part?>
-    ): Call<ApiResponse<CommonDataModel>>
+    fun uploadFile(@PartMap map: HashMap<String, RequestBody>): Call<ApiResponse<CommonDataModel>>
 
     @FormUrlEncoded
     @POST(ADD_BANK)

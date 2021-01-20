@@ -318,7 +318,7 @@
     <string name="submit">Submit</string>
     <string name="add">Add</string>
     <string name="upload_documents">Approval Documents</string>
-    <string name="please_upload_photos">Please upload photos of all required documents</string>
+    <string name="please_upload_photos">Please upload photo of all required documents</string>
     <string name="please_add">Please add</string>
     <string name="manage_documents">Manage Documents</string>
 
@@ -337,7 +337,7 @@
     <string name="verification_may_take_some_time">Verification may take some time.</string>
     <string name="thank_you_for_your_interest">Thank you for your interest in joining our growing team. You are almost there. The finals steps are verifying your documents and background check after which you will be able to accept shifts. Final hiring is contingent upon a clear background check.\n\n You can log back anytime to check the status of your application.</string>
     <string name="register">Registration</string>
-    <string name="become_a_member">Join our growing team</string>
+    <string name="become_a_member">Become a member of iCareConnect Team</string>
     <string name="continuee">Continue</string>
 
     <string name="professional_liscence">Professional Liscence #</string>
@@ -401,6 +401,7 @@
     <string name="distance">Distance :</string>
     <string name="date_amp_time">Date &amp; Time :</string>
     <string name="service_detail">Service Detail</string>
+    <string name="service_for">Service For</string>
     <string name="view_map">View map</string>
     <string name="time_from_to">Time (from - to) :</string>
     <string name="date">Date :</string>

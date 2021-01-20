@@ -28,7 +28,6 @@ import com.consultantvendor.ui.loginSignUp.welcome.WelcomeFragment
 import com.consultantvendor.utils.*
 import com.consultantvendor.utils.dialogs.ProgressDialog
 import dagger.android.support.DaggerFragment
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 class LoginEmailFragment : DaggerFragment() {
@@ -177,11 +176,11 @@ class LoginEmailFragment : DaggerFragment() {
                 Status.SUCCESS -> {
                     progressDialog.setLoading(false)
 
-                    val hashMap = HashMap<String, RequestBody>()
-                    hashMap["name"] = getRequestBody(DUMMY_NAME)
-                    hashMap["email"] = getRequestBody(binding.etEmail.text.toString().trim())
-                    hashMap["password"] = getRequestBody(binding.etPassword.text.toString().trim())
-                    hashMap["user_type"] = getRequestBody(APP_TYPE)
+                    val hashMap = HashMap<String, Any>()
+                    hashMap["name"] = DUMMY_NAME
+                    hashMap["email"] = binding.etEmail.text.toString().trim()
+                    hashMap["password"] = binding.etPassword.text.toString().trim()
+                    hashMap["user_type"] = APP_TYPE
 
                     val fragment = VerifyOTPFragment()
                     val bundle = Bundle()

@@ -10,7 +10,6 @@ import com.consultantvendor.data.network.responseUtil.ApiResponse
 import com.consultantvendor.data.network.responseUtil.ApiUtils
 import com.consultantvendor.data.network.responseUtil.Resource
 import com.consultantvendor.di.SingleLiveEvent
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -147,7 +146,7 @@ class LoginViewModel @Inject constructor(private val webService: WebService) : V
     }
 
 
-    fun register(hashMap: HashMap<String, RequestBody>) {
+    fun register(hashMap: HashMap<String, Any>) {
         register.value = Resource.loading()
 
         webService.register(hashMap)
@@ -219,7 +218,7 @@ class LoginViewModel @Inject constructor(private val webService: WebService) : V
                 })
     }
 
-    fun updateProfile(hashMap: HashMap<String, RequestBody>) {
+    fun updateProfile(hashMap: HashMap<String, Any>) {
         updateProfile.value = Resource.loading()
 
         webService.updateProfile(hashMap)
