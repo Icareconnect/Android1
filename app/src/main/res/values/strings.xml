@@ -59,6 +59,7 @@
     <string name="password">Password</string>
     <string name="re_enter_password">Re-Enter Password</string>
     <string name="bio">Personal Profile</string>
+    <string name="bio_des">Tell us about yourself! Include experience, hobbies and what sets you apart</string>
     <string name="edit">Edit</string>
     <string name="age">Age:</string>
     <string name="phone_number">Phone Number</string>
@@ -317,7 +318,7 @@
     <string name="select_city">Select City</string>
     <string name="submit">Submit</string>
     <string name="add">Add</string>
-    <string name="upload_documents">Approval Documents</string>
+    <string name="upload_documents">Upload Documents</string>
     <string name="please_upload_photos">Please upload photo of all required documents</string>
     <string name="please_add">Please add</string>
     <string name="manage_documents">Manage Documents</string>
@@ -430,9 +431,9 @@
     <string name="quit_message">Are you sure you want to quit? It will stop your tracking</string>
     <string name="service_completed">Service Completed</string>
     <string name="skip">Skip</string>
-    <string name="covid_19">Covid 19</string>
+    <string name="covid_19">Covid 19 Assessment</string>
     <string name="personal_interests">Personal Interests</string>
-    <string name="work_environment">Work Environment</string>
+    <string name="work_environment">Work Location/Conditions</string>
 
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>

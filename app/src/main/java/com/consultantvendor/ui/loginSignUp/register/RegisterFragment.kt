@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import com.consultantvendor.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.consultantvendor.R
 import com.consultantvendor.appClientDetails
 import com.consultantvendor.data.models.requests.SaveAddress
 import com.consultantvendor.data.models.requests.SetFilter
@@ -51,6 +51,7 @@ import okhttp3.RequestBody
 import permissions.dispatcher.*
 import java.io.File
 import javax.inject.Inject
+
 
 @RuntimePermissions
 class RegisterFragment : DaggerFragment(), OnDateSelected {
@@ -147,6 +148,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
         binding.etEmail.setText(userData?.email ?: "")
         if (arguments?.containsKey(UPDATE_PROFILE) == true) {
+            binding.tvBioDesc.gone()
             binding.ccpCountryCode.gone()
             binding.ivLine.gone()
             binding.etMobileNumber.gone()
@@ -285,6 +287,11 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
             placePicker(this, requireActivity())
         }
 
+      /*  binding.etBio.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) binding.etBio.hint = getString(R.string.bio)
+            else binding.etBio.hint = getString(R.string.bio_des)
+        }*/
+
         binding.tvContinue.setOnClickListener {
             qualification = ""
             itemsQualification.forEachIndexed { index, filterOption ->
@@ -338,9 +345,9 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                 experience.isEmpty() -> {
                     binding.tvExperience.showSnackBar(getString(R.string.please_select_your_experience))
                 }
-                binding.etLiscence.text.toString().trim().isEmpty() -> {
-                    binding.etLiscence.showSnackBar(getString(R.string.professional_liscence))
-                }
+                /* binding.etLiscence.text.toString().trim().isEmpty() -> {
+                     binding.etLiscence.showSnackBar(getString(R.string.professional_liscence))
+                 }*/
                 /* binding.etCertification.text.toString().trim().isEmpty() -> {
                      binding.etCertification.showSnackBar(getString(R.string.certification))
                  }*/
@@ -403,8 +410,10 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
                     custom_fields.add(item)
                 }
                 CustomFields.PROFESSIONAL_LISCENCE -> {
-                    item.field_value = binding.etLiscence.text.toString().trim()
-                    custom_fields.add(item)
+                    if (binding.etLiscence.text.toString().trim().isNotEmpty()) {
+                        item.field_value = binding.etLiscence.text.toString().trim()
+                        custom_fields.add(item)
+                    }
                 }
                 CustomFields.CERTIFICATION -> {
                     if (binding.etCertification.text.toString().trim().isNotEmpty()) {
