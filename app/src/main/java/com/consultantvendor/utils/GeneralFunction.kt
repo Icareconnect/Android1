@@ -316,10 +316,11 @@ fun getCurrencySymbol(): String {
 }
 
 fun getUnitPrice(unit: Int?, context: Context): String {
-    return if (unit == null)
-        "NA"
-    else
-        "${(unit / 60)} ${context.getString(R.string.minute)}"
+    return when {
+        unit == null -> "NA"
+        unit >= 3600 -> "${(unit / 3600)} ${context.getString(R.string.hr)}"
+        else -> "${(unit / 60)} ${context.getString(R.string.min)}"
+    }
 }
 
 @SuppressLint("ClickableViewAccessibility")

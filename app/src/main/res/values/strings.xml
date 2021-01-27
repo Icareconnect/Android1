@@ -119,7 +119,6 @@
     <string name="speciality">Speciality</string>
     <string name="years_of_experience">Years of experience</string>
     <string name="consultation_fee_for_call">Consultation fee for Call</string>
-    <string name="min">min.</string>
     <string name="consultation_fee_for_chat">Consultation fee for Chat</string>
     <string name="na">NA</string>
 
@@ -268,6 +267,8 @@
     <string name="signup_with_email">Sign Up with Email</string>
     <string name="let_s_get_started">Let’s Get Started !</string>
     <string name="minute">Minute</string>
+    <string name="min">Min</string>
+    <string name="hr">Hr</string>
     <string name="categories">Categories</string>
     <string name="cancel_appointment">Cancel appointment</string>
     <string name="cancel_appointment_msg">Are you sure you want to cancel appointment?</string>
