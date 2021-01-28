@@ -171,6 +171,7 @@ class ChatDetailActivity : DaggerAppCompatActivity(), AppSocket.OnMessageReceive
         appSocket.off(BROADCAST, listenerStatus)
         appSocket.removeOnMessageReceiver(this)
         unregisterReceiver(broadcastReceiver)
+        unregisterReceiver()
     }
 
     override fun onBackPressed() {
@@ -723,7 +724,6 @@ class ChatDetailActivity : DaggerAppCompatActivity(), AppSocket.OnMessageReceive
     override fun onPause() {
         super.onPause()
         isActive = false
-        unregisterReceiver()
     }
 
     override fun onResume() {

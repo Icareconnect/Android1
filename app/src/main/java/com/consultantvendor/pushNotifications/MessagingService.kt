@@ -137,7 +137,7 @@ class MessagingService : FirebaseMessagingService() {
                         .putExtra(SubCategoryFragment.CATEGORY_PARENT_ID, userRepository.getUser()?.categoryData)
                         .putExtra(DocumentsFragment.UPDATE_DOCUMENTS, true)
             }
-            PushType.NEW_REQUEST, PushType.REQUEST_FAILED, PushType.REQUEST_COMPLETED,
+            PushType.NEW_REQUEST, PushType.REQUEST_FAILED, PushType.REQUEST_COMPLETED,PushType.COMPLETED,
             PushType.CANCELED_REQUEST, PushType.RESCHEDULED_REQUEST -> {
                 intent = Intent(this, DrawerActivity::class.java)
                         .putExtra(PAGE_TO_OPEN, DrawerActivity.APPOINTMENT_DETAILS)

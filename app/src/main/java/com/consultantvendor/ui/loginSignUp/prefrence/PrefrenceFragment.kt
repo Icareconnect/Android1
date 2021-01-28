@@ -245,7 +245,7 @@ class PrefrenceFragment : DaggerFragment() {
             }
         })
 
-        viewModelLogin.updateServices.observe(this, Observer {
+        viewModelLogin.updateServices.observe(requireActivity(), Observer {
             it ?: return@Observer
             when (it.status) {
                 Status.SUCCESS -> {
