@@ -220,6 +220,7 @@ object DateFormat {
     const val TIME_FORMAT_24 = "HH:mm"
     const val MON_YEAR_FORMAT = "dd MMM, yyyy"
     const val MON_DAY_YEAR = "MMM dd, yyyy"
+    const val MONTH_DAY_YEAR = "MMMM dd, yyyy"
     const val MON_DATE = "MMM dd"
     const val MON_DATE_YEAR = "MMM dd, yy"
     const val DATE_FORMAT_SLASH = "MM/dd/yy"

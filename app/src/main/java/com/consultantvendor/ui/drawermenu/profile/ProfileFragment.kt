@@ -91,7 +91,7 @@ class ProfileFragment : DaggerFragment() {
 
         binding.tvName.text = getDoctorName(userData)
         binding.tvApproved.text = "${getString(R.string.approved)} : " +
-                "${DateUtils.dateTimeFormatFromUTC(DateFormat.MON_YEAR_FORMAT, userData?.account_verified_at)}"
+                "${DateUtils.dateTimeFormatFromUTC(DateFormat.MONTH_DAY_YEAR, userData?.account_verified_at)}"
 
         binding.tvBioV.text = userData?.profile?.bio ?: getString(R.string.na)
         binding.tvEmailV.text = userData?.email ?: getString(R.string.na)
