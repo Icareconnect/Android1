@@ -301,18 +301,20 @@ fun getCurrency(amount: String?): String {
     format.maximumFractionDigits = 2
     format.currency = Currency.getInstance(appClientDetails.currency)
 
-    return if (amount.isNullOrEmpty())
+     val formatFinal=if (amount.isNullOrEmpty())
         format.format(0).replace("0.00", " NA")
     else {
         format.format(amount.toDouble()).replace(".00", "")
     }
+
+    return formatFinal.replace("CA","")
 }
 
 fun getCurrencySymbol(): String {
     val format = NumberFormat.getCurrencyInstance()
     format.currency = Currency.getInstance(appClientDetails.currency)
 
-    return format.currency.symbol
+    return format.currency.symbol.replace("CA","")
 }
 
 fun getUnitPrice(unit: Int?, context: Context): String {

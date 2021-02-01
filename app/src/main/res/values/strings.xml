@@ -293,7 +293,7 @@
 
     <!--Share text-->
     <string name="share">Share</string>
-    <string name="invite_text">Hey Here is an online platform that matches fully vetted healthcare professionals with Health care facilities, Long term care homes and private homes.</string>
+    <string name="invite_text">Hey Here is an online platform that matches fully vetted professionals with Health care facilities, Long term care homes and private homes.</string>
     <string name="edit_card">Edit card</string>
     <string name="delete">Delete</string>
     <string name="pay">Pay</string>

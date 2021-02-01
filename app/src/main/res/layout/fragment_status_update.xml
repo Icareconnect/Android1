@@ -9,8 +9,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.2"
-            android:background="#4EAFE8" />
+            android:background="@color/colorWhite" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -261,9 +260,9 @@
             android:id="@+id/clCompleted"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:background="@color/colorWhite"
-            android:elevation="@dimen/dp_1">
+            android:elevation="@dimen/dp_1"
+            android:visibility="gone">
 
 
             <androidx.appcompat.widget.AppCompatImageView

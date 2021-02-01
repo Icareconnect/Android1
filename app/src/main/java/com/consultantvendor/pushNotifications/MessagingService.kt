@@ -163,7 +163,7 @@ class MessagingService : FirebaseMessagingService() {
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intentBroadcast)
             }
             PushType.AMOUNT_RECEIVED, PushType.PAYOUT_PROCESSED -> {
-                homeIntent.putExtra(EXTRA_TAB, "1")
+                //homeIntent.putExtra(EXTRA_TAB, "1")
             }
             PushType.ASSINGED_USER -> {
                 intent = Intent(this, DrawerActivity::class.java)
