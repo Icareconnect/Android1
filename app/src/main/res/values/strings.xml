@@ -134,10 +134,11 @@
     <string name="end_chat">End Chat</string>
     <string name="end_chat_desc">This will end chat. You ll no longer be able to chat</string>
     <string name="bank_account">Here is the bank account</string>
-    <string name="account_number">Account number</string>
-    <string name="account_name">Account Holder name</string>
-    <string name="bank_name">Bank name</string>
-    <string name="ifsc_code">IFSC code</string>
+    <string name="account_number">Account Number</string>
+    <string name="account_name">Name on Account</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="ifsc_code">Institution Number</string>
+    <string name="transit_number">Transit Number</string>
     <string name="select_currency">Select currency</string>
     <string name="add_bank">Add Bank</string>
     <string name="edit_bank">Edit Bank</string>
@@ -454,5 +455,9 @@
     <string name="approval_status">Approval Status</string>
     <string name="feedback">Feedback</string>
     <string name="check_all">Select All</string>
+
+    <string name="total_number_shift_completed">Total number of Shift completed</string>
+    <string name="total_number_hours_completed">Total Number of Hours completed</string>
+    <string name="total_number_shift_declined">Total Number of Shift declined</string>
 
 </resources>

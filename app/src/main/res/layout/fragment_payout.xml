@@ -81,13 +81,13 @@
             android:layout_marginEnd="@dimen/dp_16"
             android:background="@drawable/drawable_theme_40"
             android:fontFamily="@font/campton_semibold"
+            android:gravity="center"
             android:paddingStart="@dimen/dp_24"
             android:paddingEnd="@dimen/dp_24"
-            android:visibility="gone"
-            android:gravity="center"
             android:text="@string/pay_out"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
@@ -115,200 +115,231 @@
             android:fontFamily="@font/campton_semibold"
             android:textColor="@color/textColor"
             android:textSize="@dimen/sp_14"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvEditBank"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvBankAccount" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvEditBank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_16"
             android:alpha="0.8"
-            android:text="@string/edit"
             android:fontFamily="@font/campton_semibold"
+            android:text="@string/edit"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvBankAccountV" />
-        
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clBank"
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsvBank"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-           android:padding="@dimen/dp_16"
-            android:visibility="visible"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvBankAccountV">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ilAccountNumber"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:padding="@dimen/dp_16">
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/etAccountNumber"
-                    android:layout_width="match_parent"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilAccountNumber"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:fontFamily="@font/campton_medium"
-                    android:hint="@string/account_number"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="20"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etAccountNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/account_number"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="20"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ilAccountName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilAccountNumber">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/etAccountName"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilAccountName"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/campton_medium"
-                    android:hint="@string/account_name"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:maxLength="50"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14" />
+                    android:layout_marginTop="@dimen/dp_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilAccountNumber">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etAccountName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/account_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLength="50"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ilBankName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilAccountName">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/etBankName"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilBankName"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/campton_medium"
-                    android:hint="@string/bank_name"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:maxLength="50"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14" />
+                    android:layout_marginTop="@dimen/dp_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilAccountName">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etBankName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/bank_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLength="50"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ilIFSCCode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilBankName">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/etIFSCCode"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilInstitutionNumber"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/campton_medium"
-                    android:hint="@string/ifsc_code"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLength="15"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14" />
+                    android:layout_marginTop="@dimen/dp_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilBankName">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etInstitutionNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/ifsc_code"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="15"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ilCountry"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                android:background="@drawable/drawable_bg_button"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilIFSCCode">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <Spinner
-                    android:id="@+id/spnCountry"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilTransitNumber"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:entries="@array/country"
-                    android:fontFamily="@font/campton_medium"
-                    android:hint="@string/select_country"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLength="15"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14" />
+                    android:layout_marginTop="@dimen/dp_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilInstitutionNumber">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etTransitNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/transit_number"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="15"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ilCurrency"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                android:background="@drawable/drawable_bg_button"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilCountry">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <Spinner
-                    android:id="@+id/spnCurrency"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilCountry"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:entries="@array/currency"
-                    android:fontFamily="@font/campton_medium"
-                    android:hint="@string/select_country"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLength="15"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14" />
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/drawable_bg_button"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilTransitNumber">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <Spinner
+                        android:id="@+id/spnCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/country"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/select_country"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="15"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ilCurrency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/drawable_bg_button"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilCountry">
+
+                    <Spinner
+                        android:id="@+id/spnCurrency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/currency"
+                        android:fontFamily="@font/campton_medium"
+                        android:hint="@string/select_country"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="15"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/sp_14" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnAddBank"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_24"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:background="@drawable/drawable_theme_stroke_rounded"
-                android:fontFamily="@font/campton_semibold"
-                android:paddingStart="@dimen/dp_24"
-                android:paddingEnd="@dimen/dp_24"
-                android:text="@string/add_bank"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilCurrency" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddBank"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:background="@drawable/drawable_theme_stroke_rounded"
+                    android:fontFamily="@font/campton_semibold"
+                    android:paddingStart="@dimen/dp_24"
+                    android:paddingEnd="@dimen/dp_24"
+                    android:text="@string/add_bank"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ilCurrency" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <include
             android:id="@+id/clLoader"
@@ -316,11 +347,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

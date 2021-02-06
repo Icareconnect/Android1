@@ -85,24 +85,10 @@ class RevenueFragment : DaggerFragment() {
                     val adapter = ServicesAdapter(serviceList)
                     binding.rvServices.adapter = adapter*/
 
-                    binding.tvAppointmentV.text = revenueData?.totalRequest
-                    binding.tvCompleted.text = getString(R.string.s_completed, revenueData?.completedRequest)
-                    binding.tvUnsuccessful.text = getString(R.string.unsuccessful, revenueData?.unSuccesfullRequest)
+                    binding.tvShiftCompletedV.text = revenueData?.totalShiftCompleted ?: getString(R.string.na)
+                    binding.tvHourCompletedV.text = revenueData?.totalHourCompleted ?: getString(R.string.na)
+                    binding.tvShiftDeclineV.text = revenueData?.totalShiftDecline ?: getString(R.string.na)
                     binding.tvTotalRevenueV.text = getCurrency(revenueData?.totalRevenue)
-
-                    if ((revenueData?.totalRequest?.toInt() ?: 0) > 0) {
-                        val completeProgress = ((revenueData?.completedRequest?.toInt()?.times(100))?.div(revenueData.totalRequest?.toInt()
-                                ?: 0))
-                        binding.progressCompleted.progress = completeProgress ?: 0
-                    } else
-                        binding.progressCompleted.progress = 0
-
-                    if ((revenueData?.totalRequest?.toInt() ?: 0) > 0) {
-                        val unsuccefullProgress = ((revenueData?.unSuccesfullRequest?.toInt()?.times(100))?.div(revenueData.totalRequest?.toInt()
-                                ?: 0))
-                        binding.progressUnsuccessful.progress = unsuccefullProgress ?: 0
-                    } else
-                        binding.progressUnsuccessful.progress = 0
 
                     setData(revenueData?.monthlyRevenue)
 

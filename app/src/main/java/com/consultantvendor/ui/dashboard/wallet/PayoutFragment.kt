@@ -72,7 +72,7 @@ class PayoutFragment : DaggerFragment() {
         }
 
         binding.btnPayout.setOnClickListener {
-            if (binding.clBank.visibility == View.VISIBLE) {
+            if (binding.nsvBank.visibility == View.VISIBLE) {
                 binding.btnPayout.showSnackBar(getString(R.string.add_bank))
             } else {
                 val hashMap = HashMap<String, String>()
@@ -85,13 +85,14 @@ class PayoutFragment : DaggerFragment() {
         }
 
         binding.tvEditBank.setOnClickListener {
-            binding.clBank.visible()
+            binding.nsvBank.visible()
             binding.btnAddBank.text = getString(R.string.edit_bank)
 
             binding.etAccountNumber.setText(bank?.account_number ?: "")
             binding.etAccountName.setText(bank?.name ?: "")
             binding.etBankName.setText(bank?.bank_name ?: "")
-            binding.etIFSCCode.setText(bank?.ifc_code ?: "")
+            binding.etInstitutionNumber.setText(bank?.institution_number ?: "")
+            binding.etTransitNumber.setText(bank?.ifc_code ?: "")
 
             val listCountry = resources.getStringArray(R.array.country)
             binding.spnCountry.setSelection(listCountry.indexOf(bank?.country ?: ""))
@@ -113,8 +114,8 @@ class PayoutFragment : DaggerFragment() {
                 binding.etBankName.text.toString().trim().isEmpty() -> {
                     binding.etBankName.showSnackBar(getString(R.string.bank_name))
                 }
-                binding.etIFSCCode.text.toString().trim().isEmpty() -> {
-                    binding.etIFSCCode.showSnackBar(getString(R.string.ifsc_code))
+                binding.etInstitutionNumber.text.toString().trim().isEmpty() -> {
+                    binding.etInstitutionNumber.showSnackBar(getString(R.string.ifsc_code))
                 }
                 binding.spnCountry.selectedItemPosition == 0 -> {
                     binding.etAccountNumber.showSnackBar(getString(R.string.select_country))
@@ -132,7 +133,8 @@ class PayoutFragment : DaggerFragment() {
                     hashMap["account_number"] = binding.etAccountNumber.text.toString()
                     hashMap["account_holder_name"] = binding.etAccountName.text.toString()
                     hashMap["bank_name"] = binding.etBankName.text.toString()
-                    hashMap["ifc_code"] = binding.etIFSCCode.text.toString()
+                    hashMap["institution_number"] = binding.etInstitutionNumber.text.toString()
+                    hashMap["ifc_code"] = binding.etTransitNumber.text.toString()
                     hashMap["account_holder_type"] = "individual"
                     hashMap["country"] = binding.spnCountry.selectedItem.toString()
                     hashMap["currency"] = binding.spnCurrency.selectedItem.toString()
@@ -172,13 +174,13 @@ class PayoutFragment : DaggerFragment() {
                     if (it.data?.bank_accounts.isNullOrEmpty()) {
                         binding.tvBankAccount.text = getString(R.string.add_bank)
                         binding.tvBankAccountV.invisible()
-                        binding.clBank.visible()
+                        binding.nsvBank.visible()
                     } else {
                         binding.tvBankAccount.visible()
                         binding.tvBankAccountV.visible()
                         binding.tvBankAccount.text = getString(R.string.bank_account)
                         binding.tvEditBank.visible()
-                        binding.clBank.gone()
+                        binding.nsvBank.gone()
 
                         bank = it.data?.bank_accounts?.get(0)
                         binding.tvBankAccountV.text = "${bank?.name}\n${bank?.bank_name} (${bank?.account_number})"

@@ -13,4 +13,8 @@ class Bank {
     var country: String? = null
     var currency: String? = null
     var account_number: String? = null
+
+
+    var institution_number: String? = null
+    var transit_number: String? = null
 }

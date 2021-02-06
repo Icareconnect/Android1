@@ -54,30 +54,31 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:overScrollMode="never"
+                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:spanCount="2" />
 
-                <TextView
-                    android:id="@+id/tvAppointment"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvShiftCompleted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_32"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:alpha="0.6"
                     android:drawablePadding="@dimen/dp_8"
-                    android:fontFamily="@font/campton_semibold"
+                    android:fontFamily="@font/campton_medium"
                     android:gravity="center|center_vertical"
-                    android:text="@string/appointments"
+                    android:text="@string/total_number_shift_completed"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_12"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rvServices" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvAppointmentV"
+                    android:id="@+id/tvShiftCompletedV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
@@ -85,78 +86,69 @@
                     android:fontFamily="@font/campton_semibold"
                     android:gravity="center|center_vertical"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_24"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAppointment"
+                    app:layout_constraintTop_toBottomOf="@+id/tvShiftCompleted"
                     tools:text="100" />
 
-
-                <ProgressBar
-                    android:id="@+id/progressCompleted"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="3dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:background="@color/bgChat_20"
-                    android:max="100"
-                    android:progress="45"
-                    android:progressDrawable="@drawable/progress_completed"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAppointmentV" />
-
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvCompleted"
+                    android:id="@+id/tvHourCompleted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_16"
+                    android:alpha="0.6"
                     android:drawablePadding="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
                     android:gravity="center|center_vertical"
-                    android:text="@string/s_completed"
+                    android:text="@string/total_number_hours_completed"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressCompleted" />
-
-
-                <ProgressBar
-                    android:id="@+id/progressUnsuccessful"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="3dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_38"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:background="@color/colorPending_20"
-                    android:max="100"
-                    android:progress="45"
-                    android:progressDrawable="@drawable/progress_unsucessfull"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCompleted" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvShiftCompletedV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvUnsuccessful"
+                    android:id="@+id/tvHourCompletedV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:fontFamily="@font/campton_semibold"
+                    android:gravity="center|center_vertical"
+                    tools:text="100"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHourCompleted" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvShiftDecline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_16"
+                    android:alpha="0.6"
                     android:drawablePadding="@dimen/dp_8"
                     android:fontFamily="@font/campton_medium"
                     android:gravity="center|center_vertical"
-                    android:text="@string/unsuccessful"
+                    android:text="@string/total_number_shift_declined"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressUnsuccessful" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvHourCompletedV" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvShiftDeclineV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:fontFamily="@font/campton_semibold"
+                    android:gravity="center|center_vertical"
+                    tools:text="100"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvShiftDecline" />
 
 
                 <View
@@ -167,7 +159,7 @@
                     android:background="@color/lineColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUnsuccessful" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvShiftDeclineV" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView

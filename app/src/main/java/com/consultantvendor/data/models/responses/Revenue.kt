@@ -11,4 +11,8 @@ class Revenue {
     var totalRevenue: String? = null
     var services: ArrayList<Service>? = null
     var monthlyRevenue: List<MonthlyRevenue>? = null
+
+    var totalShiftCompleted: String? = null
+    var totalHourCompleted: String? = null
+    var totalShiftDecline: String? = null
 }
