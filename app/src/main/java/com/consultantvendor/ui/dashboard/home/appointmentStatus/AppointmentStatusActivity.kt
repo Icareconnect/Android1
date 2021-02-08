@@ -47,7 +47,11 @@ import permissions.dispatcher.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.schedule
+import kotlin.math.acos
+import kotlin.math.cos
 import kotlin.math.sign
+import kotlin.math.sin
+
 
 @RuntimePermissions
 class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback {
@@ -192,14 +196,20 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     }
 
     private fun hitApiRequestStatus(status: String) {
-        if (isConnectedToInternet(this, true)) {
-            val hashMap = HashMap<String, Any>()
-            hashMap["request_id"] = request?.id ?: ""
-            hashMap["status"] = status
+        /*val distance = if (status == CallAction.REACHED)
+            distance(placeLatLng.latitude, placeLatLng.longitude, finalLatLng.latitude, finalLatLng.longitude).toInt()
+        else 0
+        if (distance < 100) {*/
+            if (isConnectedToInternet(this, true)) {
+                val hashMap = HashMap<String, Any>()
+                hashMap["request_id"] = request?.id ?: ""
+                hashMap["status"] = status
 
-            viewModel.callStatus(hashMap)
-
-        }
+                viewModel.callStatus(hashMap)
+            }
+       /* } else {
+            longToast("You are not reached on actual location")
+        }*/
     }
 
 
@@ -420,6 +430,8 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
                                     it.data?.routes?.get(0)?.legs?.get(0)?.duration?.text)
                             drawDirectionToStop(it.data?.routes?.get(0)?.overview_polyline)
                         } catch (e: Exception) {
+                            binding.tvTime.text = getString(R.string.estimate_time_of_arrival_s,
+                                    getString(R.string.na))
                         }
                     }
 
@@ -608,6 +620,29 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     override fun onResume() {
         super.onResume()
         getLocationWithPermissionCheck()
+    }
+
+
+    private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+
+        val theta = lon1 - lon2
+        var dist = (sin(deg2rad(lat1))
+                * sin(deg2rad(lat2))
+                + (cos(deg2rad(lat1))
+                * cos(deg2rad(lat2))
+                * cos(deg2rad(theta))))
+        dist = acos(dist)
+        dist = rad2deg(dist)
+        dist *= 60 * 1.1515
+        return dist * 1000
+    }
+
+    private fun deg2rad(deg: Double): Double {
+        return deg * Math.PI / 180.0
+    }
+
+    private fun rad2deg(rad: Double): Double {
+        return rad * 180.0 / Math.PI
     }
 
 }
