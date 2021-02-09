@@ -328,7 +328,7 @@ class AppointmentFragment : DaggerFragment() {
         AlertDialogUtil.instance.createOkCancelDialog(requireActivity(),
                 R.string.cancel_appointment,
                 R.string.cancel_appointment_msg,
-                R.string.cancel_appointment,
+                R.string.decline,
                 R.string.cancel,
                 false,
                 object : AlertDialogUtil.OnOkCancelDialogListener {

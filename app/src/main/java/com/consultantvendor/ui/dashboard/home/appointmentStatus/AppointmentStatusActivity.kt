@@ -196,10 +196,11 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
     }
 
     private fun hitApiRequestStatus(status: String) {
-        /*val distance = if (status == CallAction.REACHED)
+        val distance = if (status == CallAction.REACHED)
             distance(placeLatLng.latitude, placeLatLng.longitude, finalLatLng.latitude, finalLatLng.longitude).toInt()
         else 0
-        if (distance < 100) {*/
+
+        if (distance < 300) {
             if (isConnectedToInternet(this, true)) {
                 val hashMap = HashMap<String, Any>()
                 hashMap["request_id"] = request?.id ?: ""
@@ -207,9 +208,9 @@ class AppointmentStatusActivity : DaggerAppCompatActivity(), OnMapReadyCallback 
 
                 viewModel.callStatus(hashMap)
             }
-       /* } else {
-            longToast("You are not reached on actual location")
-        }*/
+        } else {
+            longToast(getString(R.string.reached_actual_position))
+        }
     }
 
 

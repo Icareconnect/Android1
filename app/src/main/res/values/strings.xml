@@ -271,8 +271,8 @@
     <string name="min">Min</string>
     <string name="hr">Hr</string>
     <string name="categories">Categories</string>
-    <string name="cancel_appointment">Cancel appointment</string>
-    <string name="cancel_appointment_msg">Are you sure you want to cancel appointment?</string>
+    <string name="cancel_appointment">Decline appointment</string>
+    <string name="cancel_appointment_msg">Are you sure you want to decline appointment?</string>
     <string name="join_consultants">Join 2500+ Consultants</string>
     <string name="error_in_between_interval">Please don\'t add interval in between of previous intervals</string>
     <string name="disconnecting">Disconnecting...</string>
@@ -459,5 +459,6 @@
     <string name="total_number_shift_completed">Total number of Shift completed</string>
     <string name="total_number_hours_completed">Total Number of Hours completed</string>
     <string name="total_number_shift_declined">Total Number of Shift declined</string>
+    <string name="reached_actual_position">You have not reached your destination yet</string>
 
 </resources>
