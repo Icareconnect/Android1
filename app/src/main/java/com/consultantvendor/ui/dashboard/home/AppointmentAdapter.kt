@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.Request
+import com.consultantvendor.data.models.responses.UserData
 import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
@@ -55,7 +56,11 @@ class AppointmentAdapter(
     inner class ViewHolder(val binding: RvItemAppointmentBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
+        var userData: UserData? = null
+
         init {
+            userData = fragment.userRepository.getUser()
+
             binding.tvAccept.setOnClickListener {
                 fragment.proceedRequest(items[adapterPosition])
             }
@@ -78,18 +83,20 @@ class AppointmentAdapter(
             //tvCancel.hideShowView(request.canCancel)
 
             tvName.text = request.from_user?.name
-            tvServiceTypeV.text = request.extra_detail?.filter_name ?:""
-            tvDistanceV.text = request.extra_detail?.distance ?:""
+            tvServiceTypeV.text = request.extra_detail?.filter_name ?: ""
+            tvDistanceV.text = request.extra_detail?.distance ?: ""
             tvLocation.text = request.extra_detail?.service_address
             loadImage(binding.ivPic, request.from_user?.profile_image,
                     R.drawable.ic_profile_placeholder)
 
-            tvDateTime.text = "${DateUtils.dateTimeFormatFromUTC(
-                    DateFormat.MON_YEAR_FORMAT, request.created_at)} & " +
+            tvDateTime.text = "${
+                DateUtils.dateTimeFormatFromUTC(
+                        DateFormat.MON_YEAR_FORMAT, request.created_at)
+            } & " +
                     "${DateUtils.dateTimeFormatFromUTC(DateFormat.TIME_FORMAT, request.created_at)}"
 
             tvBookingDateV.text = getDatesComma(request.extra_detail?.working_dates)
-            tvBookingTimeV.text = "${request.extra_detail?.start_time?:""} - ${request.extra_detail?.end_time?:""}"
+            tvBookingTimeV.text = "${request.extra_detail?.start_time ?: ""} - ${request.extra_detail?.end_time ?: ""}"
 
             tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             binding.tvAccept.setBackgroundResource(R.drawable.drawable_bg_accept)
@@ -136,7 +143,9 @@ class AppointmentAdapter(
                     tvCancel.gone()
                 }
                 CallAction.CANCELED -> {
-                    tvStatus.text = context.getString(R.string.canceled)
+                    tvStatus.text = if (request.canceled_by?.id == userData?.id)
+                        context.getString(R.string.declined)
+                    else context.getString(R.string.canceled)
                     tvStatus.setTextColor(ContextCompat.getColor(context, R.color.colorNoShow))
                     tvAccept.gone()
                     tvCancel.gone()

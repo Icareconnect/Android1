@@ -8,6 +8,7 @@ class Request : Serializable {
     var booking_date: String? = null
     var from_user: UserData? = null
     var to_user: UserData? = null
+    var canceled_by: UserData? = null
     var time: String? = null
     var service_type: String? = null
     var status: String? = null
