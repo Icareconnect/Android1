@@ -91,6 +91,7 @@
     <string name="s_completed">%s  Completed</string>
     <string name="unsuccessful">%s Unsuccessful</string>
     <string name="select_image">Select image</string>
+    <string name="select_document">Select document</string>
     <string name="update">Update</string>
     <string name="update_desc">You have new update for iCareConnect Nurse!</string>
     <string name="we_need_your_email">We need your registered email to reach you</string>

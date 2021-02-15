@@ -121,6 +121,7 @@ object AppRequestCode {
     const val PAYOUT_MONEY: Int = 109
     const val APPOINTMENT_DETAILS: Int = 110
     const val ASK_FOR_LOCATION: Int = 111
+    const val DOC_PICKER: Int = 112
 }
 
 object DocType {

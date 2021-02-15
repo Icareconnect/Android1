@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.consultantvendor.R
 import com.consultantvendor.data.models.responses.AdditionalFieldDocument
 import com.consultantvendor.data.network.Config
@@ -56,12 +57,19 @@ class DocumentsItemAdapter(private val fragment: DocumentsFragment, private val 
             }
 
             binding.ivPic.setOnClickListener {
-                if (items[adapterPosition].file_name == null)
+                val item=items[adapterPosition]
+
+                if (item.file_name == null)
                     fragment.addDocument(positionMain, adapterPosition)
                 else {
-                    val itemImages = java.util.ArrayList<String>()
-                    itemImages.add("${Config.imageURL}${ImageFolder.UPLOADS}${items[adapterPosition].file_name}")
-                    viewImageFull(fragment.requireActivity(), itemImages, 0)
+                    if (item.type == DocType.PDF) {
+                        val link = getImageBaseUrl(ImageFolder.PDF, item.file_name)
+                        openPdf(fragment.requireActivity(), link)
+                    } else {
+                        val itemImages = java.util.ArrayList<String>()
+                        itemImages.add("${Config.imageURL}${ImageFolder.UPLOADS}${item.file_name}")
+                        viewImageFull(fragment.requireActivity(), itemImages, 0)
+                    }
                 }
             }
         }
@@ -82,7 +90,13 @@ class DocumentsItemAdapter(private val fragment: DocumentsFragment, private val 
                 binding.ivEdit.gone()
                 binding.ivDelete.gone()
             } else {
-                loadImage(ivPic, item.file_name, R.drawable.image_placeholder)
+                if (item.type == DocType.PDF) {
+                    ivPic.setBackgroundResource(R.drawable.ic_pdf)
+                    Glide.with(context).load("").into(ivPic)
+                } else
+                    loadImage(ivPic, item.file_name, R.drawable.image_placeholder)
+
+
                 tvUpload.gone()
             }
 

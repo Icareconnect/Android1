@@ -6,6 +6,7 @@ import android.app.Activity.RESULT_OK
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageInfo
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -25,6 +26,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -47,6 +49,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import com.stfalcon.frescoimageviewer.ImageViewer
+import droidninja.filepicker.FilePickerBuilder
+import droidninja.filepicker.models.sort.SortingTypes
 import id.zelory.compressor.Compressor
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -106,7 +110,7 @@ fun logoutUser(activity: Activity?, prefsManager: PrefsManager) {
     activity.setResult(Activity.RESULT_CANCELED)
     ActivityCompat.finishAffinity(activity)
     activity.startActivity(Intent(activity, SignUpActivity::class.java)
-                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
+            .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
 }
 
 
@@ -254,6 +258,7 @@ fun getAge(date: String?): String {
 val requestOptions = RequestOptions()
         .dontAnimate()
         .dontTransform()
+
 fun loadImage(ivImage: ImageView, image: String?, placeholder: Int) {
     val imageLink = getImageBaseUrl(ImageFolder.UPLOADS, image)
     val imageThumbnail = getImageBaseUrl(ImageFolder.THUMBS, image)
@@ -301,20 +306,20 @@ fun getCurrency(amount: String?): String {
     format.maximumFractionDigits = 2
     format.currency = Currency.getInstance(appClientDetails.currency)
 
-     val formatFinal=if (amount.isNullOrEmpty())
+    val formatFinal = if (amount.isNullOrEmpty())
         format.format(0).replace("0.00", " NA")
     else {
         format.format(amount.toDouble()).replace(".00", "")
     }
 
-    return formatFinal.replace("CA","")
+    return formatFinal.replace("CA", "")
 }
 
 fun getCurrencySymbol(): String {
     val format = NumberFormat.getCurrencyInstance()
     format.currency = Currency.getInstance(appClientDetails.currency)
 
-    return format.currency.symbol.replace("CA","")
+    return format.currency.symbol.replace("CA", "")
 }
 
 fun getUnitPrice(unit: Int?, context: Context): String {
@@ -347,8 +352,8 @@ fun compressImage(activity: Activity?, actualImageFile: File?): File {
 
     /*mb approximate*/
     val resultFile: File? = when {
-        actualImageFile?.length() ?: 0 < (1*1024*1024) -> actualImageFile
-        actualImageFile?.length() ?: 0 < (3*1024*1024) -> {
+        actualImageFile?.length() ?: 0 < (1 * 1024 * 1024) -> actualImageFile
+        actualImageFile?.length() ?: 0 < (3 * 1024 * 1024) -> {
             Compressor(activity)
                     .setQuality(70)
                     .setCompressFormat(Bitmap.CompressFormat.JPEG)
@@ -542,13 +547,82 @@ fun mapIntent(activity: Activity, name: String, lat: Double, lng: Double) {
     }
 }
 
-fun getDatesComma(date: String?) :String{
-    var newList=""
-    if(!date.isNullOrEmpty()) {
+fun getDatesComma(date: String?): String {
+    var newList = ""
+    if (!date.isNullOrEmpty()) {
         val list = date.split(",")
         list.forEach {
             newList += "${dateFormatChange(DateFormat.DATE_FORMAT, DateFormat.MON_YEAR_FORMAT, it)} | "
         }
     }
     return newList.removeSuffix(" | ")
+}
+
+fun askForOption(fragment: Fragment?, activity: Activity, view: View) {
+    val context: Context = fragment?.requireContext() ?: activity
+
+    val popup = PopupMenu(context, view)
+    popup.menuInflater.inflate(R.menu.menu_attach, popup.menu)
+
+    popup.setOnMenuItemClickListener { item ->
+        when (item.itemId) {
+            R.id.item_image -> {
+                selectImages(fragment, activity)
+            }
+            R.id.item_pdf -> {
+                selectDocument(fragment, activity)
+            }
+        }
+        true
+    }
+
+    popup.show()
+}
+
+
+fun selectImages(fragment: Fragment?, activity: Activity) {
+    val filePickerBuilder = FilePickerBuilder.instance
+            .setMaxCount(1)
+            .setActivityTheme(R.style.LibAppTheme)
+            .setActivityTitle(activity.getString(R.string.select_image))
+            .enableVideoPicker(false)
+            .enableCameraSupport(true)
+            .showGifs(false)
+            .showFolderView(true)
+            .enableSelectAll(false)
+            .enableImagePicker(true)
+            .setCameraPlaceholder(R.drawable.ic_camera)
+            .withOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+
+    if (fragment != null)
+        filePickerBuilder.pickPhoto(fragment, AppRequestCode.IMAGE_PICKER)
+    else
+        filePickerBuilder.pickPhoto(activity, AppRequestCode.IMAGE_PICKER)
+}
+
+fun selectDocument(fragment: Fragment?, activity: Activity) {
+    val pdfs = arrayOf("pdf")
+
+    val filePickerBuilder = FilePickerBuilder.Companion.instance
+            .setMaxCount(1)
+            .setActivityTheme(R.style.LibAppTheme)
+            .sortDocumentsBy(SortingTypes.NAME)
+            .setActivityTitle(activity.getString(R.string.select_document))
+            .addFileSupport(activity.getString(R.string.pdf_title), pdfs, R.drawable.ic_pdf)
+            .showFolderView(true)
+            .enableDocSupport(false)
+            .withOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+
+    if (fragment != null)
+        filePickerBuilder.pickFile(fragment, AppRequestCode.DOC_PICKER)
+    else
+        filePickerBuilder.pickFile(activity, AppRequestCode.DOC_PICKER)
+}
+
+fun openPdf(activity: Activity, link: String) {
+
+    Log.e("PDG======", link)
+
+    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+    activity.startActivity(browserIntent)
 }

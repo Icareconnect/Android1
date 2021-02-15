@@ -128,8 +128,8 @@ class WalletFragment : DaggerFragment() {
             isLastPage = false
         }
 
-        val hashMap = HashMap<String, String>()
         if (isConnectedToInternet(requireContext(), true)) {
+            val hashMap = HashMap<String, String>()
             if (!isFirstPage && items.isNotEmpty())
                 hashMap[AFTER] = items[items.size - 1].id ?: ""
 

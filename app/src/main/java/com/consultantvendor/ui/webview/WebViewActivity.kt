@@ -65,11 +65,17 @@ class WebViewActivity : DaggerAppCompatActivity() {
             }
         }
 
-        if (intent.hasExtra(PAYMENT_URL)) {
-            transactionId = intent.getStringExtra(EXTRA_REQUEST_ID) ?: ""
-            loadUrl = intent.getStringExtra(PAYMENT_URL) ?: ""
-        } else {
-            loadUrl =  "${appClientDetails.domain_url}/${intent.getStringExtra(LINK_URL)}"
+        when {
+            intent.hasExtra(PAYMENT_URL) -> {
+                transactionId = intent.getStringExtra(EXTRA_REQUEST_ID) ?: ""
+                loadUrl = intent.getStringExtra(PAYMENT_URL) ?: ""
+            }
+            intent.hasExtra(PDF_LINK) -> {
+                loadUrl = intent.getStringExtra(PDF_LINK) ?: ""
+            }
+            else -> {
+                loadUrl = "${appClientDetails.domain_url}/${intent.getStringExtra(LINK_URL)}"
+            }
         }
     }
 
@@ -139,6 +145,7 @@ class WebViewActivity : DaggerAppCompatActivity() {
     companion object {
         const val LINK_TITLE = "LINK_TITLE"
         const val LINK_URL = "LINK_URL"
+        const val PDF_LINK = "PDF_LINK"
         const val PAYMENT_URL = "PAYMENT_URL"
     }
 
