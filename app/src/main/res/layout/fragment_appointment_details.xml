@@ -413,10 +413,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:fontFamily="@font/campton_semibold"
+                    android:fontFamily="@font/campton_medium"
                     android:text="@string/covid_19"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/sp_18"
+                    android:textSize="@dimen/sp_14"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/tvSpecialInstructionsV" />
 

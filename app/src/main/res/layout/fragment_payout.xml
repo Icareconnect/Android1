@@ -53,6 +53,7 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_24"
             android:alpha="0.6"
+            android:visibility="gone"
             android:fontFamily="@font/campton_semibold"
             android:text="@string/available_balance"
             android:textColor="@color/textColor"
@@ -68,6 +69,7 @@
             android:layout_marginStart="@dimen/dp_16"
             android:fontFamily="@font/campton_semibold"
             android:textColor="@color/textColor"
+            android:visibility="gone"
             android:textSize="@dimen/sp_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />

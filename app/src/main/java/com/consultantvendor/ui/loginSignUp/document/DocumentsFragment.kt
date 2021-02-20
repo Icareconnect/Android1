@@ -96,6 +96,7 @@ class DocumentsFragment : DaggerFragment() {
         /*If document already there*/
         if (arguments?.containsKey(UPDATE_DOCUMENTS) == true) {
             adapter.setAddOption(false)
+            binding.tvTitle.text = getString(R.string.manage_documents)
             binding.tvNext.text = getString(R.string.update)
 
             if (isConnectedToInternet(requireContext(), true))

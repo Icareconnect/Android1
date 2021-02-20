@@ -87,7 +87,7 @@ class DialogAddDocumentFragment(private val fragment: DocumentsFragment,
         if (documentMain != null) {
             binding.etName.setText(documentMain?.title)
             binding.etDesc.setText(documentMain?.description)
-            loadImage(binding.ivImage, documentMain?.file_name, R.drawable.image_placeholder)
+            loadImage(binding.ivImage, documentMain?.file_name, R.drawable.ic_attach)
         }
     }
 
