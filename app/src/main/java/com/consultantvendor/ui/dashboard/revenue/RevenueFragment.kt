@@ -90,7 +90,7 @@ class RevenueFragment : DaggerFragment() {
                     binding.tvShiftDeclineV.text = revenueData?.totalShiftDecline ?: getString(R.string.na)
                     binding.tvTotalRevenueV.text = getCurrency(revenueData?.totalRevenue)
 
-                    setData(revenueData?.monthlyRevenue)
+                    //setData(revenueData?.monthlyRevenue)
 
 
                 }
