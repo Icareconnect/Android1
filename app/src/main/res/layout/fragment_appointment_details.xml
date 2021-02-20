@@ -34,6 +34,8 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="@dimen/dp_24"
+            android:clipToPadding="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -406,6 +408,39 @@
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/tvSpecialInstructions" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCovid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:fontFamily="@font/campton_semibold"
+                    android:text="@string/covid_19"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/sp_18"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvSpecialInstructionsV" />
+
+                <com.borjabravo.readmoretextview.ReadMoreTextView
+                    android:id="@+id/tvCovidV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:fontFamily="@font/campton_book"
+                    android:gravity="start"
+                    android:text="@string/app_name"
+                    android:textColor="@color/textColor"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_14"
+                    app:colorClickableText="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+                    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCovid"
+                    app:trimCollapsedText="@string/show_more"
+                    app:trimExpandedText="@string/show_less"
+                    app:trimLength="100"
+                    app:trimLines="3"
+                    app:trimMode="trimModeLength" />
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvCancel"
@@ -417,11 +452,12 @@
                     android:fontFamily="@font/campton_semibold"
                     android:gravity="center"
                     android:text="@string/decline"
+                    android:visibility="gone"
                     android:textColor="@color/colorBlack40"
                     android:textSize="@dimen/sp_16"
                     app:layout_constraintEnd_toStartOf="@+id/tvAccept"
                     app:layout_constraintStart_toStartOf="@id/startGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSpecialInstructionsV" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvCovidV" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvAccept"
@@ -431,6 +467,7 @@
                     android:fontFamily="@font/campton_semibold"
                     android:gravity="center"
                     android:text="@string/accept"
+                    android:visibility="gone"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/sp_16"
                     app:layout_constraintEnd_toEndOf="@id/endGuideLine"

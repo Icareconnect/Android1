@@ -461,5 +461,10 @@
     <string name="total_number_hours_completed">Total Number of Hours completed</string>
     <string name="total_number_shift_declined">Total Number of Shift declined</string>
     <string name="reached_actual_position">You have not reached your destination yet</string>
+    <string name="province">Province</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="account_type">Account Type</string>
+    <string name="temporary_agent">Temporary Agent</string>
+    <string name="independent_contractor">Independent Contractor</string>
 
 </resources>

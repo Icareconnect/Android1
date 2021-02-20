@@ -1,11 +1,9 @@
 package com.consultantvendor
 
 import android.app.Application
-import androidx.lifecycle.ViewModelProvider
 import com.consultantvendor.data.models.responses.appdetails.AppVersion
 import com.consultantvendor.data.repos.UserRepository
 import com.consultantvendor.di.DaggerAppComponent
-import com.consultantvendor.utils.PrefsManager
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.libraries.places.api.Places
 import dagger.android.AndroidInjector
@@ -16,15 +14,8 @@ var appClientDetails = AppVersion()
 
 class ConsultantApplication : DaggerApplication() {
 
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject
     lateinit var userRepository: UserRepository
-
-    @Inject
-    lateinit var prefsManager: PrefsManager
 
 
     override fun onCreate() {

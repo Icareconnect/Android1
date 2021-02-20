@@ -10,7 +10,7 @@ object Config {
     var BASE_URL_LOCAL = "https://royoconsult.com/"
 
     var SITE_URL = ""
-    var IMAGE_URL = "https://consultants3assets.sfo2.digitaloceanspaces.com/"
+    var IMAGE_URL = "https://cdn-assets.thefinesthealthcare.com/"
 
     private val appMode = AppMode.LOCAL
 

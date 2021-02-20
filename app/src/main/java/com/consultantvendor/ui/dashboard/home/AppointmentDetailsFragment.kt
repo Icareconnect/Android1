@@ -118,8 +118,11 @@ class AppointmentDetailsFragment : DaggerFragment() {
 
         /*Work Environment user*/
         val workExperience = ArrayList<Filter>()
+        val covid = ArrayList<Filter>()
         request.from_user?.master_preferences?.forEach {
             when (it.preference_type) {
+                PreferencesType.COVID ->
+                    covid.add(it)
                 PreferencesType.WORK_ENVIRONMENT ->
                     workExperience.add(it)
             }
@@ -138,6 +141,26 @@ class AppointmentDetailsFragment : DaggerFragment() {
             binding.tvWorkEnvironment.hideShowView(workText.isNotEmpty())
         } else {
             binding.tvWorkEnvironment.gone()
+        }
+
+        if (covid.isNotEmpty()) {
+            var covidText = ""
+            covid.forEach {
+                covidText += it.preference_name + "\n"
+
+                it.options?.forEach {
+                    if (it.isSelected) {
+                        covidText += it.option_name + "\n\n"
+                    }
+                }
+            }
+            binding.tvCovidV.text = covidText
+
+            binding.tvCovid.hideShowView(covidText.isNotEmpty())
+            binding.tvCovidV.hideShowView(covidText.isNotEmpty())
+        } else {
+            binding.tvCovid.gone()
+            binding.tvCovidV.gone()
         }
 
 

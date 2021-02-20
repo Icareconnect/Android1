@@ -17,4 +17,9 @@ class Bank {
 
     var institution_number: String? = null
     var transit_number: String? = null
+    var address: String? = null
+    var city: String? = null
+    var province: String? = null
+    var postal_code: String? = null
+    var customer_type:String?=null
 }

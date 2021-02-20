@@ -88,11 +88,18 @@ class PayoutFragment : DaggerFragment() {
             binding.nsvBank.visible()
             binding.btnAddBank.text = getString(R.string.edit_bank)
 
+            if (bank?.customer_type == getString(R.string.temporary_agent))
+                binding.rbAgent.isChecked = true
+
             binding.etAccountNumber.setText(bank?.account_number ?: "")
             binding.etAccountName.setText(bank?.name ?: "")
             binding.etBankName.setText(bank?.bank_name ?: "")
             binding.etInstitutionNumber.setText(bank?.institution_number ?: "")
             binding.etTransitNumber.setText(bank?.ifc_code ?: "")
+            binding.etAddress.setText(bank?.address ?: "")
+            binding.etCity.setText(bank?.city ?: "")
+            binding.etProvince.setText(bank?.province ?: "")
+            binding.etPostalCode.setText(bank?.postal_code ?: "")
 
             val listCountry = resources.getStringArray(R.array.country)
             binding.spnCountry.setSelection(listCountry.indexOf(bank?.country ?: ""))
@@ -117,6 +124,18 @@ class PayoutFragment : DaggerFragment() {
                 binding.etInstitutionNumber.text.toString().trim().isEmpty() -> {
                     binding.etInstitutionNumber.showSnackBar(getString(R.string.ifsc_code))
                 }
+                binding.etAddress.text.toString().trim().isEmpty() -> {
+                    binding.etAddress.showSnackBar(getString(R.string.address))
+                }
+                binding.etCity.text.toString().trim().isEmpty() -> {
+                    binding.etCity.showSnackBar(getString(R.string.city))
+                }
+                binding.etProvince.text.toString().trim().isEmpty() -> {
+                    binding.etProvince.showSnackBar(getString(R.string.province))
+                }
+                binding.etPostalCode.text.toString().trim().isEmpty() -> {
+                    binding.etPostalCode.showSnackBar(getString(R.string.postal_code))
+                }
                 binding.spnCountry.selectedItemPosition == 0 -> {
                     binding.etAccountNumber.showSnackBar(getString(R.string.select_country))
                 }
@@ -130,6 +149,9 @@ class PayoutFragment : DaggerFragment() {
                     if (bank != null)
                         hashMap["bank_id"] = bank?.id ?: ""
 
+                    hashMap["customer_type"] = if (binding.rbIndividuval.isChecked)
+                        binding.rbIndividuval.text.toString()
+                    else binding.rbAgent.text.toString()
                     hashMap["account_number"] = binding.etAccountNumber.text.toString()
                     hashMap["account_holder_name"] = binding.etAccountName.text.toString()
                     hashMap["bank_name"] = binding.etBankName.text.toString()
@@ -138,6 +160,10 @@ class PayoutFragment : DaggerFragment() {
                     hashMap["account_holder_type"] = "individual"
                     hashMap["country"] = binding.spnCountry.selectedItem.toString()
                     hashMap["currency"] = binding.spnCurrency.selectedItem.toString()
+                    hashMap["address"] = binding.etAddress.text.toString()
+                    hashMap["city"] = binding.etCity.text.toString()
+                    hashMap["province"] = binding.etProvince.text.toString()
+                    hashMap["postal_code"] = binding.etPostalCode.text.toString()
 
                     viewModel.addBank(hashMap)
 

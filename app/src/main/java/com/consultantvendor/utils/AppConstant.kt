@@ -9,7 +9,7 @@ const val APP_UNIQUE_ID = "fc3eda974104a85c07d59108190ad6056" /*a59ef14422c898df
 
 const val STORAGE_DIRECTORY = "/Callouts/"
 const val FILE_PATH_DIRECTORY = "file://"
-
+//TODO PAss >>> 061506
 const val CATEGORY_ID = "1"
 const val SERVICE_ID = "1"
 

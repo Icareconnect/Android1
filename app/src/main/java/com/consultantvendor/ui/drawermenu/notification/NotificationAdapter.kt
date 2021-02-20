@@ -1,5 +1,6 @@
 package com.consultantvendor.ui.drawermenu.notification
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,11 +11,15 @@ import com.consultantvendor.data.network.LoadingStatus.ITEM
 import com.consultantvendor.data.network.LoadingStatus.LOADING
 import com.consultantvendor.databinding.ItemPagingLoaderBinding
 import com.consultantvendor.databinding.RvItemNotificationBinding
+import com.consultantvendor.ui.drawermenu.DrawerActivity
+import com.consultantvendor.utils.AppRequestCode
 import com.consultantvendor.utils.DateUtils.getTimeAgo
+import com.consultantvendor.utils.EXTRA_REQUEST_ID
+import com.consultantvendor.utils.PAGE_TO_OPEN
 import com.consultantvendor.utils.loadImage
 
 
-class NotificationAdapter(private val items: ArrayList<Notification>) :
+class NotificationAdapter(private val fragment: NotificationFragment,private val items: ArrayList<Notification>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var allItemsLoaded = true
@@ -49,6 +54,17 @@ class NotificationAdapter(private val items: ArrayList<Notification>) :
 
     inner class ViewHolder(val binding: RvItemNotificationBinding) :
             RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                when (items[adapterPosition].module) {
+                    NotificationType.REQUEST ->
+                        fragment.startActivityForResult(Intent(fragment.requireContext(), DrawerActivity::class.java)
+                                .putExtra(PAGE_TO_OPEN, DrawerActivity.APPOINTMENT_DETAILS)
+                                .putExtra(EXTRA_REQUEST_ID, items[adapterPosition].module_id), AppRequestCode.APPOINTMENT_DETAILS)
+                }
+            }
+        }
 
         fun bind(item: Notification) = with(binding) {
 

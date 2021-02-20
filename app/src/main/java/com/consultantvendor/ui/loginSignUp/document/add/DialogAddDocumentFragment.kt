@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -28,7 +27,6 @@ import com.consultantvendor.utils.*
 import com.consultantvendor.utils.PermissionUtils
 import com.consultantvendor.utils.dialogs.ProgressDialogImage
 import dagger.android.support.DaggerDialogFragment
-import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import droidninja.filepicker.utils.ContentUriUtils
 import okhttp3.MediaType
@@ -38,7 +36,6 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-import kotlin.collections.emptyList
 import kotlin.collections.set
 
 
@@ -135,15 +132,6 @@ class DialogAddDocumentFragment(private val fragment: DocumentsFragment,
     }
 
     private fun uploadFileOnServer() {
-       /* val hashMap = HashMap<String, RequestBody>()
-        hashMap["type"] = getRequestBody(DocType.IMAGE)
-
-        val body: RequestBody =
-                RequestBody.create(MediaType.parse("text/plain"), fileToUpload)
-        hashMap["image\"; fileName=\"" + fileToUpload?.name] = body
-
-        viewModelUpload.uploadFile(hashMap)*/
-
         val hashMap = HashMap<String, RequestBody>()
         hashMap["type"] = getRequestBody(docImage?.type)
 
