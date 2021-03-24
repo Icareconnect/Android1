@@ -3,7 +3,6 @@ package com.consultantvendor.ui.loginSignUp.register
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -44,7 +43,6 @@ import com.consultantvendor.utils.dialogs.ProgressDialogImage
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.Gson
 import dagger.android.support.DaggerFragment
-import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -632,22 +630,6 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
         binding.etStartDate.setText(date)
     }
 
-    private fun selectImages() {
-        FilePickerBuilder.instance
-                .setMaxCount(1)
-                .setActivityTheme(R.style.AppTheme)
-                .setActivityTitle(getString(R.string.select_image))
-                .enableVideoPicker(false)
-                .enableCameraSupport(true)
-                .showGifs(false)
-                .showFolderView(true)
-                .enableSelectAll(false)
-                .enableImagePicker(true)
-                .setCameraPlaceholder(R.drawable.ic_camera)
-                .withOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .pickPhoto(this, AppRequestCode.IMAGE_PICKER)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -685,7 +667,7 @@ class RegisterFragment : DaggerFragment(), OnDateSelected {
 
     @NeedsPermission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun getStorage() {
-        selectImages()
+        selectImages(this,requireActivity())
     }
 
     @OnShowRationale(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
